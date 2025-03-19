@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const totalSlides = 4; // Nous avons 4 sections
   
   // Variables pour le glissement
-  let startX, moveX, initialPosition;
+  let startX, startY, moveX, initialPosition;
   let isDragging = false;
   
   // Fonction pour mettre à jour l'affichage du carousel
@@ -45,26 +45,26 @@ document.addEventListener('DOMContentLoaded', function() {
   function dragStart(e) {
     isDragging = true;
     startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-    initialPosition = -currentSlide * 25; // Position initiale en pourcentage
+    startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY; // Ajout de startY
+    initialPosition = -currentSlide * 25;
     
-    // Ajouter une classe pour changer le curseur
     carousel.classList.add('grabbing');
-    
-    // Empêcher le comportement par défaut (important pour le tactile)
-    if (e.type === 'touchstart') {
-      e.preventDefault();
-    }
   }
   
   function drag(e) {
     if (!isDragging) return;
     
-    // Empêcher le défilement de la page pendant le glissement
-    e.preventDefault();
+    const currentX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+    const currentY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
     
-    moveX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+    // Si le mouvement est principalement horizontal, empêcher le défilement
+    if (Math.abs(currentX - startX) > Math.abs(currentY - startY)) {
+      e.preventDefault(); // Empêcher seulement pour les mouvements horizontaux
+    }
     
-    // Calcul du déplacement en pourcentage de la largeur du carousel
+    moveX = currentX;
+    
+    // Le reste de votre code pour le déplacement horizontal...
     const diffX = moveX - startX;
     const percentageMoved = (diffX / carousel.parentElement.offsetWidth) * 100;
     
@@ -73,13 +73,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Appliquer une résistance aux bords
     if (newPosition > 0) {
-      newPosition = newPosition * 0.3; // Résistance accrue au début
+      newPosition = newPosition * 0.3;
     } else if (newPosition < -(totalSlides - 1) * 25) {
       const overscroll = newPosition + (totalSlides - 1) * 25;
-      newPosition = -(totalSlides - 1) * 25 + overscroll * 0.3; // Résistance à la fin
+      newPosition = -(totalSlides - 1) * 25 + overscroll * 0.3;
     }
     
-    // Appliquer la transformation
     carousel.style.transform = `translateX(${newPosition}%)`;
   }
   
