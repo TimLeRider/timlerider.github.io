@@ -29,6 +29,8 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <!-- Template RGAA CSS File -->
+  <link href="assets/css/rgaa.css" rel="stylesheet">
 </head>
 
 <body>
@@ -45,18 +47,64 @@
         <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>À propos</span></a></li>
         <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Curriculum
               Vitae</span></a></li>
-        <!-- <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li> -->
         <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        <li><a href="#" class="nav-link scrollto" id="accessibility-toggle"><i class="bi bi-universal-access"></i>
+            <span>Accessibilité</span></a></li>
       </ul>
     </nav><!-- .nav-menu -->
 
   </header><!-- End Header -->
 
+  <!-- ======= Panneau accessibilité RGAA ======= -->
+  <div id="accessibility-panel" class="accessibility-panel">
+    <div class="accessibility-header">
+      <h3>Options d'accessibilité</h3>
+      <button id="close-accessibility" aria-label="Fermer le panneau d'accessibilité">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+    <div class="accessibility-content">
+      <div class="accessibility-option">
+        <h4>Taille du texte</h4>
+        <div class="text-size-controls">
+          <button id="decrease-text" aria-label="Diminuer la taille du texte">A-</button>
+          <button id="reset-text" aria-label="Réinitialiser la taille du texte">A</button>
+          <button id="increase-text" aria-label="Augmenter la taille du texte">A+</button>
+        </div>
+      </div>
+      <div class="accessibility-option">
+        <h4>Contraste</h4>
+        <div class="contrast-controls">
+          <button id="toggle-contrast" aria-label="Activer/désactiver le mode contraste élevé">
+            Mode contraste élevé
+          </button>
+        </div>
+      </div>
+      <div class="accessibility-option">
+        <h4>Lecture vocale</h4>
+        <div class="speech-controls">
+          <button id="toggle-speech" aria-label="Activer/désactiver la lecture vocale">
+            <i class="bi bi-volume-up"></i> Activer la lecture vocale
+          </button>
+          <button id="pause-speech" aria-label="Pause/Reprendre la lecture" disabled>
+            <i class="bi bi-pause"></i> Pause
+          </button>
+          <button id="stop-speech" aria-label="Arrêter la lecture" disabled>
+            <i class="bi bi-stop"></i> Arrêter
+          </button>
+          <button id="next-section" aria-label="Passer à la section suivante" disabled>
+            <i class="bi bi-skip-forward"></i> Section suivante
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ======= accueil Section ======= -->
   <section id="hero" class="d-flex flex-column justify-content-center">
     <div class="container" data-aos="zoom-in" data-aos-delay="100">
       <h1>Timothée Josso</h1>
-      <p>Je suis <span class="typed" data-typed-items="Développeur"></span></p>
+      <p>Je suis <span class="typed" data-typed-items="Développeur web"></span></p>
       <div class="social-links">
         <a href="https://www.linkedin.com/in/timoth%C3%A9e-josso-21b255215/" target="_blank" class="linkedin"><i
             class="bx bxl-linkedin"></i></a>
@@ -72,7 +120,9 @@
 
         <div class="section-title">
           <h2>À Propos</h2>
-          <p>Actuellement en formation pour le titre professionnel de "Concepteur développeur d'applications" chez Signes &amp;  Formations à Toulouse, je suis également en contrat d'alternance chez Skyincap en tant que développeur.</p>
+          <p>Actuellement en formation pour le titre professionnel de "Concepteur développeur d'applications" chez
+            Signes &amp; Formations à Toulouse, je suis également en contrat d'alternance chez Skyincap en tant que
+            développeur.</p>
         </div>
 
         <div class="row">
@@ -90,14 +140,15 @@
                   <li><i class="bi bi-chevron-right"></i> <strong>Anniversaire:</strong> <span>9 Février 2001</span>
                   </li>
                   <li><i class="bi bi-chevron-right"></i> <strong>Site web:</strong>
-                    <span>timlerider.github.io</span></li>
+                    <span>timlerider.github.io</span>
+                  </li>
                   <li><i class="bi bi-chevron-right"></i> <strong>Téléphone:</strong> <span>07 81 42 05 47</span></li>
                   <li><i class="bi bi-chevron-right"></i> <strong>Ville:</strong> <span>Toulouse, France</span></li>
                 </ul>
               </div>
               <div class="col-lg-6">
                 <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>23</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>24</span></li>
                   <li><i class="bi bi-chevron-right"></i> <strong>Niveau:</strong> <span>Bac+3</span></li>
                   <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>timothee-josso@hotmail.fr</span>
                   </li>
@@ -106,14 +157,19 @@
             </div>
             <p class="text-justify">
               <br>
-              Depuis janvier 2023, j'étudie le développement web en vue d'obtenir un titre professionnel, et depuis octobre 2023, je suis en contrat d'alternance chez 
-              Skyincap pour une durée de deux ans. Au cours de ma première année de formation en tant que webdesigner, j'ai pu approfondir mes connaissances en 
+              Depuis janvier 2023, j'étudie le développement web en vue d'obtenir un titre professionnel, et depuis
+              octobre 2023, je suis en contrat d'alternance chez
+              Skyincap pour une durée de deux ans. Au cours de ma première année de formation en tant que webdesigner,
+              j'ai pu approfondir mes connaissances en
               développement web grâce à divers cours et à la réalisation de projets personnels.
               <br>
               <br>
-              Passionné par le développement, je cherche à enrichir mon expérience professionnelle dans ce domaine. Ma motivation, 
-              ma rigueur et mon goût pour le travail en équipe sont autant d'atouts qui me permettent de m'investir pleinement dans les missions qui me sont confiées. 
-              Convaincu de ma capacité à apprendre rapidement, je suis déterminé à apporter une contribution efficace à l'équipe.
+              Passionné par le développement, je cherche à enrichir mon expérience professionnelle dans ce domaine. Ma
+              motivation,
+              ma rigueur et mon goût pour le travail en équipe sont autant d'atouts qui me permettent de m'investir
+              pleinement dans les missions qui me sont confiées.
+              Convaincu de ma capacité à apprendre rapidement, je suis déterminé à apporter une contribution efficace à
+              l'équipe.
             </p>
           </div>
         </div>
@@ -127,7 +183,7 @@
 
         <div class="section-title">
           <h2>Compétences</h2>
-          <p>Je maîtrise de ces langages pour la création de sites web interactifs et fonctionnels. 
+          <p>Je maîtrise de ces langages pour la création de sites web interactifs et fonctionnels.
             J'ai également une bonne
             connaissance de la conception de bases de données et de la programmation orientée objet.</p>
         </div>
@@ -137,33 +193,33 @@
           <div class="col-lg-6">
 
             <div class="progress">
-              <span class="skill">HTML <i class="val">80%</i></span>
+              <span class="skill">HTML <i class="val">90%</i></span>
               <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
                 </div>
               </div>
             </div>
 
             <div class="progress">
-              <span class="skill">CSS <i class="val">70%</i></span>
+              <span class="skill">CSS <i class="val">90%</i></span>
               <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
                 </div>
               </div>
             </div>
 
             <div class="progress">
-              <span class="skill">JavaScript <i class="val">50%</i></span>
+              <span class="skill">PHP <i class="val">85%</i></span>
               <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
                 </div>
               </div>
             </div>
 
             <div class="progress">
-              <span class="skill">ASP.NET <i class="val">10%</i></span>
+              <span class="skill">JavaScript <i class="val">75%</i></span>
               <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                 </div>
               </div>
             </div>
@@ -173,7 +229,7 @@
           <div class="col-lg-6">
 
             <div class="progress">
-              <span class="skill">PHP <i class="val">70%</i></span>
+              <span class="skill">React JS <i class="val">70%</i></span>
               <div class="progress-bar-wrap">
                 <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
                 </div>
@@ -181,23 +237,23 @@
             </div>
 
             <div class="progress">
-              <span class="skill">C / C++ / C# <i class="val">30%</i></span>
+              <span class="skill">Python <i class="val">70%</i></span>
               <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
                 </div>
               </div>
             </div>
 
             <div class="progress">
-              <span class="skill">Python <i class="val">40%</i></span>
+              <span class="skill">SQL <i class="val">65%</i></span>
               <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
                 </div>
               </div>
             </div>
 
             <div class="progress">
-              <span class="skill">SQL <i class="val">40%</i></span>
+              <span class="skill">C / C++ / C# <i class="val">40%</i></span>
               <div class="progress-bar-wrap">
                 <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
                 </div>
@@ -224,7 +280,10 @@
             <h3 class="resume-title">Sommaire</h3>
             <div class="resume-item pb-0">
               <h4>Timothée Josso</h4>
-              <p><em>Contexte : En formation Titre professionnel de "Concepteur développeur d'applications".<br>Objectif : Réussir ma formation en titre professionnel sur une durée de 2 ans. Mon ambition est de poursuivre vers un Master afin d'acquérir les compétences nécessaires pour devenir un développeur full stack.
+              <p><em>Contexte : En formation Titre professionnel de "Concepteur développeur d'applications,
+                  Développement web".<br>Objectif : Réussir ma formation en titre professionnel sur une durée de 2 ans.
+                  Mon ambition est de poursuivre vers un Master afin d'acquérir les compétences nécessaires pour devenir
+                  un développeur full stack.
                 </em></p>
               <ul>
                 <li>31000 Toulouse</li>
@@ -237,7 +296,7 @@
             <div class="resume-item">
               <h4>Répertoire national des certifications professionnelles</h4>
               <h5>2023 - 2025</h5>
-              <p><em>Signes et Formations <i class="ville">Toulouse</i></em></p>
+              <p><em>FormaSup <i class="ville">Lyon</i></em></p>
               <p>Certificat de Développeur: Concepteur développeur d’application du Titre
                 RNCP 31678 Niveau 6 (Certificat de Compétences Professionnelles)</p>
             </div>
@@ -275,13 +334,16 @@
           <div class="col-lg-6">
             <h3 class="resume-title">Expériences professionnelles</h3>
             <div class="resume-item">
-              <h4>Alternance en bachelor </h4>
+              <h4>Alternance en développement Web </h4>
               <h5>2023 - 2025</h5>
               <p><em>Skyincap <i class="ville">Toulouse</i></em></p>
               <ul>
                 <li>Prise en charge de la refonte complète du site web de Skyincap</li>
-                <li>Conception et développement intégral du site vitrine Guidor™, assurant la responsabilité globale du projet</li>
-                <li>Développement front-end (React JS) et back-end (Django) d'une application de flashcards pour l'apprentissage de la Langue des Signes Française (LSF), avec prise en charge complète de la gestion du projet</li>
+                <li>Conception et développement intégral du site vitrine Guidor™, assurant la responsabilité globale du
+                  projet</li>
+                <li>Développement front-end (React JS) et back-end (Django) d'une application de flashcards pour
+                  l'apprentissage de la Langue des Signes Française (LSF), avec prise en charge complète de la gestion
+                  du projet</li>
               </ul>
             </div>
             <div class="resume-item">
@@ -352,11 +414,8 @@
     <section class="carousel">
       <div class="container1" data-aos="fade-up">
         <h3 class="resume-title">Informatique</h3>
-        <input type="radio" name="dot" id="one">
-        <input type="radio" name="dot" id="two">
-        <input type="radio" name="dot" id="tree">
-        <input type="radio" name="dot" id="four">
-        <div class="main-card">
+        <div class="main-card" id="carousel-container">
+          <!-- Première section -->
           <div class="cards">
             <div class="card">
               <div class="content">
@@ -371,6 +430,7 @@
                 </div>
               </div>
             </div>
+            <!-- Autres cartes de la première section -->
             <div class="card">
               <div class="content">
                 <div class="img">
@@ -398,7 +458,10 @@
               </div>
             </div>
           </div>
+          
+          <!-- Sections suivantes (les mêmes que dans votre code d'origine) -->
           <div class="cards">
+            <!-- Cartes de la deuxième section -->
             <div class="card">
               <div class="content">
                 <div class="img">
@@ -440,7 +503,10 @@
               </div>
             </div>
           </div>
+          
+          <!-- Troisième section -->
           <div class="cards">
+            <!-- Autres cartes de la troisième section -->
             <div class="card">
               <div class="content">
                 <div class="img">
@@ -476,12 +542,15 @@
                   <div class="name">PCVue (Automate)</div>
                   <div class="job">Connaissance</div>
                   <br>
-                  <div class="describe">Logiciel de programmation d’IHM et de supervision</div>
+                  <div class="describe">Logiciel de programmation d'IHM et de supervision</div>
                 </div>
               </div>
             </div>
           </div>
+          
+          <!-- Quatrième section -->
           <div class="cards">
+            <!-- Autres cartes de la quatrième section -->
             <div class="card">
               <div class="content">
                 <div class="img">
@@ -524,11 +593,11 @@
             </div>
           </div>
         </div>
-        <div class="button">
-          <label for="one" class=" active one"></label>
-          <label for="two" class="two"></label>
-          <label for="tree" class="tree"></label>
-          <label for="four" class="four"></label>
+        
+        <!-- Flèches de navigation -->
+        <div class="navigation-arrows">
+          <button id="prev-btn" class="nav-arrow">&#10094;</button>
+          <button id="next-btn" class="nav-arrow">&#10095;</button>
         </div>
       </div>
     </section>
@@ -541,62 +610,27 @@
         <div class="section-title">
           <h2>Contact</h2>
         </div>
-
-        <div class="row mt-1">
-
-          <div class="col-lg-4">
+        <div class="row">
+          <div class="">
             <div class="info">
               <div class="address">
                 <i class="bi bi-geo-alt"></i>
                 <h4>Location:</h4>
                 <p>31000 Toulouse</p>
               </div>
-
               <div class="email">
                 <i class="bi bi-envelope"></i>
                 <h4>Email:</h4>
                 <p>timothee-josso@hotmail.fr</p>
               </div>
-
               <div class="phone">
                 <i class="bi bi-phone"></i>
                 <h4>Téléphone:</h4>
                 <p>07 81 42 05 47</p>
               </div>
-
             </div>
-
           </div>
-
-          <div class="col-lg-8 mt-5 mt-lg-0">
-
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Votre Nom" required>
-                </div>
-                <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Votre Email" required>
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet" required>
-              </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Chargement</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Votre message a été envoyé. Merci !</div>
-              </div>
-              <div class="text-center"><button type="submit">Envoyer le message</button></div>
-            </form>
-
-          </div>
-
         </div>
-
       </div>
     </section><!-- End Contact Section -->
 
@@ -637,6 +671,10 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <!-- Template RGAA JS File -->
+  <script src="assets/js/rgaa.js"></script>
+  <!-- Template carousel JS File -->
+  <script src="assets/js/carousel.js"></script>
 
 </body>
 
