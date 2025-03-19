@@ -366,7 +366,7 @@ section {
 }
 
 .section-title h2 {
-  font-size: 32px;
+  font-size: 2em;
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 20px;
@@ -406,7 +406,7 @@ section {
 --------------------------------------------------------------*/
 .about .content h3 {
   font-weight: 700;
-  font-size: 26px;
+  font-size: 1.625em;
   color: #728394;
 }
 
@@ -518,7 +518,7 @@ section {
 # Resume
 --------------------------------------------------------------*/
 .resume .resume-title {
-  font-size: 26px;
+  font-size: 1.625em;
   font-weight: 700;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -533,8 +533,8 @@ section {
 }
 
 .resume .resume-item h4 {
-  line-height: 18px;
-  font-size: 18px;
+  line-height: 1.125;
+  font-size: 1.125em;
   font-weight: 600;
   text-transform: uppercase;
   font-family: "Poppins", sans-serif;
@@ -543,7 +543,7 @@ section {
 }
 
 .resume .resume-item h5 {
-  font-size: 16px;
+  font-size: 1em;
   background: #f7f8f9;
   padding: 5px 15px;
   display: inline-block;
@@ -742,6 +742,18 @@ section {
 .contact .info {
   width: 100%;
   background: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .contact .info{
+    flex-direction: column;
+    gap: 20px;
+  }
 }
 
 .contact .info i {
@@ -773,10 +785,15 @@ section {
   color: #728394;
 }
 
+@media (max-width: 768px) {
 .contact .info .email,
-.contact .info .phone {
-  margin-top: 40px;
+.contact .info .phone,
+.contact .info .address {
+  width: 250px;
 }
+}
+
+
 
 .contact .info .email:hover i,
 .contact .info .address:hover i,
@@ -924,36 +941,34 @@ section {
   height: 100%;
 }
 ::selection{
-  background:	#00c9bc;
+  background: #00c9bc;
   color: #fff;
 }
 .container1{
-  max-width: 950px;
+  max-width: 1050px;
   width: 100%;
   overflow: hidden;
   padding: 17px 0;
+  position: relative; /* Ajouté pour positionner les flèches */
 }
 .container1 .main-card{
   display: flex;
   justify-content: space-evenly;
   width: 400%;
-  transition: 1s;
+  transition: transform 1s ease; /* Modifié pour utiliser transform au lieu de margin */
+  cursor: grab; /* Ajouté pour indiquer que le carousel est glissable */
 }
-#two:checked ~ .main-card{
-  margin-left: -100%;
+.container1 .main-card.grabbing {
+  cursor: grabbing; /* Style quand on glisse */
 }
-#tree:checked ~ .main-card{
-  margin-left: -200%;
-}
-#four:checked ~ .main-card{
-  margin-left: -300%;
-}
+
+/* Suppression des sélecteurs liés aux input radio */
 .container1 .main-card .cards{
-  width: calc(100% / 2 - 10px);
+  width: calc(100% / 4); /* Modifié pour avoir 4 sections égales */
   display: flex;
   flex-wrap: wrap;
-  margin: 0 20px;
-  justify-content: space-between;
+  margin: 0 80px;
+  justify-content: space-evenly;
 }
 .main-card .cards .card{
   width: calc(100% / 3 - 10px);
@@ -983,16 +998,13 @@ section {
   margin-bottom: 14px;
 }
 
-
 .card .content .img img{
   height: 100%;
   width: 100%;
-  object-fit:contain;
+  object-fit: contain;
   filter: grayscale(100%);
   transition: 0.3s;
-  padding:20px;
-  /* border: 3px solid #ffff;
-  border-radius: 50%; */
+  padding: 20px;
 }
 
 .main-card .cards :hover img{
@@ -1013,85 +1025,60 @@ section {
   color: rgba(69, 80, 91, 0.8);
 }
 
-.button{
+/* Nouvelles flèches de navigation */
+.navigation-arrows {
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
+  justify-content: space-between;
+  position: absolute;
+  top: 55%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 10;
+  padding: 0 10px;
+  pointer-events: none; /* Pour que les flèches n'interfèrent pas avec le glissement */
 }
-.button label{
-  height: 15px;
-  width: 15px;
-  border-radius: 20px;
-  background: rgba(69, 80, 91, 0.8);
-  margin: 0 4px;
+
+.nav-arrow {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  color: #45505b;
   cursor: pointer;
-  transition: all 0.5s ease;
-}
-.button label.active{
-  width: 35px;
-}
-#one:checked ~ .button .one{
-  width: 35px;
-}
-#one:checked ~ .button .two{
-  width: 15px;
-}
-#one:checked ~ .button .tree{
-  width: 15px;
-}
-#one:checked ~ .button .four{
-  width: 15px;
+  font-size: 24px;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  pointer-events: auto; /* Activer les interactions pour les flèches */
 }
 
-#two:checked ~ .button .one{
-  width: 15px;
-}
-#two:checked ~ .button .two{
-  width: 35px;
-}
-#two:checked ~ .button .tree{
-  width: 15px;
-}#two:checked ~ .button .four{
-  width: 15px;
+.nav-arrow:hover {
+  background-color: #00c9bc;
+  color: white;
 }
 
-#tree:checked ~ .button .one{
-  width: 15px;
-}
-#tree:checked ~ .button .two{
-  width: 15px;
-}
-#tree:checked ~ .button .tree{
-  width: 35px;
-}#tree:checked ~ .button .four{
-  width: 15px;
+.nav-arrow:focus {
+  outline: none;
 }
 
-#four:checked ~ .button .one{
-  width: 15px;
-}
-#four:checked ~ .button .two{
-  width: 15px;
-}
-#four:checked ~ .button .tree{
-  width: 15px;
-}#four:checked ~ .button .four{
-  width: 35px;
-}
-input[type="radio"]{
-  display: none;
-}
+/* Styles responsifs */
 @media (max-width: 768px) {
   .main-card .cards .card{
     margin: 20px 0 10px 0;
-    width: calc(100% / 4 - 10px);
+    width: calc(100% / 2 - 10px);
+  }
+  .nav-arrow {
+    height: 40px;
+    width: 40px;
+    font-size: 18px;
   }
 }
 @media (max-width: 600px) {
   .main-card .cards .card{
-    /* margin: 20px 0 10px 0; */
     width: 100%;
   }
 }
@@ -1105,6 +1092,13 @@ input[type="radio"]{
   font-size: 14px;
   text-align: center;
   padding: 30px 0;
+  margin-left: 100px;
+}
+
+@media (max-width: 990px) {
+  #footer {
+    margin-left: 0px;
+  }
 }
 
 #footer h3 {
