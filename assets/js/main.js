@@ -267,3 +267,32 @@
   new PureCounter();
 
 })()
+
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const heroSection = document.getElementById('hero');
+    
+    if (!mobileNavToggle || !heroSection) return;
+    
+    function updateNavColor() {
+        const heroRect = heroSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        // Vérifier si on est dans la section hero
+        // (la section hero occupe au moins 50% de l'écran visible)
+        if (heroRect.top <= windowHeight / 2 && heroRect.bottom >= windowHeight / 2) {
+            mobileNavToggle.classList.add('on-hero');
+        } else {
+            mobileNavToggle.classList.remove('on-hero');
+        }
+    }
+    
+    // Écouter le scroll
+    window.addEventListener('scroll', updateNavColor);
+    
+    // Écouter le resize
+    window.addEventListener('resize', updateNavColor);
+    
+    // Appeler une première fois au chargement
+    updateNavColor();
+});

@@ -252,6 +252,12 @@ h6 {
   cursor: pointer;
   border-radius: 50px;
   padding: 5px;
+  color: #45505b; /* Couleur par défaut (noir/sombre) */
+}
+
+/* Couleur blanche uniquement sur la section hero */
+.mobile-nav-toggle.on-hero {
+  color: white;
 }
 
 .mobile-nav-toggle i {
@@ -290,7 +296,7 @@ h6 {
 
 #hero:before {
   content: "";
-  background: rgba(95, 95, 95, 0.562);
+  background: rgba(108, 108, 108, 0.25);
   position: absolute;
   bottom: 0;
   top: 0;
