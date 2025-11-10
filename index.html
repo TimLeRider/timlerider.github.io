@@ -1,681 +1,1087 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USA Trip 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <title>Mon portfolio - Timothée Josso</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            color: #1a1a1a;
+            min-height: 100vh;
+            padding: 20px;
+            padding-bottom: 80px;
+        }
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-  <!-- Google Fonts -->
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
 
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #1a1a1a;
+        }
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+        .header .dates {
+            font-size: 1.1em;
+            color: #6b7280;
+        }
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-  <!-- Template RGAA CSS File -->
-  <link href="assets/css/rgaa.css" rel="stylesheet">
+        .countdown {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .countdown h3 {
+            color: #6b7280;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .countdown .days {
+            font-size: 3em;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .summary {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .summary h3 {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .summary-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .summary-item .value {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #1a1a1a;
+        }
+
+        .summary-item .label {
+            font-size: 0.85em;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .day-card {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .day-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .day-header {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .day-header:hover {
+            background: #f8f9fa;
+        }
+
+        .day-header h2 {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .day-header .date {
+            font-size: 0.85em;
+            color: #6b7280;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        .toggle-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+            color: #9ca3af;
+        }
+
+        .day-card.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .day-content {
+            display: none;
+            padding: 0 25px 25px 25px;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        .day-card.open .day-content {
+            display: block;
+        }
+
+        .location {
+            background: #f8f9fa;
+            border: 1px solid #e5e7eb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0 15px 0;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .activity-section {
+            margin-bottom: 25px;
+        }
+
+        .activity-section h4 {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f3f4f6;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+            transition: opacity 0.3s ease;
+        }
+
+        .checkbox-item:last-child {
+            border-bottom: none;
+        }
+
+        .checkbox-item.checked {
+            opacity: 0.4;
+        }
+
+        .checkbox-item.checked label {
+            text-decoration: line-through;
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 2px;
+            accent-color: #1a1a1a;
+        }
+
+        .checkbox-item label {
+            cursor: pointer;
+            flex: 1;
+            line-height: 1.6;
+            color: #374151;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge-event {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .badge-nature {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .badge-drive {
+            background: #f3f4f6;
+            color: #6b7280;
+            border: 1px solid #e5e7eb;
+        }
+
+        .badge-transit {
+            background: #f8f9fa;
+            color: #6b7280;
+            border: 1px solid #e5e7eb;
+        }
+
+        .accommodation {
+            background: #f8f9fa;
+            border: 1px solid #e5e7eb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #374151;
+        }
+
+        .accommodation strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            z-index: 1000;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-btn {
+            background: #f8f9fa;
+            border: 1px solid #e5e7eb;
+            color: #374151;
+            font-size: 1.3em;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        .info-box {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .info-box h3 {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .info-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.95em;
+            color: #374151;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item strong {
+            color: #1a1a1a;
+            margin-right: 10px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .countdown .days {
+                font-size: 2.5em;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .day-header h2 {
+                font-size: 1.1em;
+            }
+
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 1.2em;
+            }
+        }
+    </style>
 </head>
-
 <body>
-
-  <!-- ======= Mobile nav toggle button ======= -->
-  <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
-  <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
-  <!-- ======= Header ======= -->
-  <header id="header" class="d-flex flex-column justify-content-center">
-
-    <nav id="navbar" class="navbar nav-menu">
-      <ul>
-        <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Accueil</span></a></li>
-        <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>À propos</span></a></li>
-        <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Curriculum
-              Vitae</span></a></li>
-        <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
-        <li><a href="#" class="nav-link scrollto" id="accessibility-toggle"><i class="bi bi-universal-access"></i>
-            <span>Accessibilité</span></a></li>
-      </ul>
-    </nav><!-- .nav-menu -->
-
-  </header><!-- End Header -->
-
-  <!-- ======= Panneau accessibilité RGAA ======= -->
-  <div id="accessibility-panel" class="accessibility-panel">
-    <div class="accessibility-header">
-      <h3>Options d'accessibilité</h3>
-      <button id="close-accessibility" aria-label="Fermer le panneau d'accessibilité">
-        <i class="bi bi-x-lg"></i>
-      </button>
-    </div>
-    <div class="accessibility-content">
-      <div class="accessibility-option">
-        <h4>Taille du texte</h4>
-        <div class="text-size-controls">
-          <button id="decrease-text" aria-label="Diminuer la taille du texte">A-</button>
-          <button id="reset-text" aria-label="Réinitialiser la taille du texte">A</button>
-          <button id="increase-text" aria-label="Augmenter la taille du texte">A+</button>
-        </div>
-      </div>
-      <div class="accessibility-option">
-        <h4>Contraste</h4>
-        <div class="contrast-controls">
-          <button id="toggle-contrast" aria-label="Activer/désactiver le mode contraste élevé">
-            Mode contraste élevé
-          </button>
-        </div>
-      </div>
-      <div class="accessibility-option">
-        <h4>Lecture vocale</h4>
-        <div class="speech-controls">
-          <button id="toggle-speech" aria-label="Activer/désactiver la lecture vocale">
-            <i class="bi bi-volume-up"></i> Activer la lecture vocale
-          </button>
-          <button id="pause-speech" aria-label="Pause/Reprendre la lecture" disabled>
-            <i class="bi bi-pause"></i> Pause
-          </button>
-          <button id="stop-speech" aria-label="Arrêter la lecture" disabled>
-            <i class="bi bi-stop"></i> Arrêter
-          </button>
-          <button id="next-section" aria-label="Passer à la section suivante" disabled>
-            <i class="bi bi-skip-forward"></i> Section suivante
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ======= accueil Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-center">
-    <div class="container" data-aos="zoom-in" data-aos-delay="100">
-      <h1>Timothée Josso</h1>
-      <p>Je suis <span class="typed" data-typed-items="Développeur web"></span></p>
-      <div class="social-links">
-        <a href="https://www.linkedin.com/in/timoth%C3%A9e-josso-21b255215/" target="_blank" class="linkedin"><i
-            class="bx bxl-linkedin"></i></a>
-      </div>
-    </div>
-  </section><!-- fin accueil -->
-
-  <main id="main">
-
-    <!-- ======= à propos Section ======= -->
-    <section id="about" class="about">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>À Propos</h2>
-          <p>Actuellement en formation pour le titre professionnel de "Concepteur développeur d'applications" chez
-            Signes &amp; Formations à Toulouse, je suis également en contrat d'alternance chez Skyincap en tant que
-            développeur.</p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-4">
-            <img src="assets/img/profile-img-new.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-8 pt-4 pt-lg-0 content">
-            <h3>Développeur</h3>
-            <p class="fst-italic">
-              étudie le développement web depuis Janvier 2023.
-            </p>
-            <div class="row">
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Anniversaire:</strong> <span>9 Février 2001</span>
-                  </li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Site web:</strong>
-                    <span>timlerider.github.io</span>
-                  </li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Téléphone:</strong> <span>07 81 42 05 47</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Ville:</strong> <span>Toulouse, France</span></li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>24</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Niveau:</strong> <span>Bac+3</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>timothee-josso@hotmail.fr</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <p class="text-justify">
-              <br>
-              Depuis janvier 2023, j'étudie le développement web en vue d'obtenir un titre professionnel, et depuis
-              octobre 2023, je suis en contrat d'alternance chez
-              Skyincap pour une durée de deux ans. Au cours de ma première année de formation en tant que webdesigner,
-              j'ai pu approfondir mes connaissances en
-              développement web grâce à divers cours et à la réalisation de projets personnels.
-              <br>
-              <br>
-              Passionné par le développement, je cherche à enrichir mon expérience professionnelle dans ce domaine. Ma
-              motivation,
-              ma rigueur et mon goût pour le travail en équipe sont autant d'atouts qui me permettent de m'investir
-              pleinement dans les missions qui me sont confiées.
-              Convaincu de ma capacité à apprendre rapidement, je suis déterminé à apporter une contribution efficace à
-              l'équipe.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- fin à propos Section -->
-
-    <!-- ======= compétences Section ======= -->
-    <section id="skills" class="skills section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Compétences</h2>
-          <p>Je maîtrise de ces langages pour la création de sites web interactifs et fonctionnels.
-            J'ai également une bonne
-            connaissance de la conception de bases de données et de la programmation orientée objet.</p>
-        </div>
-
-        <div class="row skills-content">
-
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill">HTML <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">CSS <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">PHP <i class="val">85%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">JavaScript <i class="val">75%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill">React JS <i class="val">70%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">Python <i class="val">70%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">SQL <i class="val">65%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">C / C++ / C# <i class="val">40%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End compétences Section -->
-
-    <!-- ======= Resume Section ======= -->
-    <section id="resume" class="resume">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Curriculum vitae</h2>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-6">
-            <h3 class="resume-title">Sommaire</h3>
-            <div class="resume-item pb-0">
-              <h4>Timothée Josso</h4>
-              <p><em>Contexte : En formation Titre professionnel de "Concepteur développeur d'applications,
-                  Développement web".<br>Objectif : Réussir ma formation en titre professionnel sur une durée de 2 ans.
-                  Mon ambition est de poursuivre vers un Master afin d'acquérir les compétences nécessaires pour devenir
-                  un développeur full stack.
-                </em></p>
-              <ul>
-                <li>31000 Toulouse</li>
-                <li>07 81 42 05 47</li>
-                <li>timothee-josso@hotmail.fr</li>
-              </ul>
-            </div>
-
-            <h3 class="resume-title">Diplômes et Formations</h3>
-            <div class="resume-item">
-              <h4>Répertoire national des certifications professionnelles</h4>
-              <h5>2023 - 2025</h5>
-              <p><em>FormaSup <i class="ville">Lyon</i></em></p>
-              <p>Certificat de Développeur: Concepteur développeur d’application du Titre
-                RNCP 31678 Niveau 6 (Certificat de Compétences Professionnelles)</p>
-            </div>
-            <div class="resume-item">
-              <h4>Répertoire national des certifications professionnelles</h4>
-              <h5>2023</h5>
-              <p><em>Signes et Formations <i class="ville">Toulouse</i></em></p>
-              <p>Certificat de Webdesigner: Réaliser, améliorer et animer des sites web du Titre
-                RNCP 35634 Niveau 6 (Certificat de Compétences Professionnelles)</p>
-            </div>
-            <div class="resume-item">
-              <h4>Licence professionnelle Mécatronique, robotique</h4>
-              <h5>2021 - 2022</h5>
-              <p><em>Institut Universitaire de Technologie <i class="ville">Rennes</i></em></p>
-              <p>Parcours Ingénierie des systèmes automatisés et robotique</p>
-            </div>
-            <div class="resume-item">
-              <h4>Brevet de Technicien Supérieur</h4>
-              <h5>2019 - 2021</h5>
-              <p><em> Lycée Joliot-Curie <i class="ville">Rennes</i></em></p>
-              <p>Conception et réalisation de systèmes automatiques</p>
-            </div>
-            <div class="resume-item">
-              <h4>Concours un des meilleurs ouvriers de France en électrotechnique</h4>
-              <h5>2018</h5>
-              <p>Départemental et Régional - médaille d'or</p>
-            </div>
-            <div class="resume-item">
-              <h4>Baccalauréat Professionnel</h4>
-              <h5>2016 - 2019</h5>
-              <p><em> Lycée Privé La Mennais <i class="ville">Ploërmel</i></em></p>
-              <p>Métiers de l'électricité et de ses environnements connectés</p>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <h3 class="resume-title">Expériences professionnelles</h3>
-            <div class="resume-item">
-              <h4>Alternance en développement Web </h4>
-              <h5>2023 - 2025</h5>
-              <p><em>Skyincap <i class="ville">Toulouse</i></em></p>
-              <ul>
-                <li>Prise en charge de la refonte complète du site web de Skyincap</li>
-                <li>Conception et développement intégral du site vitrine Guidor™, assurant la responsabilité globale du
-                  projet</li>
-                <li>Développement front-end (React JS) et back-end (Django) d'une application de flashcards pour
-                  l'apprentissage de la Langue des Signes Française (LSF), avec prise en charge complète de la gestion
-                  du projet</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Stage en développement Web</h4>
-              <h5>2023</h5>
-              <p><em>Arcesi-EA <i class="ville">Blagnac</i></em></p>
-              <ul>
-                <li>Développement d'un module du portail interne (ASP.NET Core et C#)</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Alternance en licence professionnelle</h4>
-              <h5>2021 - 2022</h5>
-              <p><em>Acome <i class="ville">Romagny-Fontenay</i></em></p>
-              <ul>
-                <li>Amélioration des contrôles Process et système prédictif pour augmenter la disponibilité des machines
-                  (CVI LabWindows et Python)</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Stage en automatisme</h4>
-              <h5>2020</h5>
-              <p><em>SBAI <i class="ville">Baud</i></em></p>
-              <ul>
-                <li>Communication entre l’automate M221 et M340 avec le logiciel Ecostruxure</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Stage en électrotechnique</h4>
-              <h5>2019</h5>
-              <p><em>Armor Inox <i class="ville">Mauron</i></em></p>
-              <ul>
-                <li>Découverte des activités du service maintenance</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Stage en électrotechnique</h4>
-              <h5>2018</h5>
-              <p><em>Smurfit kappa <i class="ville">Josselin</i></em></p>
-              <ul>
-                <li>Découverte des activités du service maintenance</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Stage en électrotechnique</h4>
-              <h5>2018</h5>
-              <p><em>Cellulose de Brocéliande <i class="ville">Ploërmel</i></em></p>
-              <ul>
-                <li>Découverte des activités du service maintenance</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Stage en électricité</h4>
-              <h5>2017</h5>
-              <p><em>SARL Christophe Jan <i class="ville">Josselin</i></em></p>
-              <ul>
-                <li>Accompagnement du technicien électricité</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Resume Section -->
-
-
-    <!-- ======= debut carousel Section ======= -->
-    <section class="carousel">
-      <div class="container1" data-aos="fade-up">
-        <h3 class="resume-title">Informatique</h3>
-        <div class="main-card" id="carousel-container">
-          <!-- Première section -->
-          <div class="cards">
-            <div class="card">
-              <div class="content">
-                <div class="img">
-                  <img src="assets/img/IconSoftware/Visual_Studio_Icon_2022.svg.png" alt="">
-                </div>
-                <div class="details">
-                  <div class="name">Visual Studio 2022</div>
-                  <div class="job">Notions</div>
-                  <br>
-                  <div class="describe">Un environnement de développement intégré (IDE)</div>
-                </div>
-              </div>
-            </div>
-            <!-- Autres cartes de la première section -->
-            <div class="card">
-              <div class="content">
-                <div class="img">
-                  <img src="assets/img/IconSoftware/Visual_Studio_Code_2.png" alt="">
-                </div>
-                <div class="details">
-                  <div class="name">Visual Studio Code</div>
-                  <div class="job">Maîtrise</div>
-                  <br>
-                  <div class="describe">Éditeur de texte générique codé avec HTML5, CSS3 et JavaScript</div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="content">
-                <div class="img">
-                  <img src="assets/img/IconSoftware/Sublime_text_logo.png" alt="">
-                </div>
-                <div class="details">
-                  <div class="name">Sublime Text</div>
-                  <div class="job">Maîtrise</div>
-                  <br>
-                  <div class="describe">Éditeur de texte générique codé avec Python</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Sections suivantes (les mêmes que dans votre code d'origine) -->
-          <div class="cards">
-            <!-- Cartes de la deuxième section -->
-            <div class="card">
-              <div class="content">
-                <div class="img">
-                  <img src="assets/img/IconSoftware/Adobe_Photoshop_CC_icon.png" alt="">
-                </div>
-                <div class="details">
-                  <div class="name">Adobe Photoshop</div>
-                  <div class="job">Maîtrise</div>
-                  <br>
-                  <div class="describe">Logiciel de retouche, de traitement et de dessin</div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="content">
-                <div class="img">
-                  <img src="assets/img/IconSoftware/Adobe_XD_CC_icon.svg.png" alt="">
-                </div>
-                <div class="details">
-                  <div class="name">Adobe XD</div>
-                  <div class="job">Connaissance</div>
-                  <br>
-                  <div class="describe">Outil de conception vectorielle pour les applications Web et mobiles</div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="content">
-                <div class="img">
-                  <img src="assets/img/IconSoftware/29373_CVI Logo with Background.png" alt="">
-                </div>
-                <div class="details">
-                  <div class="name">LabWindows/CVI</div>
-                  <div class="job">Connaissance</div>
-                  <br>
-                  <div class="describe">Un environnement de développement intégré pour le langage C permettant
-                    deconcevoir des applications</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Troisième section -->
-          <div class="cards">
-            <!-- Autres cartes de la troisième section -->
-            <div class="card">
-              <div class="content">
-                <div class="img">
-                  <img src="assets/img/IconSoftware/Unity SoCollaborative.PNG" alt="">
-                </div>
-                <div class="details">
-                  <div class="name">Ecostruxure/Unity (Automate)</div>
-                  <div class="job">Connaissance</div>
-                  <br>
-                  <div class="describe">Schneider (texte structuré, grafcet)</div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="content">
-                <div class="img">
-                  <img src="assets/img/IconSoftware/TIA-Portal.png" alt="">
-                </div>
-                <div class="details">
-                  <div class="name">TiaPortal (Automate)</div>
-                  <div class="job">Connaissance</div>
-                  <br>
-                  <div class="describe">Siemens (texte structuré, grafcet)</div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="content">
-                <div class="img">
-                  <img src="assets/img/IconSoftware/PcVue.png" alt="">
-                </div>
-                <div class="details">
-                  <div class="name">PCVue (Automate)</div>
-                  <div class="job">Connaissance</div>
-                  <br>
-                  <div class="describe">Logiciel de programmation d'IHM et de supervision</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Quatrième section -->
-          <div class="cards">
-            <!-- Autres cartes de la quatrième section -->
-            <div class="card">
-              <div class="content">
-                <div class="img">
-                  <img src="assets/img/IconSoftware/Fanuc_logo.svg.png" alt="">
-                </div>
-                <div class="details">
-                  <div class="name">Fanuc (Robot)</div>
-                  <div class="job">Connaissance</div>
-                  <br>
-                  <div class="describe">FANUC depuis le pupitre de commande robot</div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="content">
-                <div class="img">
-                  <img src="assets/img/IconSoftware/robotstudio.png" alt="">
-                </div>
-                <div class="details">
-                  <div class="name">RobotStudio (Robot)</div>
-                  <div class="job">Connaissance</div>
-                  <br>
-                  <div class="describe">ABB et programmation depuis le pupitre du robot</div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="content">
-                <div class="img">
-                  <img src="assets/img/IconSoftware/solidworks.png" alt="">
-                </div>
-                <div class="details">
-                  <div class="name">Solidworks</div>
-                  <div class="job">Maîtrise</div>
-                  <br>
-                  <div class="describe">Logiciel propriétaire de conception assistée par ordinateur 3D fonctionnant sous
-                    Windows</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Flèches de navigation -->
-        <div class="navigation-arrows">
-          <button id="prev-btn" class="nav-arrow">&#10094;</button>
-          <button id="next-btn" class="nav-arrow">&#10095;</button>
-        </div>
-      </div>
-    </section>
-    <!-- ======= fin carousel Section ======= -->
-
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Contact</h2>
-        </div>
-        <div class="row">
-          <div class="">
-            <div class="info">
-              <div class="address">
-                <i class="bi bi-geo-alt"></i>
-                <h4>Location:</h4>
-                <p>31000 Toulouse</p>
-              </div>
-              <div class="email">
-                <i class="bi bi-envelope"></i>
-                <h4>Email:</h4>
-                <p>timothee-josso@hotmail.fr</p>
-              </div>
-              <div class="phone">
-                <i class="bi bi-phone"></i>
-                <h4>Téléphone:</h4>
-                <p>07 81 42 05 47</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section><!-- End Contact Section -->
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
     <div class="container">
-      <h3>Timothée Josso</h3>
-      <div class="social-links">
-        <a href="https://www.linkedin.com/in/timoth%C3%A9e-josso-21b255215/" target="_blank" class="linkedin"><i
-            class="bx bxl-linkedin"></i></a>
-      </div>
-      <div class="copyright">
-        <!--  -->
-      </div>
-      <div class="credits">
-        <!--  -->
-      </div>
+        <div class="header">
+            <h1>USA TRIP 2026</h1>
+            <div class="dates">17 - 31 Janvier • 15 Jours</div>
+        </div>
+
+        <div class="countdown">
+            <h3>Départ dans</h3>
+            <div class="days" id="countdown">--</div>
+        </div>
+
+        <div class="summary">
+            <h3>Résumé</h3>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="value">15</div>
+                    <div class="label">Jours</div>
+                </div>
+                <div class="summary-item">
+                    <div class="value">4</div>
+                    <div class="label">Villes</div>
+                </div>
+                <div class="summary-item">
+                    <div class="value">RAM 2500</div>
+                    <div class="label">Véhicule</div>
+                </div>
+                <div class="summary-item">
+                    <div class="value">3</div>
+                    <div class="label">Airbnb</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 1 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 1 — Départ & Arrivée</h2>
+                    <div class="date">Samedi 17 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="location">📍 Paris CDG → Los Angeles LAX</div>
+                <div class="activity-section">
+                    <h4>Arrivée à Los Angeles</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d1-1" onchange="saveProgress()">
+                        <label for="d1-1">Vol départ 10h20 Paris CDG</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d1-2" onchange="saveProgress()">
+                        <label for="d1-2">Récupération du RAM 2500</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d1-3" onchange="saveProgress()">
+                        <label for="d1-3">Check-in Airbnb El Monte</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d1-4" onchange="saveProgress()">
+                        <label for="d1-4">Repos et adaptation au décalage horaire</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Hébergement</strong>
+                    11726 Roseglen Street, El Monte, CA 91732
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 2 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 2 — LA Beaches & Hollywood</h2>
+                    <div class="date">Dimanche 18 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="location">📍 Los Angeles</div>
+                <div class="activity-section">
+                    <h4>Santa Monica & Venice Beach</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d2-1" onchange="saveProgress()">
+                        <label for="d2-1">Santa Monica Pier & Beach</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d2-2" onchange="saveProgress()">
+                        <label for="d2-2">Venice Beach & Boardwalk</label>
+                    </div>
+                </div>
+                <div class="activity-section">
+                    <h4>Hollywood</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d2-3" onchange="saveProgress()">
+                        <label for="d2-3">Hollywood Boulevard & Walk of Fame</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d2-4" onchange="saveProgress()">
+                        <label for="d2-4">Downtown LA exploration</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Hébergement</strong>
+                    11726 Roseglen Street, El Monte, CA 91732
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 3 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 3 — Moto & San Bernardino</h2>
+                    <div class="date">Lundi 19 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <span class="badge badge-drive">Road Trip</span>
+                <div class="location">📍 San Bernardino</div>
+                <div class="activity-section">
+                    <h4>Journée Moto</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d3-1" onchange="saveProgress()">
+                        <label for="d3-1">Pro Circuit (CA 92882)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d3-2" onchange="saveProgress()">
+                        <label for="d3-2">Chaparral (boutique moto)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d3-3" onchange="saveProgress()">
+                        <label for="d3-3">Glen Helen Raceway</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d3-4" onchange="saveProgress()">
+                        <label for="d3-4">San Bernardino Mountains</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d3-5" onchange="saveProgress()">
+                        <label for="d3-5">Retour Los Angeles soirée</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Hébergement</strong>
+                    11726 Roseglen Street, El Monte, CA 91732
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 4 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 4 — Sequoia National Park</h2>
+                    <div class="date">Mardi 20 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <span class="badge badge-nature">Nature</span>
+                <div class="location">📍 Sequoia National Park</div>
+                <div class="activity-section">
+                    <h4>Giant Forest</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d4-1" onchange="saveProgress()">
+                        <label for="d4-1">General Sherman Tree (plus grand arbre du monde)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d4-2" onchange="saveProgress()">
+                        <label for="d4-2">Tunnel Log</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d4-3" onchange="saveProgress()">
+                        <label for="d4-3">Crescent Meadow</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d4-4" onchange="saveProgress()">
+                        <label for="d4-4">Moro Rock (vue panoramique)</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Hébergement</strong>
+                    11726 Roseglen Street, El Monte, CA 91732
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 5 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 5 — Runyon & Beverly Hills</h2>
+                    <div class="date">Mercredi 21 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="location">📍 Los Angeles</div>
+                <div class="activity-section">
+                    <h4>Runyon Canyon</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d5-1" onchange="saveProgress()">
+                        <label for="d5-1">Randonnée avec vue sur Hollywood Sign</label>
+                    </div>
+                </div>
+                <div class="activity-section">
+                    <h4>Beverly Hills & Culture</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d5-2" onchange="saveProgress()">
+                        <label for="d5-2">Déjeuner à Beverly Hills</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d5-3" onchange="saveProgress()">
+                        <label for="d5-3">Visite de LACMA ou balade à Rodeo Drive</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d5-4" onchange="saveProgress()">
+                        <label for="d5-4">Griffith Observatory pour le coucher du soleil</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Hébergement</strong>
+                    11726 Roseglen Street, El Monte, CA 91732
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 6 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 6 — Musées & Culture</h2>
+                    <div class="date">Jeudi 22 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="location">📍 Los Angeles</div>
+                <div class="activity-section">
+                    <h4>Petersen Automotive Museum</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d6-1" onchange="saveProgress()">
+                        <label for="d6-1">Visite du musée automobile</label>
+                    </div>
+                </div>
+                <div class="activity-section">
+                    <h4>Rosenheim Mansion & Koreatown</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d6-2" onchange="saveProgress()">
+                        <label for="d6-2">Rosenheim Mansion (American Horror Story)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d6-3" onchange="saveProgress()">
+                        <label for="d6-3">Exploration de Koreatown</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Hébergement</strong>
+                    11726 Roseglen Street, El Monte, CA 91732
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 7 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 7 — Direction Anaheim</h2>
+                    <div class="date">Vendredi 23 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <span class="badge badge-drive">Trajet</span>
+                <div class="location">📍 Anaheim / Orange</div>
+                <div class="activity-section">
+                    <h4>Installation Anaheim</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d7-1" onchange="saveProgress()">
+                        <label for="d7-1">Départ vers Anaheim</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d7-2" onchange="saveProgress()">
+                        <label for="d7-2">Repérage Angel Stadium</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d7-3" onchange="saveProgress()">
+                        <label for="d7-3">Check-in nouvel Airbnb Orange</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d7-4" onchange="saveProgress()">
+                        <label for="d7-4">Préparation pour le Supercross</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Hébergement</strong>
+                    250 N Batavia St, Orange, CA 92868
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 8 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 8 — SUPERCROSS ANAHEIM 2</h2>
+                    <div class="date">Samedi 24 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <span class="badge badge-event">ÉVÉNEMENT MAJEUR</span>
+                <div class="location">📍 Angel Stadium, Anaheim</div>
+                <div class="activity-section">
+                    <h4>SUPERCROSS AMA ANAHEIM 2</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d8-1" onchange="saveProgress()">
+                        <label for="d8-1">Journée complète à l'événement</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d8-2" onchange="saveProgress()">
+                        <label for="d8-2">Qualifications</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d8-3" onchange="saveProgress()">
+                        <label for="d8-3">Courses principales</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d8-4" onchange="saveProgress()">
+                        <label for="d8-4">Soirée post-course</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Hébergement</strong>
+                    250 N Batavia St, Orange, CA 92868
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 9 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 9 — Glamis Dunes</h2>
+                    <div class="date">Dimanche 25 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <span class="badge badge-nature">Nature</span>
+                <span class="badge badge-drive">Road Trip</span>
+                <div class="location">📍 Perris & Glamis Dunes</div>
+                <div class="activity-section">
+                    <h4>Désert et Dunes</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d9-1" onchange="saveProgress()">
+                        <label for="d9-1">Perris Raceway</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d9-2" onchange="saveProgress()">
+                        <label for="d9-2">Glamis Dunes (dunes de sable)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d9-3" onchange="saveProgress()">
+                        <label for="d9-3">Exploration du désert</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d9-4" onchange="saveProgress()">
+                        <label for="d9-4">Check-in motel dans le désert</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Hébergement</strong>
+                    Motel dans le désert
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 10 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 10 — Route vers Vegas</h2>
+                    <div class="date">Lundi 26 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <span class="badge badge-drive">Trajet</span>
+                <div class="location">📍 Las Vegas</div>
+                <div class="activity-section">
+                    <h4>Arrivée à Las Vegas</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d10-1" onchange="saveProgress()">
+                        <label for="d10-1">Route du désert vers Las Vegas</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d10-2" onchange="saveProgress()">
+                        <label for="d10-2">Check-in Airbnb Las Vegas</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d10-3" onchange="saveProgress()">
+                        <label for="d10-3">Première soirée sur le Strip</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Hébergement</strong>
+                    2559 Rafferty Creek Ln, Las Vegas, NV 89156
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 11 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 11 — Vegas Strip & Sphere</h2>
+                    <div class="date">Mardi 27 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="location">📍 Las Vegas Strip</div>
+                <div class="activity-section">
+                    <h4>Pawn Shop & Attractions</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d11-1" onchange="saveProgress()">
+                        <label for="d11-1">Gold & Silver Pawn Shop (Pawn Stars)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d11-2" onchange="saveProgress()">
+                        <label for="d11-2">Exploration du Strip</label>
+                    </div>
+                </div>
+                <div class="activity-section">
+                    <h4>Sphere Experience</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d11-3" onchange="saveProgress()">
+                        <label for="d11-3">Expérience immersive au Sphere</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d11-4" onchange="saveProgress()">
+                        <label for="d11-4">Neon Museum (cimetière de néons)</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Hébergement</strong>
+                    2559 Rafferty Creek Ln, Las Vegas, NV 89156
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 12 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 12 — Grand Canyon</h2>
+                    <div class="date">Mercredi 28 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <span class="badge badge-nature">Nature</span>
+                <span class="badge badge-drive">Road Trip</span>
+                <div class="location">📍 Grand Canyon</div>
+                <div class="activity-section">
+                    <h4>Excursion Grand Canyon</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d12-1" onchange="saveProgress()">
+                        <label for="d12-1">Départ tôt le matin</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d12-2" onchange="saveProgress()">
+                        <label for="d12-2">South Rim ou West Rim</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d12-3" onchange="saveProgress()">
+                        <label for="d12-3">Points de vue panoramiques</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d12-4" onchange="saveProgress()">
+                        <label for="d12-4">Photos et randonnée</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d12-5" onchange="saveProgress()">
+                        <label for="d12-5">Retour Las Vegas en soirée</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Hébergement</strong>
+                    2559 Rafferty Creek Ln, Las Vegas, NV 89156
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 13 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 13 — Détente Vegas</h2>
+                    <div class="date">Jeudi 29 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="location">📍 Las Vegas</div>
+                <div class="activity-section">
+                    <h4>Journée Libre</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d13-2" onchange="saveProgress()">
+                        <label for="d13-2">Shopping</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d13-3" onchange="saveProgress()">
+                        <label for="d13-3">Casinos et restaurants</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d13-4" onchange="saveProgress()">
+                        <label for="d13-4">Dernière soirée à Las Vegas</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d13-5" onchange="saveProgress()">
+                        <label for="d13-5">Préparation des bagages</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Hébergement</strong>
+                    2559 Rafferty Creek Ln, Las Vegas, NV 89156
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 14 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 14 — Retour France</h2>
+                    <div class="date">Vendredi 30 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <span class="badge badge-transit">Transit</span>
+                <div class="location">📍 Las Vegas → Salt Lake City → Paris</div>
+                <div class="activity-section">
+                    <h4>Départ USA</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d14-1" onchange="saveProgress()">
+                        <label for="d14-1">Restitution du RAM 2500</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d14-2" onchange="saveProgress()">
+                        <label for="d14-2">Vol LAS → Salt Lake City (10h21)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d14-3" onchange="saveProgress()">
+                        <label for="d14-3">Vol Salt Lake City → Paris CDG (14h05)</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>En transit</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Jour 15 -->
+        <div class="day-card">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div>
+                    <h2>Jour 15 — Arrivée Paris</h2>
+                    <div class="date">Samedi 31 Janvier</div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="location">📍 Paris, France</div>
+                <div class="activity-section">
+                    <h4>Retour à la Maison</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d15-1" onchange="saveProgress()">
+                        <label for="d15-1">Arrivée Paris CDG matin</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d15-2" onchange="saveProgress()">
+                        <label for="d15-2">Récupération du décalage horaire</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="d15-3" onchange="saveProgress()">
+                        <label for="d15-3">Retour à la maison</label>
+                    </div>
+                </div>
+                <div class="accommodation">
+                    <strong>Domicile</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>Infos Importantes</h3>
+            <div class="info-item">
+                <strong>Véhicule:</strong> RAM 2500 (location)
+            </div>
+            <div class="info-item">
+                <strong>Vols:</strong> Paris ↔ Los Angeles/Las Vegas
+            </div>
+            <div class="info-item">
+                <strong>Hébergements:</strong> 3 Airbnb + 1 Motel désert
+            </div>
+        </div>
     </div>
-  </footer><!-- End Footer -->
 
-  <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+    <div class="bottom-nav">
+        <button class="nav-btn" onclick="scrollToTop()" title="Haut">↑</button>
+        <button class="nav-btn" onclick="expandAll()" title="Tout ouvrir">+</button>
+        <button class="nav-btn" onclick="collapseAll()" title="Tout fermer">−</button>
+        <button class="nav-btn" onclick="scrollToBottom()" title="Bas">↓</button>
+    </div>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.min.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script>
+        // Countdown
+        function updateCountdown() {
+            const tripDate = new Date('2026-01-17T10:20:00');
+            const now = new Date();
+            const diff = tripDate - now;
+            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('countdown').textContent = days > 0 ? days + ' jours' : 'C\'est parti !';
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 3600000);
 
+        // Toggle day cards
+        function toggleDay(header) {
+            const card = header.parentElement;
+            card.classList.toggle('open');
+        }
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <!-- Template RGAA JS File -->
-  <script src="assets/js/rgaa.js"></script>
-  <!-- Template carousel JS File -->
-  <script src="assets/js/carousel.js"></script>
+        // Expand all cards
+        function expandAll() {
+            document.querySelectorAll('.day-card').forEach(card => {
+                card.classList.add('open');
+            });
+        }
 
+        // Collapse all cards
+        function collapseAll() {
+            document.querySelectorAll('.day-card').forEach(card => {
+                card.classList.remove('open');
+            });
+        }
+
+        // Scroll functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        // Save and load progress
+        function saveProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const progress = {};
+            checkboxes.forEach(cb => {
+                progress[cb.id] = cb.checked;
+                // Update visual state
+                const item = cb.closest('.checkbox-item');
+                if (cb.checked) {
+                    item.classList.add('checked');
+                } else {
+                    item.classList.remove('checked');
+                }
+            });
+            localStorage.setItem('tripProgress', JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('tripProgress');
+            if (saved) {
+                const progress = JSON.parse(saved);
+                Object.keys(progress).forEach(id => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = progress[id];
+                        const item = checkbox.closest('.checkbox-item');
+                        if (progress[id]) {
+                            item.classList.add('checked');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Load progress on page load
+        loadProgress();
+
+        // Open first day by default
+        document.querySelector('.day-card').classList.add('open');
+    </script>
 </body>
-
 </html>
