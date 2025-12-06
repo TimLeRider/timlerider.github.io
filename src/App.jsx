@@ -351,7 +351,7 @@ const App = () => {
               onClick={() => { setCurrentPage('their-gifts'); setMenuOpen(false); }}
               className="flex items-center gap-3 px-6 py-4 hover:bg-gray-100 border-b"
             >
-              <Users size={20} /> Leurs cadeaux
+              <Users size={20} /> Leurs cadeaux test
             </button>
             <button
               onClick={handleLogout}
