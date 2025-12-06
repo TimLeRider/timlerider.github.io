@@ -497,57 +497,55 @@ const App = () => {
                       const isReservedByMe = reservedBy === currentUser;
                       
                       return (
-                        <div key={gift.id} className="bg-white rounded-xl shadow-lg overflow-hidden">
-                          <a
-                            href={gift.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block"
-                          >
+                        <a
+                          key={gift.id}
+                          href={gift.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block"
+                        >
+                          <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition">
+                            
                             <img
                               src={gift.image}
                               alt={gift.title}
                               className="w-full h-48 object-cover"
                             />
-                          </a>
 
-                          <div className="p-4">
-                            <a
-                              href={gift.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block"
-                            >
-                              <h4 className="font-semibold text-gray-800 mb-3 hover:underline cursor-pointer">
+                            <div className="p-4">
+                              <h4 className="font-semibold text-gray-800 mb-3">
                                 {gift.title}
                               </h4>
-                            </a>
-
-                            {reservedBy && (
-                              <div className="mb-2 text-sm font-medium text-green-700 bg-green-50 px-3 py-2 rounded-lg">
-                                🎁 Réservé par {isReservedByMe ? 'moi' : reservedBy}
-                              </div>
-                            )}
-
-                            <button
-                              onClick={() => reserveGift(name, gift.id)}
-                              className={`w-full py-2 rounded-lg font-semibold transition ${
-                                isReservedByMe
-                                  ? 'bg-green-600 text-white hover:bg-green-700'
+                              
+                              {reservedBy && (
+                                <div className="mb-2 text-sm font-medium text-green-700 bg-green-50 px-3 py-2 rounded-lg">
+                                  🎁 Réservé par {isReservedByMe ? 'moi' : reservedBy}
+                                </div>
+                              )}
+                              
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  reserveGift(name, gift.id);
+                                }}
+                                className={`w-full py-2 rounded-lg font-semibold transition ${
+                                  isReservedByMe
+                                    ? 'bg-green-600 text-white hover:bg-green-700'
+                                    : reservedBy
+                                    ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                                    : 'bg-red-600 text-white hover:bg-red-700'
+                                }`}
+                                disabled={reservedBy && !isReservedByMe}
+                              >
+                                {isReservedByMe
+                                  ? '✓ Annuler ma réservation'
                                   : reservedBy
-                                  ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
-                                  : 'bg-red-600 text-white hover:bg-red-700'
-                              }`}
-                              disabled={reservedBy && !isReservedByMe}
-                            >
-                              {isReservedByMe
-                                ? '✓ Annuler ma réservation'
-                                : reservedBy
-                                ? 'Déjà réservé'
-                                : 'Réserver ce cadeau'}
-                            </button>
+                                  ? 'Déjà réservé'
+                                  : 'Réserver ce cadeau'}
+                              </button>
+                            </div>
                           </div>
-                        </div>
+                        </a>
                       );
                     })}
                   </div>
