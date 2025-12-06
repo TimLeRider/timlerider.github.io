@@ -87,7 +87,7 @@ const App = () => {
 
   const handleAuth = async () => {
     // 1. Nettoyage de la saisie actuelle (pour la comparaison)
-    const inputPrenom = prenom.trim(); // On enlève juste les espaces
+    const inputPrenom = prenom.trim(); // Supprime les espaces au début/fin
     const searchPrenom = inputPrenom.toLowerCase(); // Version minuscule pour chercher
 
     if (!inputPrenom || !password) {
@@ -97,26 +97,19 @@ const App = () => {
 
     const hashedPwd = await hashPassword(password);
 
-    // 2. On cherche si ce prénom existe déjà dans la liste (peu importe la majuscule)
-    // On cherche la "vraie clé" telle qu'elle est enregistrée dans la base
+    // 2. Cherche la VRAIE clé (casse incluse) dans la base de données
     const existingUserKey = Object.keys(users).find(
       key => key.trim().toLowerCase() === searchPrenom
     );
 
     if (isLogin) {
       // --- MODE CONNEXION ---
-      if (existingUserKey) {
-        // On a trouvé le compte (ex: trouvé "Thomas" alors qu'on a tapé "thomas")
-        // On vérifie le mot de passe associé au VRAI nom d'utilisateur
-        if (users[existingUserKey] === hashedPwd) {
-          setCurrentUser(existingUserKey); // On connecte l'utilisateur avec son orthographe d'origine
-          setPrenom('');
-          setPassword('');
-        } else {
-          alert('Mot de passe incorrect');
-        }
+      if (existingUserKey && users[existingUserKey] === hashedPwd) {
+        setCurrentUser(existingUserKey); // Connecte avec la clé d'origine (ex: 'Thomas')
+        setPrenom('');
+        setPassword('');
       } else {
-        alert('Prénom incorrect ou compte inexistant');
+        alert('Prénom ou mot de passe incorrect');
       }
 
     } else {
@@ -127,6 +120,7 @@ const App = () => {
       }
       
       try {
+        // Enregistre avec le prénom saisi (sans espaces)
         await setDoc(doc(db, 'users', inputPrenom), {
           password: hashedPwd
         });
@@ -518,14 +512,17 @@ const App = () => {
                       const isReservedByMe = reservedBy === currentUser;
                       
                       return (
-                        <div key={gift.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition flex flex-col">
+                        <div 
+                          key={gift.id} 
+                          className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition flex flex-col"
+                        >
                           
-                          {/* 1. LA ZONE CLIQUABLE (Lien vers le site) : Image + Titre */}
+                          {/* 1. LIEN - Seulement pour l'image et le titre */}
                           <a
                             href={gift.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block flex-grow group" // flex-grow permet d'occuper l'espace, group pour les effets hover
+                            className="block flex-grow group" 
                           >
                             <img
                               src={gift.image}
@@ -541,6 +538,7 @@ const App = () => {
                             </div>
                           </a>
 
+                          {/* 2. BOUTON DE RÉSERVATION - SÉPARÉ DU LIEN */}
                           <div className="p-4 pt-2 mt-auto">
                             
                             {reservedBy && (
@@ -570,7 +568,7 @@ const App = () => {
                             </button>
                           </div>
                         </div>
-                      );
+                    );
                     })}
                   </div>
                 </div>
