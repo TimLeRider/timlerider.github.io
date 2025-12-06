@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X, Gift, Home, Users, LogOut, Trash2 } from "lucide-react";
+import { Menu, X, Gift, Home, Users, LogOut, Trash2, Pencil } from 'lucide-react';
 import { db } from "./firebase";
 import {
   collection,
@@ -26,6 +26,16 @@ const App = () => {
   const [newGiftTitle, setNewGiftTitle] = useState("");
   const [newGiftImage, setNewGiftImage] = useState("");
   const [imagePreview, setImagePreview] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [giftToEdit, setGiftToEdit] = useState(null);
+
+  const startEditGift = (gift) => {
+    setGiftToEdit(gift);
+    setNewGiftUrl(gift.url);
+    setNewGiftTitle(gift.title);
+    setImagePreview(gift.image);
+    setIsEditing(true);
+  };
 
   useEffect(() => {
     loadData();
@@ -154,7 +164,7 @@ const App = () => {
     setMenuOpen(false);
   };
 
-  const addGift = async (url, title, image) => {
+  const handleSaveGift = async (url, title, image) => {
     if (!url) {
       alert("Veuillez entrer une URL");
       return;
@@ -175,23 +185,31 @@ const App = () => {
       }
     }
     const userGifts = gifts[currentUser] || [];
-    let updatedGifts = [...userGifts]; // Copie du tableau
+    let updatedGifts = [...userGifts];
 
-    // 1. Chercher si un cadeau avec cette URL existe déjà
-    const existingGiftIndex = userGifts.findIndex((gift) => gift.url === url);
+    // Utiliser l'ID si on est en mode édition
+    const idToSearch = giftToEdit?.id || url;
+
+    // 1. Chercher le cadeau par ID (si édition) ou par URL (si nouvel ajout)
+    const existingGiftIndex = userGifts.findIndex(
+      (gift) => gift.id === idToSearch || gift.url === url
+    );
 
     if (existingGiftIndex !== -1) {
       // --- MISE À JOUR D'UN CADEAU EXISTANT ---
-      const existingGift = updatedGifts[existingGiftIndex]; // On met à jour l'image et le titre uniquement si de nouvelles valeurs sont fournies
+      const existingGift = updatedGifts[existingGiftIndex]; // Utiliser la nouvelle image/titre, sinon garder l'ancien
       const newImage =
         image &&
         image !== "https://placehold.co/400x400/dc2626/ffffff?text=Cadeau"
           ? image
-          : existingGift.image;
-      const newTitle = title ? finalTitle : existingGift.title;
+          : existingGift.image; // Utiliser le nouveau titre si saisi, sinon l'ancien
+      const newTitle = title
+        ? finalTitle.substring(0, 150)
+        : existingGift.title;
 
       updatedGifts[existingGiftIndex] = {
         ...existingGift,
+        url: url, // Mise à jour de l'URL au cas où seul le titre ou l'image a été saisi
         title: newTitle,
         image: newImage,
       };
@@ -199,7 +217,7 @@ const App = () => {
     } else {
       // --- AJOUT D'UN NOUVEAU CADEAU ---
       const newGift = {
-        id: Date.now(), // Nouvel ID
+        id: Date.now(),
         url,
         title: finalTitle.substring(0, 150),
         image: finalImage,
@@ -211,11 +229,13 @@ const App = () => {
     try {
       await setDoc(doc(db, "gifts", currentUser), {
         items: updatedGifts,
-      });
+      }); // Réinitialisation du formulaire et du mode édition
       setNewGiftUrl("");
       setNewGiftTitle("");
       setNewGiftImage("");
       setImagePreview("");
+      setIsEditing(false);
+      setGiftToEdit(null);
     } catch (err) {
       console.error("Erreur ajout/mise à jour cadeau:", err);
       alert("Erreur lors de l'ajout/mise à jour du cadeau");
@@ -499,10 +519,10 @@ const App = () => {
               </div>
 
               <button
-                onClick={() => addGift(newGiftUrl, newGiftTitle, newGiftImage)}
+                onClick={() => handleSaveGift(newGiftUrl, newGiftTitle, newGiftImage)}
                 className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 mt-4"
               >
-                Ajouter le cadeau
+                {isEditing ? 'Sauvegarder les modifications' : 'Ajouter le cadeau'}
               </button>
             </div>
 
@@ -512,6 +532,13 @@ const App = () => {
                   key={gift.id}
                   className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition relative"
                 >
+                  <button
+                    onClick={() => startEditGift(gift)}
+                    className="bg-green-600 text-white p-2 rounded-full hover:bg-green-700 transition"
+                    title="Modifier ce cadeau"
+                  >
+                    <Pencil size={16} /> {/* Assurez-vous d'importer Pencil dans les icônes lucide-react */}
+                  </button>
                   <button
                     onClick={() => deleteGift(gift.id)}
                     className="absolute top-2 right-2 bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition z-10"
