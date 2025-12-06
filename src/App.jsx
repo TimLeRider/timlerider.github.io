@@ -86,32 +86,53 @@ const App = () => {
   };
 
   const handleAuth = async () => {
-    if (!prenom || !password) return;
+    // 1. Nettoyage de la saisie actuelle (pour la comparaison)
+    const inputPrenom = prenom.trim(); // On enlève juste les espaces
+    const searchPrenom = inputPrenom.toLowerCase(); // Version minuscule pour chercher
+
+    if (!inputPrenom || !password) {
+      alert('Veuillez remplir tous les champs');
+      return;
+    }
 
     const hashedPwd = await hashPassword(password);
 
+    // 2. On cherche si ce prénom existe déjà dans la liste (peu importe la majuscule)
+    // On cherche la "vraie clé" telle qu'elle est enregistrée dans la base
+    const existingUserKey = Object.keys(users).find(
+      key => key.trim().toLowerCase() === searchPrenom
+    );
+
     if (isLogin) {
-      if (users[prenom] && users[prenom] === hashedPwd) {
-        setCurrentUser(prenom);
-        setPrenom('');
-        setPassword('');
+      // --- MODE CONNEXION ---
+      if (existingUserKey) {
+        // On a trouvé le compte (ex: trouvé "Thomas" alors qu'on a tapé "thomas")
+        // On vérifie le mot de passe associé au VRAI nom d'utilisateur
+        if (users[existingUserKey] === hashedPwd) {
+          setCurrentUser(existingUserKey); // On connecte l'utilisateur avec son orthographe d'origine
+          setPrenom('');
+          setPassword('');
+        } else {
+          alert('Mot de passe incorrect');
+        }
       } else {
-        alert('Prénom ou mot de passe incorrect');
+        alert('Prénom incorrect ou compte inexistant');
       }
+
     } else {
-      if (users[prenom]) {
-        alert('Ce prénom existe déjà');
+      // --- MODE INSCRIPTION ---
+      if (existingUserKey) {
+        alert(`Le prénom "${existingUserKey}" est déjà pris.`);
         return;
       }
       
       try {
-        // Créer le compte dans Firebase
-        await setDoc(doc(db, 'users', prenom), {
+        await setDoc(doc(db, 'users', inputPrenom), {
           password: hashedPwd
         });
         
-        setUsers({ ...users, [prenom]: hashedPwd });
-        setCurrentUser(prenom);
+        setUsers({ ...users, [inputPrenom]: hashedPwd });
+        setCurrentUser(inputPrenom);
         setPrenom('');
         setPassword('');
       } catch (err) {
@@ -497,55 +518,58 @@ const App = () => {
                       const isReservedByMe = reservedBy === currentUser;
                       
                       return (
-                        <a
-                          key={gift.id}
-                          href={gift.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block"
-                        >
-                          <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition">
-                            
+                        <div key={gift.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition flex flex-col">
+                          
+                          {/* 1. LA ZONE CLIQUABLE (Lien vers le site) : Image + Titre */}
+                          <a
+                            href={gift.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block flex-grow group" // flex-grow permet d'occuper l'espace, group pour les effets hover
+                          >
                             <img
                               src={gift.image}
                               alt={gift.title}
-                              className="w-full h-48 object-cover"
+                              className="w-full h-48 object-cover group-hover:opacity-90 transition"
                             />
 
-                            <div className="p-4">
-                              <h4 className="font-semibold text-gray-800 mb-3">
+                            <div className="p-4 pb-2">
+                              <h4 className="font-semibold text-gray-800 mb-1 group-hover:text-red-600 transition">
                                 {gift.title}
                               </h4>
-                              
-                              {reservedBy && (
-                                <div className="mb-2 text-sm font-medium text-green-700 bg-green-50 px-3 py-2 rounded-lg">
-                                  🎁 Réservé par {isReservedByMe ? 'moi' : reservedBy}
-                                </div>
-                              )}
-                              
-                              <button
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  reserveGift(name, gift.id);
-                                }}
-                                className={`w-full py-2 rounded-lg font-semibold transition ${
-                                  isReservedByMe
-                                    ? 'bg-green-600 text-white hover:bg-green-700'
-                                    : reservedBy
-                                    ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
-                                    : 'bg-red-600 text-white hover:bg-red-700'
-                                }`}
-                                disabled={reservedBy && !isReservedByMe}
-                              >
-                                {isReservedByMe
-                                  ? '✓ Annuler ma réservation'
-                                  : reservedBy
-                                  ? 'Déjà réservé'
-                                  : 'Réserver ce cadeau'}
-                              </button>
+                              <p className="text-xs text-gray-400">Voir le lien ↗</p>
                             </div>
+                          </a>
+
+                          <div className="p-4 pt-2 mt-auto">
+                            
+                            {reservedBy && (
+                              <div className="mb-2 text-sm font-medium text-green-700 bg-green-50 px-3 py-2 rounded-lg">
+                                🎁 Réservé par {isReservedByMe ? 'moi' : reservedBy}
+                              </div>
+                            )}
+                            
+                            <button
+                              onClick={() => {
+                                reserveGift(name, gift.id);
+                              }}
+                              className={`w-full py-2 rounded-lg font-semibold transition ${
+                                isReservedByMe
+                                  ? 'bg-green-600 text-white hover:bg-green-700'
+                                  : reservedBy
+                                  ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                                  : 'bg-red-600 text-white hover:bg-red-700'
+                              }`}
+                              disabled={reservedBy && !isReservedByMe}
+                            >
+                              {isReservedByMe
+                                ? '✓ Annuler ma réservation'
+                                : reservedBy
+                                ? 'Déjà réservé'
+                                : 'Réserver ce cadeau'}
+                            </button>
                           </div>
-                        </a>
+                        </div>
                       );
                     })}
                   </div>
