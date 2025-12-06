@@ -19,8 +19,6 @@ import {
   deleteDoc,
   onSnapshot,
 } from "firebase/firestore";
-import { storage } from "./firebase";
-import { ref, uploadString, getDownloadURL } from "firebase/storage";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -179,76 +177,62 @@ const App = () => {
     if (!url) {
       alert("Veuillez entrer une URL");
       return;
-    }
+    } // --- 1. Gérer le titre par défaut ---
+
+    let finalTitle = title || "Cadeau";
+    if (!title) {
+      try {
+        const urlObj = new URL(url);
+        if (urlObj.hostname.includes("amazon")) {
+          finalTitle = "Cadeau Amazon";
+        } else {
+          finalTitle = `Cadeau de ${urlObj.hostname.replace("www.", "")}`;
+        }
+      } catch (e) {
+        finalTitle = "Cadeau";
+      }
+    } // Définir l'image de placeholder par défaut
+    const PLACEHOLDER_IMAGE =
+      "https://placehold.co/400x400/dc2626/ffffff?text=Cadeau"; // --- 2. Trouver ou préparer le cadeau ---
+
+    const userGifts = gifts[currentUser] || [];
+    let updatedGifts = [...userGifts];
+    const idToSearch = giftToEdit?.id || url; // Cherche par ID en mode édition, sinon par URL // Cherche si le cadeau existe déjà (par ID ou par URL)
+    const existingGiftIndex = userGifts.findIndex(
+      (gift) => gift.id === idToSearch || gift.url === url
+    );
+
+    if (existingGiftIndex !== -1) {
+      // --- 3. MISE À JOUR D'UN CADEAU EXISTANT (ÉDITION) ---
+      const existingGift = updatedGifts[existingGiftIndex]; // Si une NOUVELLE image compressée est présente, on l'utilise, sinon on garde l'ancienne.
+
+      const imageToUse = imageBase64 ? imageBase64 : existingGift.image; // Utiliser le nouveau titre si saisi, sinon l'ancien
+
+      const newTitle = title
+        ? finalTitle.substring(0, 150)
+        : existingGift.title;
+
+      updatedGifts[existingGiftIndex] = {
+        ...existingGift,
+        url: url,
+        title: newTitle,
+        image: imageToUse,
+      };
+      alert(`Cadeau "${newTitle}" mis à jour.`);
+    } else {
+      // --- 4. AJOUT D'UN NOUVEAU CADEAU ---
+      const newGift = {
+        id: Date.now(),
+        url,
+        title: finalTitle.substring(0, 150),
+        image: imageBase64 || PLACEHOLDER_IMAGE, // Base64 compressée ou placeholder
+      };
+      updatedGifts.push(newGift);
+      alert(`Nouveau cadeau "${finalTitle}" ajouté.`);
+    } // --- 5. Sauvegarde dans Firestore et Réinitialisation ---
 
     try {
-      // --- 1. Gérer le titre et l'URL ---
-      let finalTitle = title || "Cadeau";
-      if (!title) {
-        try {
-          // Logique pour générer un titre par défaut
-          const urlObj = new URL(url);
-          finalTitle = urlObj.hostname.includes("amazon")
-            ? "Cadeau Amazon"
-            : `Cadeau de ${urlObj.hostname.replace("www.", "")}`;
-        } catch (e) {
-          finalTitle = "Cadeau";
-        }
-      }
-
-      const userGifts = gifts[currentUser] || [];
-      let updatedGifts = [...userGifts];
-      const idToSearch = giftToEdit?.id || url;
-      const existingGiftIndex = userGifts.findIndex(
-        (gift) => gift.id === idToSearch || gift.url === url
-      ); // --- 2. Gérer l'image (Téléversement vers Storage si une nouvelle image est fournie) ---
-
-      let finalImageUrl = null;
-      let newGiftId =
-        existingGiftIndex !== -1
-          ? updatedGifts[existingGiftIndex].id
-          : Date.now(); // Si une nouvelle image a été sélectionnée :
-
-      if (imageBase64 && imageBase64.startsWith("data:image")) {
-        const storagePath = `gifts/${currentUser}/${newGiftId}`;
-        const imageRef = ref(storage, storagePath); // Téléverser l'image encodée en Base64
-
-        const uploadResult = await uploadString(
-          imageRef,
-          imageBase64,
-          "data_url"
-        ); // Obtenir l'URL publique de l'image
-        finalImageUrl = await getDownloadURL(uploadResult.ref);
-      } // --- 3. Mise à jour / Ajout dans Firestore ---
-
-      if (existingGiftIndex !== -1) {
-        // Mise à jour
-        const existingGift = updatedGifts[existingGiftIndex]; // Utiliser la nouvelle URL d'image (si téléversée), sinon garder l'ancienne
-        const imageToUse = finalImageUrl || existingGift.image;
-
-        updatedGifts[existingGiftIndex] = {
-          ...existingGift,
-          url: url,
-          title: title ? finalTitle.substring(0, 150) : existingGift.title,
-          image: imageToUse,
-        };
-        alert(`Cadeau "${updatedGifts[existingGiftIndex].title}" mis à jour.`);
-      } else {
-        // Ajout
-        const imageToUse =
-          finalImageUrl ||
-          "https://placehold.co/400x400/dc2626/ffffff?text=Cadeau";
-        const newGift = {
-          id: newGiftId,
-          url,
-          title: finalTitle.substring(0, 150),
-          image: imageToUse,
-        };
-        updatedGifts.push(newGift);
-        alert(`Nouveau cadeau "${finalTitle}" ajouté.`);
-      } // Sauvegarder la liste de cadeaux (maintenant avec l'URL de Storage)
-
-      await setDoc(doc(db, "gifts", currentUser), { items: updatedGifts }); // Réinitialisation du formulaire
+      await setDoc(doc(db, "gifts", currentUser), { items: updatedGifts }); // Réinitialisation du formulaire et du mode édition
 
       setNewGiftUrl("");
       setNewGiftTitle("");
@@ -257,8 +241,10 @@ const App = () => {
       setIsEditing(false);
       setGiftToEdit(null);
     } catch (err) {
-      console.error("Erreur ajout/mise à jour cadeau:", err);
-      alert("Erreur lors de l'ajout/mise à jour du cadeau");
+      console.error("Erreur ajout/mise à jour cadeau:", err); // Afficher une alerte plus explicite sur la taille
+      alert(
+        "Erreur lors de l'ajout/mise à jour du cadeau. L'image sélectionnée est probablement encore trop lourde (> 1 Mo). Veuillez essayer une image plus petite ou plus compressée."
+      );
     }
   };
 
@@ -266,10 +252,35 @@ const App = () => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
+
       reader.onloadend = () => {
-        const base64String = reader.result;
-        setNewGiftImage(base64String);
-        setImagePreview(base64String);
+        const img = new Image();
+        img.onload = () => {
+          // Création d'un canvas pour le redimensionnement/compression
+          const MAX_WIDTH = 800; // Largeur maximale souhaitée
+          const MAX_QUALITY = 0.7; // Qualité JPEG (0.0 à 1.0)
+
+          let width = img.width;
+          let height = img.height; // Redimensionner si l'image est trop large
+
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height); // Compression et conversion en Base64 (image allégée)
+
+          const compressedBase64 = canvas.toDataURL("image/jpeg", MAX_QUALITY);
+
+          setNewGiftImage(compressedBase64);
+          setImagePreview(compressedBase64);
+        };
+        img.src = reader.result;
       };
       reader.readAsDataURL(file);
     }
