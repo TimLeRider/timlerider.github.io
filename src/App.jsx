@@ -498,16 +498,37 @@ const App = () => {
                       
                       return (
                         <div key={gift.id} className="bg-white rounded-xl shadow-lg overflow-hidden">
-                          <img src={gift.image} alt={gift.title} className="w-full h-48 object-cover" />
+                          <a
+                            href={gift.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block"
+                          >
+                            <img
+                              src={gift.image}
+                              alt={gift.title}
+                              className="w-full h-48 object-cover"
+                            />
+                          </a>
+
                           <div className="p-4">
-                            <h4 className="font-semibold text-gray-800 mb-3">{gift.title}</h4>
-                            
+                            <a
+                              href={gift.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block"
+                            >
+                              <h4 className="font-semibold text-gray-800 mb-3 hover:underline cursor-pointer">
+                                {gift.title}
+                              </h4>
+                            </a>
+
                             {reservedBy && (
                               <div className="mb-2 text-sm font-medium text-green-700 bg-green-50 px-3 py-2 rounded-lg">
                                 🎁 Réservé par {isReservedByMe ? 'moi' : reservedBy}
                               </div>
                             )}
-                            
+
                             <button
                               onClick={() => reserveGift(name, gift.id)}
                               className={`w-full py-2 rounded-lg font-semibold transition ${
@@ -519,7 +540,11 @@ const App = () => {
                               }`}
                               disabled={reservedBy && !isReservedByMe}
                             >
-                              {isReservedByMe ? '✓ Annuler ma réservation' : reservedBy ? 'Déjà réservé' : 'Réserver ce cadeau'}
+                              {isReservedByMe
+                                ? '✓ Annuler ma réservation'
+                                : reservedBy
+                                ? 'Déjà réservé'
+                                : 'Réserver ce cadeau'}
                             </button>
                           </div>
                         </div>
