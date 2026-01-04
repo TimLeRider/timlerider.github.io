@@ -1,773 +1,153 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>USA Trip 2026</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      :root {
-        --bg-color: #e0e5ec;
-        --text-dark: #2d3748;
-        --text-light: #718096;
-        --shadow-light: #ffffff;
-        --shadow-dark: #a3b1c6;
-        --accent: #667eea;
-        --success: #48bb78;
-      }
-
-      body {
-        font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, sans-serif;
-        background: var(--bg-color);
-        color: var(--text-dark);
-        min-height: 100vh;
-        padding: 40px 20px;
-        padding-bottom: 120px;
-        line-height: 1.6;
-      }
-
-      .container {
-        max-width: 1000px;
-        margin: 0 auto;
-      }
-
-      /* Header */
-      .header {
-        background: var(--bg-color);
-        border-radius: 30px;
-        padding: 60px 40px;
-        margin-bottom: 40px;
-        text-align: center;
-        box-shadow: 12px 12px 24px var(--shadow-dark),
-          -12px -12px 24px var(--shadow-light);
-        transition: all 0.3s ease;
-      }
-
-      .header:hover {
-        box-shadow: 16px 16px 32px var(--shadow-dark),
-          -16px -16px 32px var(--shadow-light);
-      }
-
-      .header h1 {
-        font-size: 3.5em;
-        font-weight: 800;
-        color: var(--text-dark);
-        margin-bottom: 15px;
-        letter-spacing: -2px;
-        text-shadow: 2px 2px 4px var(--shadow-dark),
-          -2px -2px 4px var(--shadow-light);
-      }
-
-      .header .dates {
-        font-size: 1.1em;
-        color: var(--text-light);
-        font-weight: 600;
-        letter-spacing: 1px;
-      }
-
-      /* Countdown */
-      .countdown {
-        background: var(--bg-color);
-        border-radius: 30px;
-        padding: 50px;
-        margin-bottom: 40px;
-        text-align: center;
-        box-shadow: 12px 12px 24px var(--shadow-dark),
-          -12px -12px 24px var(--shadow-light);
-      }
-
-      .countdown h3 {
-        color: var(--text-light);
-        margin-bottom: 20px;
-        font-size: 0.85em;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        font-weight: 700;
-      }
-
-      .countdown .days-wrapper {
-        display: inline-block;
-        padding: 30px 60px;
-        border-radius: 25px;
-        box-shadow: inset 6px 6px 12px var(--shadow-dark),
-          inset -6px -6px 12px var(--shadow-light);
-      }
-
-      .countdown .days {
-        font-size: 5em;
-        font-weight: 900;
-        background: linear-gradient(135deg, var(--accent), #764ba2);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      /* Progress */
-      .progress-section {
-        background: var(--bg-color);
-        border-radius: 30px;
-        padding: 40px;
-        margin-bottom: 40px;
-        box-shadow: 12px 12px 24px var(--shadow-dark),
-          -12px -12px 24px var(--shadow-light);
-      }
-
-      .progress-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 25px;
-      }
-
-      .progress-header h3 {
-        font-size: 0.85em;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-weight: 700;
-        color: var(--text-light);
-      }
-
-      .progress-percentage {
-        font-size: 2em;
-        font-weight: 900;
-        background: linear-gradient(135deg, var(--accent), #764ba2);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .progress-bar {
-        height: 20px;
-        background: var(--bg-color);
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: inset 4px 4px 8px var(--shadow-dark),
-          inset -4px -4px 8px var(--shadow-light);
-      }
-
-      .progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, var(--accent), #764ba2);
-        border-radius: 15px;
-        transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 2px 2px 4px rgba(102, 126, 234, 0.3);
-      }
-
-      /* Summary */
-      .summary {
-        background: var(--bg-color);
-        border-radius: 30px;
-        padding: 40px;
-        margin-bottom: 40px;
-        box-shadow: 12px 12px 24px var(--shadow-dark),
-          -12px -12px 24px var(--shadow-light);
-      }
-
-      .summary h3 {
-        margin-bottom: 30px;
-        font-size: 0.85em;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-weight: 700;
-        color: var(--text-light);
-      }
-
-      .summary-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 25px;
-      }
-
-      .summary-item {
-        background: var(--bg-color);
-        padding: 35px 20px;
-        border-radius: 25px;
-        text-align: center;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        box-shadow: 8px 8px 16px var(--shadow-dark),
-          -8px -8px 16px var(--shadow-light);
-      }
-
-      .summary-item:hover {
-        box-shadow: 12px 12px 24px var(--shadow-dark),
-          -12px -12px 24px var(--shadow-light);
-        transform: translateY(-3px);
-      }
-
-      .summary-item:active {
-        box-shadow: inset 4px 4px 8px var(--shadow-dark),
-          inset -4px -4px 8px var(--shadow-light);
-        transform: translateY(0);
-      }
-
-      .summary-item .material-icons {
-        font-size: 48px;
-        color: var(--text-dark);
-        margin-bottom: 15px;
-        display: block;
-      }
-
-      .summary-item .value {
-        font-size: 2em;
-        font-weight: 900;
-        margin-bottom: 10px;
-        color: var(--text-dark);
-      }
-
-      .summary-item .label {
-        font-size: 0.75em;
-        color: var(--text-light);
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        font-weight: 600;
-      }
-
-      /* Day Cards */
-      .day-card {
-        background: var(--bg-color);
-        border-radius: 25px;
-        margin-bottom: 25px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        box-shadow: 10px 10px 20px var(--shadow-dark),
-          -10px -10px 20px var(--shadow-light);
-      }
-
-      .day-card:hover {
-        box-shadow: 14px 14px 28px var(--shadow-dark),
-          -14px -14px 28px var(--shadow-light);
-      }
-
-      .day-header {
-        padding: 35px 40px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: all 0.3s ease;
-      }
-
-      .day-info .day-number {
-        display: inline-block;
-        background: var(--bg-color);
-        padding: 8px 18px;
-        border-radius: 12px;
-        font-size: 0.7em;
-        font-weight: 900;
-        margin-bottom: 12px;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: var(--accent);
-        box-shadow: 4px 4px 8px var(--shadow-dark),
-          -4px -4px 8px var(--shadow-light);
-      }
-
-      .day-header h2 {
-        font-size: 1.6em;
-        font-weight: 800;
-        color: var(--text-dark);
-        margin-bottom: 8px;
-        letter-spacing: -0.5px;
-      }
-
-      .day-header .date {
-        font-size: 0.9em;
-        color: var(--text-light);
-        font-weight: 500;
-      }
-
-      .toggle-icon {
-        font-size: 24px;
-        color: var(--text-dark);
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background: var(--bg-color);
-        transition: all 0.3s ease;
-        box-shadow: 6px 6px 12px var(--shadow-dark),
-          -6px -6px 12px var(--shadow-light);
-      }
-
-      .toggle-icon:hover {
-        box-shadow: 8px 8px 16px var(--shadow-dark),
-          -8px -8px 16px var(--shadow-light);
-      }
-
-      .day-card.open .toggle-icon {
-        transform: rotate(180deg);
-        box-shadow: inset -4px -4px 8px var(--shadow-dark),
-          inset 4px 4px 8px var(--shadow-light);
-        color: var(--accent);
-      }
-
-      /* Supprime le hover effect quand le toggle est en mode pressé */
-      .day-card.open .toggle-icon:hover {
-        box-shadow: inset -5px -5px 10px var(--shadow-dark),
-          inset 5px 5px 10px var(--shadow-light);
-      }
-
-      .day-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .day-card.open .day-content {
-        max-height: 3000px;
-      }
-
-      .day-content-inner {
-        padding: 0 40px 40px 40px;
-      }
-
-      .badges {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-bottom: 25px;
-        margin-top: 10px;
-      }
-
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 12px 20px;
-        border-radius: 15px;
-        font-size: 0.75em;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        background: var(--bg-color);
-        color: var(--text-dark);
-        box-shadow: 4px 4px 8px var(--shadow-dark),
-          -4px -4px 8px var(--shadow-light);
-        transition: all 0.2s ease;
-      }
-
-      .badge .material-icons {
-        font-size: 16px;
-        color: var(--text-dark);
-        line-height: 1;
-      }
-
-      .badge:hover {
-        box-shadow: inset 3px 3px 6px var(--shadow-dark),
-          inset -3px -3px 6px var(--shadow-light);
-      }
-
-      .location {
-        background: var(--bg-color);
-        padding: 20px 25px;
-        border-radius: 15px;
-        margin-bottom: 30px;
-        font-weight: 600;
-        color: var(--text-dark);
-        box-shadow: inset 4px 4px 8px var(--shadow-dark),
-          inset -4px -4px 8px var(--shadow-light);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .location .material-icons {
-        font-size: 24px;
-        color: var(--text-dark);
-      }
-
-      .location-link {
-        color: var(--accent);
-        text-decoration: none;
-        margin-left: 10px;
-        font-size: 0.9em;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        transition: all 0.2s ease;
-      }
-
-      .location-link:hover {
-        text-decoration: underline;
-      }
-
-      .location-link .material-icons {
-        font-size: 18px;
-      }
-
-      .activity-section {
-        margin-bottom: 30px;
-      }
-
-      .activity-section h4 {
-        font-size: 1em;
-        margin-bottom: 20px;
-        padding: 18px 25px;
-        background: var(--bg-color);
-        color: var(--text-dark);
-        font-weight: 800;
-        border-radius: 15px;
-        box-shadow: 6px 6px 12px var(--shadow-dark),
-          -6px -6px 12px var(--shadow-light);
-      }
-
-      .checkbox-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 15px;
-        padding: 18px 20px;
-        margin-bottom: 12px;
-        transition: all 0.2s ease;
-        background: var(--bg-color);
-        border-radius: 15px;
-        box-shadow: 4px 4px 8px var(--shadow-dark),
-          -4px -4px 8px var(--shadow-light);
-      }
-
-      .checkbox-item:hover {
-        box-shadow: 6px 6px 12px var(--shadow-dark),
-          -6px -6px 12px var(--shadow-light);
-        transform: translateX(3px);
-      }
-
-      .checkbox-item.checked {
-        box-shadow: inset 3px 3px 6px var(--shadow-dark),
-          inset -3px -3px 6px var(--shadow-light);
-        opacity: 0.6;
-      }
-
-      .checkbox-item.checked label {
-        text-decoration: line-through;
-        color: var(--text-light);
-      }
-
-      input[type="checkbox"] {
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
-        flex-shrink: 0;
-        margin-top: 2px;
-        appearance: none;
-        background: var(--bg-color);
-        border-radius: 8px;
-        position: relative;
-        transition: all 0.2s ease;
-        box-shadow: inset 2px 2px 4px var(--shadow-dark),
-          inset -2px -2px 4px var(--shadow-light);
-      }
-
-      input[type="checkbox"]:hover {
-        box-shadow: inset 3px 3px 6px var(--shadow-dark),
-          inset -3px -3px 6px var(--shadow-light);
-      }
-
-      input[type="checkbox"]:checked {
-        background: linear-gradient(135deg, var(--success), #38a169);
-        box-shadow: 2px 2px 4px var(--shadow-dark),
-          -2px -2px 4px var(--shadow-light);
-      }
-
-      input[type="checkbox"]:checked::after {
-        content: "✓";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 14px;
-        font-weight: 900;
-      }
-
-      .checkbox-item label {
-        cursor: pointer;
-        flex: 1;
-        line-height: 1.6;
-        color: var(--text-dark);
-        font-weight: 500;
-      }
-
-      .event-highlight {
-        background: linear-gradient(
-          135deg,
-          rgba(102, 126, 234, 0.1),
-          rgba(118, 75, 162, 0.1)
-        );
-        border-left: 4px solid var(--accent);
-        padding: 20px;
-        margin: 20px 0;
-        border-radius: 15px;
-        box-shadow: 4px 4px 8px var(--shadow-dark),
-          -4px -4px 8px var(--shadow-light);
-      }
-
-      .event-highlight strong {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--accent);
-        font-size: 1.1em;
-        margin-bottom: 10px;
-      }
-
-      .event-highlight .material-icons {
-        font-size: 24px;
-      }
-
-      .accommodation {
-        background: var(--bg-color);
-        padding: 25px;
-        margin-top: 30px;
-        border-radius: 15px;
-        font-size: 0.9em;
-        color: var(--text-dark);
-        box-shadow: inset 4px 4px 8px var(--shadow-dark),
-          inset -4px -4px 8px var(--shadow-light);
-      }
-
-      .accommodation strong {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 10px;
-        color: var(--accent);
-        font-weight: 900;
-        font-size: 1.05em;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-
-      .accommodation .material-icons {
-        font-size: 24px;
-      }
-
-      /* Info box */
-      .info-box {
-        background: var(--bg-color);
-        border-radius: 30px;
-        padding: 40px;
-        margin-bottom: 40px;
-        box-shadow: 12px 12px 24px var(--shadow-dark),
-          -12px -12px 24px var(--shadow-light);
-      }
-
-      .info-box h3 {
-        margin-bottom: 30px;
-        font-size: 0.85em;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-weight: 700;
-        color: var(--text-light);
-      }
-
-      .info-item {
-        padding: 20px 25px;
-        margin-bottom: 15px;
-        font-size: 0.95em;
-        color: var(--text-dark);
-        background: var(--bg-color);
-        border-radius: 15px;
-        box-shadow: 4px 4px 8px var(--shadow-dark),
-          -4px -4px 8px var(--shadow-light);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .info-item .material-icons {
-        color: var(--accent);
-        font-size: 24px;
-      }
-
-      .info-item strong {
-        color: var(--accent);
-        font-weight: 900;
-        margin-right: 10px;
-      }
-
-      /* Bottom nav */
-      .bottom-nav {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: var(--bg-color);
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        padding: 25px;
-        z-index: 1000;
-        box-shadow: 0 -8px 16px var(--shadow-dark),
-          0 8px 16px var(--shadow-light);
-      }
-
-      .nav-btn {
-        background: var(--bg-color);
-        color: var(--text-dark);
-        border: none;
-        font-size: 1em;
-        cursor: pointer;
-        padding: 15px 30px;
-        transition: all 0.2s ease;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        min-width: 120px;
-        justify-content: center;
-        border-radius: 15px;
-        box-shadow: 6px 6px 12px var(--shadow-dark),
-          -6px -6px 12px var(--shadow-light);
-      }
-
-      .nav-btn:hover {
-        box-shadow: 8px 8px 16px var(--shadow-dark),
-          -8px -8px 16px var(--shadow-light);
-      }
-
-      .nav-btn:active {
-        box-shadow: inset 4px 4px 8px var(--shadow-dark),
-          inset -4px -4px 8px var(--shadow-light);
-      }
-
-      .nav-btn.primary {
-        color: var(--accent);
-        font-weight: 900;
-      }
-
-      /* Animations */
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .header,
-      .countdown,
-      .summary,
-      .progress-section,
-      .day-card,
-      .info-box {
-        animation: fadeInUp 0.6s ease-out backwards;
-      }
-
-      .header {
-        animation-delay: 0.1s;
-      }
-      .countdown {
-        animation-delay: 0.15s;
-      }
-      .progress-section {
-        animation-delay: 0.2s;
-      }
-      .summary {
-        animation-delay: 0.25s;
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        body {
-          padding: 20px 15px;
-          padding-bottom: 120px;
-        }
-
-        .header {
-          padding: 40px 30px;
-          border-radius: 25px;
-        }
-
-        .header h1 {
-          font-size: 2.5em;
-        }
-
-        .countdown {
-          padding: 40px 30px;
-        }
-
-        .countdown .days {
-          font-size: 4em;
-        }
-
-        .summary-grid {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 15px;
-        }
-
-        .day-header {
-          padding: 25px;
-        }
-
-        .day-header h2 {
-          font-size: 1.3em;
-        }
-
-        .day-content-inner {
-          padding: 0 25px 25px 25px;
-        }
-
-        .nav-btn {
-          padding: 12px 20px;
-          font-size: 0.9em;
-          min-width: 90px;
-        }
-
-        .bottom-nav {
-          padding: 15px;
-          gap: 10px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .header h1 {
-          font-size: 2em;
-        }
-
-        .countdown .days {
-          font-size: 3em;
-        }
-
-        .summary-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .day-header h2 {
-          font-size: 1.1em;
-        }
-
-        .nav-btn {
-          padding: 10px 15px;
-          min-width: 70px;
-          font-size: 0.85em;
-        }
-      }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg-color: #e0e5ec; --text-dark: #2d3748; --text-light: #718096; --shadow-light: #ffffff; --shadow-dark: #a3b1c6; --accent: #667eea; --success: #48bb78; }
+body { font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg-color); color: var(--text-dark); min-height: 100vh; padding: 40px 20px; padding-bottom: 120px; line-height: 1.6; }
+.container { max-width: 1000px; margin: 0 auto; }
+.header { background: var(--bg-color); border-radius: 30px; padding: 60px 40px; margin-bottom: 40px; text-align: center; box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); transition: all 0.3s ease; }
+.header:hover { box-shadow: 16px 16px 32px var(--shadow-dark), -16px -16px 32px var(--shadow-light); }
+.header h1 { font-size: 3.5em; font-weight: 800; color: var(--text-dark); margin-bottom: 15px; letter-spacing: -2px; text-shadow: 2px 2px 4px var(--shadow-dark), -2px -2px 4px var(--shadow-light); }
+.header .dates { font-size: 1.1em; color: var(--text-light); font-weight: 600; letter-spacing: 1px; }
+.countdown { background: var(--bg-color); border-radius: 30px; padding: 50px; margin-bottom: 40px; text-align: center; box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); }
+.countdown h3 { color: var(--text-light); margin-bottom: 20px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; }
+.countdown .days-wrapper { display: inline-block; padding: 30px 60px; border-radius: 25px; box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light); }
+.countdown .days { font-size: 5em; font-weight: 900; background: linear-gradient(135deg, var(--accent), #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.progress-section { background: var(--bg-color); border-radius: 30px; padding: 40px; margin-bottom: 40px; box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); }
+.progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.progress-header h3 { font-size: 0.85em; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--text-light); }
+.progress-percentage { font-size: 2em; font-weight: 900; background: linear-gradient(135deg, var(--accent), #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.progress-bar { height: 20px; background: var(--bg-color); border-radius: 15px; overflow: hidden; box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #764ba2); border-radius: 15px; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 2px 2px 4px rgba(102, 126, 234, 0.3); }
+.summary { background: var(--bg-color); border-radius: 30px; padding: 40px; margin-bottom: 40px; box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); }
+.summary h3 { margin-bottom: 30px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--text-light); }
+.summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+.summary-item { background: var(--bg-color); padding: 35px 20px; border-radius: 25px; text-align: center; transition: all 0.3s ease; cursor: pointer; box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light); }
+.summary-item:hover { box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); transform: translateY(-3px); }
+.summary-item:active { box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); transform: translateY(0); }
+.summary-item .material-icons { font-size: 48px; color: var(--text-dark); margin-bottom: 15px; display: block; }
+.summary-item .value { font-size: 2em; font-weight: 900; margin-bottom: 10px; color: var(--text-dark); }
+.summary-item .label { font-size: 0.75em; color: var(--text-light); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+.day-card { background: var(--bg-color); border-radius: 25px; margin-bottom: 25px; overflow: hidden; transition: all 0.3s ease; box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light); }
+.day-card:hover { box-shadow: 14px 14px 28px var(--shadow-dark), -14px -14px 28px var(--shadow-light); }
+.day-header { padding: 35px 40px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease; }
+.day-info .day-number { display: inline-block; background: var(--bg-color); padding: 8px 18px; border-radius: 12px; font-size: 0.7em; font-weight: 900; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light); }
+.day-header h2 { font-size: 1.6em; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; letter-spacing: -0.5px; }
+.day-header .date { font-size: 0.9em; color: var(--text-light); font-weight: 500; }
+.toggle-icon { font-size: 24px; color: var(--text-dark); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--bg-color); transition: all 0.3s ease; box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light); }
+.toggle-icon:hover { box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light); }
+.day-card.open .toggle-icon { transform: rotate(180deg); box-shadow: inset -4px -4px 8px var(--shadow-dark), inset 4px 4px 8px var(--shadow-light); color: var(--accent); }
+.day-card.open .toggle-icon:hover { box-shadow: inset -5px -5px 10px var(--shadow-dark), inset 5px 5px 10px var(--shadow-light); }
+.day-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.day-card.open .day-content { max-height: 3000px; }
+.day-content-inner { padding: 0 40px 40px 40px; }
+.badges { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 25px; margin-top: 10px; }
+.badge { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 15px; font-size: 0.75em; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; background: var(--bg-color); color: var(--text-dark); box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light); transition: all 0.2s ease; }
+.badge .material-icons { font-size: 16px; color: var(--text-dark); line-height: 1; }
+.badge:hover { box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light); }
+.location { background: var(--bg-color); padding: 20px 25px; border-radius: 15px; margin-bottom: 30px; font-weight: 600; color: var(--text-dark); box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.location .material-icons { font-size: 24px; color: var(--text-dark); }
+.location-link { color: var(--accent); text-decoration: none; margin-left: 10px; font-size: 0.9em; display: inline-flex; align-items: center; gap: 5px; transition: all 0.2s ease; }
+.location-link:hover { text-decoration: underline; }
+.location-link .material-icons { font-size: 18px; }
+.activity-section { margin-bottom: 30px; }
+.activity-section h4 { font-size: 1em; margin-bottom: 20px; padding: 18px 25px; background: var(--bg-color); color: var(--text-dark); font-weight: 800; border-radius: 15px; box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light); }
+.checkbox-item { display: flex; align-items: flex-start; gap: 15px; padding: 18px 20px; margin-bottom: 12px; transition: all 0.2s ease; background: var(--bg-color); border-radius: 15px; box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light); }
+.checkbox-item:hover { box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light); transform: translateX(3px); }
+.checkbox-item.checked { box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light); opacity: 0.6; }
+.checkbox-item.checked label { text-decoration: line-through; color: var(--text-light); }
+input[type="checkbox"] { width: 24px; height: 24px; cursor: pointer; flex-shrink: 0; margin-top: 2px; appearance: none; background: var(--bg-color); border-radius: 8px; position: relative; transition: all 0.2s ease; box-shadow: inset 2px 2px 4px var(--shadow-dark), inset -2px -2px 4px var(--shadow-light); }
+input[type="checkbox"]:hover { box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light); }
+input[type="checkbox"]:checked { background: linear-gradient(135deg, var(--success), #38a169); box-shadow: 2px 2px 4px var(--shadow-dark), -2px -2px 4px var(--shadow-light); }
+input[type="checkbox"]:checked::after { content: "✓"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 14px; font-weight: 900; }
+.checkbox-item label { cursor: pointer; flex: 1; line-height: 1.6; color: var(--text-dark); font-weight: 500; }
+.accommodation { background: var(--bg-color); padding: 25px; margin-top: 30px; border-radius: 15px; font-size: 0.9em; color: var(--text-dark); box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); }
+.accommodation strong { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; color: var(--accent); font-weight: 900; font-size: 1.05em; text-transform: uppercase; letter-spacing: 1px; }
+.accommodation .material-icons { font-size: 24px; }
+.info-box { background: var(--bg-color); border-radius: 30px; padding: 40px; margin-bottom: 40px; box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); }
+.info-box h3 { margin-bottom: 30px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--text-light); }
+.info-item { padding: 20px 25px; margin-bottom: 15px; font-size: 0.95em; color: var(--text-dark); background: var(--bg-color); border-radius: 15px; box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.info-item .material-icons { color: var(--accent); font-size: 24px; }
+.info-item strong { color: var(--accent); font-weight: 900; margin-right: 10px; }
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-color); display: flex; justify-content: center; gap: 20px; padding: 25px; z-index: 1000; box-shadow: 0 -8px 16px var(--shadow-dark), 0 8px 16px var(--shadow-light); }
+.nav-btn { background: var(--bg-color); color: var(--text-dark); border: none; font-size: 1em; cursor: pointer; padding: 15px 30px; transition: all 0.2s ease; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; min-width: 120px; justify-content: center; border-radius: 15px; box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light); }
+.nav-btn:hover { box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light); }
+.nav-btn:active { box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); }
+.nav-btn.primary { color: var(--accent); font-weight: 900; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.header, .countdown, .summary, .progress-section, .day-card, .info-box { animation: fadeInUp 0.6s ease-out backwards; }
+.header { animation-delay: 0.1s; }
+.countdown { animation-delay: 0.15s; }
+.progress-section { animation-delay: 0.2s; }
+.summary { animation-delay: 0.25s; }
+
+@media (max-width: 768px) {
+body { padding: 15px 10px; padding-bottom: 100px; font-size: 14px; }
+.header { padding: 30px 20px; border-radius: 20px; margin-bottom: 25px; }
+.header h1 { font-size: 2em; letter-spacing: -1px; }
+.header .dates { font-size: 0.9em; }
+.countdown { padding: 30px 20px; margin-bottom: 25px; border-radius: 20px; }
+.countdown h3 { font-size: 0.7em; margin-bottom: 15px; }
+.countdown .days-wrapper { padding: 20px 40px; }
+.countdown .days { font-size: 3.5em; }
+.progress-section, .summary, .info-box { padding: 25px 20px; margin-bottom: 25px; border-radius: 20px; }
+.progress-header h3, .summary h3, .info-box h3 { font-size: 0.75em; margin-bottom: 20px; }
+.progress-percentage { font-size: 1.5em; }
+.summary-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.summary-item { padding: 25px 15px; border-radius: 15px; }
+.summary-item .material-icons { font-size: 36px; margin-bottom: 10px; }
+.summary-item .value { font-size: 1.5em; margin-bottom: 8px; }
+.summary-item .label { font-size: 0.7em; }
+.day-card { margin-bottom: 20px; border-radius: 20px; }
+.day-header { padding: 20px 15px; }
+.day-info .day-number { font-size: 0.65em; padding: 6px 14px; margin-bottom: 10px; }
+.day-header h2 { font-size: 1.2em; margin-bottom: 6px; }
+.day-header .date { font-size: 0.85em; }
+.toggle-icon { width: 40px; height: 40px; font-size: 20px; }
+.day-content-inner { padding: 0 15px 20px 15px; }
+.badges { gap: 8px; margin-bottom: 20px; }
+.badge { padding: 8px 14px; font-size: 0.65em; border-radius: 12px; }
+.badge .material-icons { font-size: 14px; }
+.location { padding: 15px 18px; font-size: 0.9em; margin-bottom: 20px; border-radius: 12px; }
+.location .material-icons { font-size: 20px; }
+.location-link { font-size: 0.85em; margin-left: 8px; }
+.location-link .material-icons { font-size: 16px; }
+.activity-section { margin-bottom: 25px; }
+.activity-section h4 { font-size: 0.9em; padding: 14px 18px; margin-bottom: 15px; border-radius: 12px; }
+.checkbox-item { padding: 14px 15px; margin-bottom: 10px; border-radius: 12px; gap: 12px; }
+.checkbox-item label { font-size: 0.95em; line-height: 1.5; }
+input[type="checkbox"] { width: 20px; height: 20px; }
+input[type="checkbox"]:checked::after { font-size: 12px; }
+.accommodation { padding: 18px; margin-top: 20px; font-size: 0.85em; border-radius: 12px; }
+.accommodation strong { font-size: 0.95em; margin-bottom: 8px; }
+.accommodation .material-icons { font-size: 20px; }
+.info-item { padding: 15px 18px; margin-bottom: 12px; font-size: 0.85em; border-radius: 12px; }
+.info-item .material-icons { font-size: 20px; }
+.nav-btn { padding: 12px 16px; font-size: 0.75em; min-width: 70px; border-radius: 12px; }
+.bottom-nav { padding: 12px 10px; gap: 8px; }
+}
+
+@media (max-width: 480px) {
+body { font-size: 13px; }
+.header h1 { font-size: 1.8em; }
+.header .dates { font-size: 0.85em; }
+.countdown .days { font-size: 3em; }
+.summary-grid { grid-template-columns: repeat(2, 1fr); }
+.summary-item .value { font-size: 1.3em; }
+.day-header h2 { font-size: 1.1em; }
+.nav-btn { padding: 10px 12px; min-width: 60px; font-size: 0.7em; }
+}
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
       <div class="header">
         <h1>USA TRIP 2026</h1>
@@ -830,9 +210,7 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">flight</span> Transit</span
-              >
+              <span class="badge"><span class="material-icons">flight</span> Transit</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
@@ -846,47 +224,29 @@
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d1-2" onchange="saveProgress()" />
-                <label for="d1-2"
-                  >Récupération du RAM 2500 (Dollar Car Rental LAX Airport)
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Dollar+Car+Rental+Los+Angeles+Airport"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d1-2">Récupération du RAM 2500 (Dollar Car Rental LAX Airport)
+                  <a href="https://www.google.com/maps/search/?api=1&query=Dollar+Car+Rental+Los+Angeles+Airport" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d1-3" onchange="saveProgress()" />
-                <label for="d1-3"
-                  >Check-in Airbnb El Monte
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d1-3">Check-in Airbnb El Monte
+                  <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d1-4" onchange="saveProgress()" />
-                <label for="d1-4"
-                  >Repos et adaptation au décalage horaire</label
-                >
+                <label for="d1-4">Repos et adaptation au décalage horaire</label>
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">home</span> Hébergement</strong
-              >
+              <strong><span class="material-icons">home</span> Hébergement</strong>
               11726 Roseglen Street, El Monte, CA 91732
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -907,12 +267,8 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">beach_access</span> Plage</span
-              >
-              <span class="badge"
-                ><span class="material-icons">sports_basketball</span> NBA</span
-              >
+              <span class="badge"><span class="material-icons">beach_access</span> Plage</span>
+              <span class="badge"><span class="material-icons">sports_basketball</span> NBA</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
@@ -922,26 +278,16 @@
               <h4>Santa Monica & Venice Beach</h4>
               <div class="checkbox-item">
                 <input type="checkbox" id="d2-1" onchange="saveProgress()" />
-                <label for="d2-1"
-                  >Santa Monica Pier & Beach
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Santa+Monica+Pier"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d2-1">Santa Monica Pier & Beach
+                  <a href="https://www.google.com/maps/search/?api=1&query=Santa+Monica+Pier" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d2-2" onchange="saveProgress()" />
-                <label for="d2-2"
-                  >Venice Beach & Boardwalk
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Venice+Beach+Boardwalk"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d2-2">Venice Beach & Boardwalk
+                  <a href="https://www.google.com/maps/search/?api=1&query=Venice+Beach+Boardwalk" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
@@ -951,13 +297,8 @@
               <h4>Hollywood</h4>
               <div class="checkbox-item">
                 <input type="checkbox" id="d2-3" onchange="saveProgress()" />
-                <label for="d2-3"
-                  >Hollywood Boulevard & Walk of Fame
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Hollywood+Walk+of+Fame"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d2-3">Hollywood Boulevard & Walk of Fame
+                  <a href="https://www.google.com/maps/search/?api=1&query=Hollywood+Walk+of+Fame" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
@@ -970,29 +311,18 @@
             <div class="activity-section">
               <h4>Match NBA - Lakers</h4>
               <div class="checkbox-item">
-                <input type="checkbox" id="d2-3" onchange="saveProgress()" />
-                <label for="d2-3"
-                  >Match NBA Crypto.com Arena, Los Angeles, 18h30
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Crypto.com+Arena+Los+Angeles"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <input type="checkbox" id="d2-5" onchange="saveProgress()" />
+                <label for="d2-5">Match NBA Crypto.com Arena, Los Angeles, 18h30
+                  <a href="https://www.google.com/maps/search/?api=1&query=Crypto.com+Arena+Los+Angeles" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">home</span> Hébergement</strong
-              >
+              <strong><span class="material-icons">home</span> Hébergement</strong>
               11726 Roseglen Street, El Monte, CA 91732
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1013,13 +343,8 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">two_wheeler</span> Moto</span
-              >
-              <span class="badge"
-                ><span class="material-icons">directions_car</span> Road
-                Trip</span
-              >
+              <span class="badge"><span class="material-icons">two_wheeler</span> Moto</span>
+              <span class="badge"><span class="material-icons">directions_car</span> Road Trip</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
@@ -1029,39 +354,24 @@
               <h4>Journée Moto</h4>
               <div class="checkbox-item">
                 <input type="checkbox" id="d3-1" onchange="saveProgress()" />
-                <label for="d3-1"
-                  >Pro Circuit (CA 92882)
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Pro+Circuit+Corona+CA+92882"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d3-1">Pro Circuit (CA 92882)
+                  <a href="https://www.google.com/maps/search/?api=1&query=Pro+Circuit+Corona+CA+92882" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d3-2" onchange="saveProgress()" />
-                <label for="d3-2"
-                  >Chaparral (boutique moto)
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Chaparral+Motorsports+San+Bernardino"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d3-2">Chaparral (boutique moto)
+                  <a href="https://www.google.com/maps/search/?api=1&query=Chaparral+Motorsports+San+Bernardino" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d3-3" onchange="saveProgress()" />
-                <label for="d3-3"
-                  >Glen Helen Raceway
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Glen+Helen+Raceway"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d3-3">Glen Helen Raceway
+                  <a href="https://www.google.com/maps/search/?api=1&query=Glen+Helen+Raceway" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
@@ -1076,15 +386,9 @@
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">home</span> Hébergement</strong
-              >
+              <strong><span class="material-icons">home</span> Hébergement</strong>
               11726 Roseglen Street, El Monte, CA 91732
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1105,18 +409,12 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">park</span> Nature</span
-              >
+              <span class="badge"><span class="material-icons">park</span> Nature</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
               Sequoia National Park
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=Sequoia+National+Park"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=Sequoia+National+Park" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1124,67 +422,41 @@
               <h4>Giant Forest</h4>
               <div class="checkbox-item">
                 <input type="checkbox" id="d4-1" onchange="saveProgress()" />
-                <label for="d4-1"
-                  >General Sherman Tree (plus grand arbre du monde)
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=General+Sherman+Tree+Sequoia"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d4-1">General Sherman Tree (plus grand arbre du monde)
+                  <a href="https://www.google.com/maps/search/?api=1&query=General+Sherman+Tree+Sequoia" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d4-2" onchange="saveProgress()" />
-                <label for="d4-2"
-                  >Tunnel Log
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Tunnel+Log+Sequoia"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d4-2">Tunnel Log
+                  <a href="https://www.google.com/maps/search/?api=1&query=Tunnel+Log+Sequoia" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d4-3" onchange="saveProgress()" />
-                <label for="d4-3"
-                  >Crescent Meadow
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Crescent+Meadow+Sequoia"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d4-3">Crescent Meadow
+                  <a href="https://www.google.com/maps/search/?api=1&query=Crescent+Meadow+Sequoia" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d4-4" onchange="saveProgress()" />
-                <label for="d4-4"
-                  >Moro Rock (vue panoramique)
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Moro+Rock+Sequoia"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d4-4">Moro Rock (vue panoramique)
+                  <a href="https://www.google.com/maps/search/?api=1&query=Moro+Rock+Sequoia" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">home</span> Hébergement</strong
-              >
+              <strong><span class="material-icons">home</span> Hébergement</strong>
               11726 Roseglen Street, El Monte, CA 91732
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1205,12 +477,8 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">hiking</span> Randonnée</span
-              >
-              <span class="badge"
-                ><span class="material-icons">star</span> Beverly Hills</span
-              >
+              <span class="badge"><span class="material-icons">hiking</span> Randonnée</span>
+              <span class="badge"><span class="material-icons">star</span> Beverly Hills</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
@@ -1220,13 +488,8 @@
               <h4>Runyon Canyon</h4>
               <div class="checkbox-item">
                 <input type="checkbox" id="d5-1" onchange="saveProgress()" />
-                <label for="d5-1"
-                  >Randonnée avec vue sur Hollywood Sign
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Runyon+Canyon+Park"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d5-1">Randonnée avec vue sur Hollywood Sign
+                  <a href="https://www.google.com/maps/search/?api=1&query=Runyon+Canyon+Park" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
@@ -1240,41 +503,25 @@
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d5-3" onchange="saveProgress()" />
-                <label for="d5-3"
-                  >Visite de LACMA ou balade à Rodeo Drive
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Rodeo+Drive+Beverly+Hills"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d5-3">Visite de LACMA ou balade à Rodeo Drive
+                  <a href="https://www.google.com/maps/search/?api=1&query=Rodeo+Drive+Beverly+Hills" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d5-4" onchange="saveProgress()" />
-                <label for="d5-4"
-                  >Griffith Observatory pour le coucher du soleil
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Griffith+Observatory"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d5-4">Griffith Observatory pour le coucher du soleil
+                  <a href="https://www.google.com/maps/search/?api=1&query=Griffith+Observatory" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">home</span> Hébergement</strong
-              >
+              <strong><span class="material-icons">home</span> Hébergement</strong>
               11726 Roseglen Street, El Monte, CA 91732
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1295,12 +542,8 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">museum</span> Musées</span
-              >
-              <span class="badge"
-                ><span class="material-icons">apartment</span> Culture</span
-              >
+              <span class="badge"><span class="material-icons">museum</span> Musées</span>
+              <span class="badge"><span class="material-icons">apartment</span> Culture</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
@@ -1310,13 +553,8 @@
               <h4>Petersen Automotive Museum</h4>
               <div class="checkbox-item">
                 <input type="checkbox" id="d6-1" onchange="saveProgress()" />
-                <label for="d6-1"
-                  >Visite du musée automobile
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Petersen+Automotive+Museum"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d6-1">Visite du musée automobile
+                  <a href="https://www.google.com/maps/search/?api=1&query=Petersen+Automotive+Museum" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
@@ -1326,13 +564,8 @@
               <h4>Rosenheim Mansion & Koreatown</h4>
               <div class="checkbox-item">
                 <input type="checkbox" id="d6-2" onchange="saveProgress()" />
-                <label for="d6-2"
-                  >Rosenheim Mansion (American Horror Story)
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Rosenheim+Mansion+Los+Angeles"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d6-2">Rosenheim Mansion (American Horror Story)
+                  <a href="https://www.google.com/maps/search/?api=1&query=Rosenheim+Mansion+Los+Angeles" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
@@ -1343,15 +576,9 @@
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">home</span> Hébergement</strong
-              >
+              <strong><span class="material-icons">home</span> Hébergement</strong>
               11726 Roseglen Street, El Monte, CA 91732
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1372,9 +599,7 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">directions_car</span> Trajet</span
-              >
+              <span class="badge"><span class="material-icons">directions_car</span> Trajet</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
@@ -1388,26 +613,16 @@
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d7-2" onchange="saveProgress()" />
-                <label for="d7-2"
-                  >Repérage Angel Stadium
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Angel+Stadium+Anaheim"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d7-2">Repérage Angel Stadium
+                  <a href="https://www.google.com/maps/search/?api=1&query=Angel+Stadium+Anaheim" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d7-3" onchange="saveProgress()" />
-                <label for="d7-3"
-                  >Check-in nouvel Airbnb Orange
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=250+N+Batavia+St+Orange+CA+92868"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d7-3">Check-in nouvel Airbnb Orange
+                  <a href="https://www.google.com/maps/search/?api=1&query=250+N+Batavia+St+Orange+CA+92868" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
@@ -1418,15 +633,9 @@
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">home</span> Hébergement</strong
-              >
+              <strong><span class="material-icons">home</span> Hébergement</strong>
               250 N Batavia St, Orange, CA 92868
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=250+N+Batavia+St+Orange+CA+92868"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=250+N+Batavia+St+Orange+CA+92868" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1447,19 +656,12 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">emoji_events</span> Événement
-                Majeur</span
-              >
+              <span class="badge"><span class="material-icons">emoji_events</span> Événement Majeur</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
               Angel Stadium, Anaheim
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=Angel+Stadium+Anaheim"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=Angel+Stadium+Anaheim" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1483,15 +685,9 @@
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">home</span> Hébergement</strong
-              >
+              <strong><span class="material-icons">home</span> Hébergement</strong>
               250 N Batavia St, Orange, CA 92868
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=250+N+Batavia+St+Orange+CA+92868"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=250+N+Batavia+St+Orange+CA+92868" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1512,13 +708,8 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">landscape</span> Désert</span
-              >
-              <span class="badge"
-                ><span class="material-icons">directions_car</span> Road
-                Trip</span
-              >
+              <span class="badge"><span class="material-icons">landscape</span> Désert</span>
+              <span class="badge"><span class="material-icons">directions_car</span> Road Trip</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
@@ -1528,26 +719,16 @@
               <h4>Désert et Dunes</h4>
               <div class="checkbox-item">
                 <input type="checkbox" id="d9-1" onchange="saveProgress()" />
-                <label for="d9-1"
-                  >Perris Raceway
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Perris+Raceway"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d9-1">Perris Raceway
+                  <a href="https://www.google.com/maps/search/?api=1&query=Perris+Raceway" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d9-2" onchange="saveProgress()" />
-                <label for="d9-2"
-                  >Glamis Dunes (dunes de sable)
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Glamis+Dunes+California"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d9-2">Glamis Dunes (dunes de sable)
+                  <a href="https://www.google.com/maps/search/?api=1&query=Glamis+Dunes+California" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
@@ -1562,15 +743,9 @@
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">hotel</span> Hébergement</strong
-              >
+              <strong><span class="material-icons">hotel</span> Hébergement</strong>
               Motel 6-Blythe, CA - South
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=Motel+6+Blythe+CA+South"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=Motel+6+Blythe+CA+South" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1591,9 +766,7 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">directions_car</span> Trajet</span
-              >
+              <span class="badge"><span class="material-icons">directions_car</span> Trajet</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
@@ -1607,41 +780,25 @@
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d10-2" onchange="saveProgress()" />
-                <label for="d10-2"
-                  >Check-in Airbnb Las Vegas
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d10-2">Check-in Airbnb Las Vegas
+                  <a href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d10-3" onchange="saveProgress()" />
-                <label for="d10-3"
-                  >Première soirée sur le Strip
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Las+Vegas+Strip"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d10-3">Première soirée sur le Strip
+                  <a href="https://www.google.com/maps/search/?api=1&query=Las+Vegas+Strip" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">home</span> Hébergement</strong
-              >
+              <strong><span class="material-icons">home</span> Hébergement</strong>
               2559 Rafferty Creek Ln, Las Vegas, NV 89156
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1662,18 +819,12 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">casino</span> Vegas</span
-              >
+              <span class="badge"><span class="material-icons">casino</span> Vegas</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
               Las Vegas Strip
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=Las+Vegas+Strip"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=Las+Vegas+Strip" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1681,13 +832,8 @@
               <h4>Pawn Shop & Attractions</h4>
               <div class="checkbox-item">
                 <input type="checkbox" id="d11-1" onchange="saveProgress()" />
-                <label for="d11-1"
-                  >Gold & Silver Pawn Shop (Pawn Stars)
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Gold+Silver+Pawn+Shop+Las+Vegas"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d11-1">Gold & Silver Pawn Shop (Pawn Stars)
+                  <a href="https://www.google.com/maps/search/?api=1&query=Gold+Silver+Pawn+Shop+Las+Vegas" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
@@ -1701,41 +847,25 @@
               <h4>Sphere Experience</h4>
               <div class="checkbox-item">
                 <input type="checkbox" id="d11-3" onchange="saveProgress()" />
-                <label for="d11-3"
-                  >Expérience immersive au Sphere
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Sphere+Las+Vegas"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d11-3">Expérience immersive au Sphere
+                  <a href="https://www.google.com/maps/search/?api=1&query=Sphere+Las+Vegas" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d11-4" onchange="saveProgress()" />
-                <label for="d11-4"
-                  >Neon Museum (cimetière de néons)
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Neon+Museum+Las+Vegas"
-                    target="_blank"
-                    class="location-link"
-                  >
+                <label for="d11-4">Neon Museum (cimetière de néons)
+                  <a href="https://www.google.com/maps/search/?api=1&query=Neon+Museum+Las+Vegas" target="_blank" class="location-link">
                     <span class="material-icons">map</span> GPS
                   </a>
                 </label>
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">home</span> Hébergement</strong
-              >
+              <strong><span class="material-icons">home</span> Hébergement</strong>
               2559 Rafferty Creek Ln, Las Vegas, NV 89156
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1756,22 +886,13 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">terrain</span> Nature</span
-              >
-              <span class="badge"
-                ><span class="material-icons">directions_car</span> Road
-                Trip</span
-              >
+              <span class="badge"><span class="material-icons">terrain</span> Nature</span>
+              <span class="badge"><span class="material-icons">directions_car</span> Road Trip</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
               Grand Canyon
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=Grand+Canyon+South+Rim"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=Grand+Canyon+South+Rim" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1799,15 +920,9 @@
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">home</span> Hébergement</strong
-              >
+              <strong><span class="material-icons">home</span> Hébergement</strong>
               2559 Rafferty Creek Ln, Las Vegas, NV 89156
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1828,12 +943,8 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">casino</span> Vegas</span
-              >
-              <span class="badge"
-                ><span class="material-icons">shopping_bag</span> Shopping</span
-              >
+              <span class="badge"><span class="material-icons">casino</span> Vegas</span>
+              <span class="badge"><span class="material-icons">shopping_bag</span> Shopping</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
@@ -1859,15 +970,9 @@
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">home</span> Hébergement</strong
-              >
+              <strong><span class="material-icons">home</span> Hébergement</strong>
               2559 Rafferty Creek Ln, Las Vegas, NV 89156
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156"
-                target="_blank"
-                class="location-link"
-              >
+              <a href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156" target="_blank" class="location-link">
                 <span class="material-icons">map</span> GPS
               </a>
             </div>
@@ -1888,9 +993,7 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">flight</span> Transit</span
-              >
+              <span class="badge"><span class="material-icons">flight</span> Transit</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
@@ -1908,15 +1011,11 @@
               </div>
               <div class="checkbox-item">
                 <input type="checkbox" id="d14-3" onchange="saveProgress()" />
-                <label for="d14-3"
-                  >Vol Salt Lake City → Paris CDG (14h05)</label
-                >
+                <label for="d14-3">Vol Salt Lake City → Paris CDG (14h05)</label>
               </div>
             </div>
             <div class="accommodation">
-              <strong
-                ><span class="material-icons">flight</span> En transit</strong
-              >
+              <strong><span class="material-icons">flight</span> En transit</strong>
             </div>
           </div>
         </div>
@@ -1935,9 +1034,7 @@
         <div class="day-content">
           <div class="day-content-inner">
             <div class="badges">
-              <span class="badge"
-                ><span class="material-icons">home</span> Retour</span
-              >
+              <span class="badge"><span class="material-icons">home</span> Retour</span>
             </div>
             <div class="location">
               <span class="material-icons">place</span>
