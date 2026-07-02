@@ -1,1191 +1,551 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>USA Trip 2026</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-:root { --bg-color: #e0e5ec; --text-dark: #2d3748; --text-light: #718096; --shadow-light: #ffffff; --shadow-dark: #a3b1c6; --accent: #667eea; --success: #48bb78; }
-body { font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg-color); color: var(--text-dark); min-height: 100vh; padding: 40px 20px; padding-bottom: 120px; line-height: 1.6; }
-.container { max-width: 1000px; margin: 0 auto; }
-.header { background: var(--bg-color); border-radius: 30px; padding: 60px 40px; margin-bottom: 40px; text-align: center; box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); transition: all 0.3s ease; }
-.header:hover { box-shadow: 16px 16px 32px var(--shadow-dark), -16px -16px 32px var(--shadow-light); }
-.header h1 { font-size: 3.5em; font-weight: 800; color: var(--text-dark); margin-bottom: 15px; letter-spacing: -2px; text-shadow: 2px 2px 4px var(--shadow-dark), -2px -2px 4px var(--shadow-light); }
-.header .dates { font-size: 1.1em; color: var(--text-light); font-weight: 600; letter-spacing: 1px; }
-.countdown { background: var(--bg-color); border-radius: 30px; padding: 50px; margin-bottom: 40px; text-align: center; box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); }
-.countdown h3 { color: var(--text-light); margin-bottom: 20px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; }
-.countdown .days-wrapper { display: inline-block; padding: 30px 60px; border-radius: 25px; box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light); }
-.countdown .days { font-size: 5em; font-weight: 900; background: linear-gradient(135deg, var(--accent), #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.progress-section { background: var(--bg-color); border-radius: 30px; padding: 40px; margin-bottom: 40px; box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); }
-.progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-.progress-header h3 { font-size: 0.85em; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--text-light); }
-.progress-percentage { font-size: 2em; font-weight: 900; background: linear-gradient(135deg, var(--accent), #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.progress-bar { height: 20px; background: var(--bg-color); border-radius: 15px; overflow: hidden; box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); }
-.progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #764ba2); border-radius: 15px; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 2px 2px 4px rgba(102, 126, 234, 0.3); }
-.summary { background: var(--bg-color); border-radius: 30px; padding: 40px; margin-bottom: 40px; box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); }
-.summary h3 { margin-bottom: 30px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--text-light); }
-.summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
-.summary-item { background: var(--bg-color); padding: 35px 20px; border-radius: 25px; text-align: center; transition: all 0.3s ease; cursor: pointer; box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light); }
-.summary-item:hover { box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); transform: translateY(-3px); }
-.summary-item:active { box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); transform: translateY(0); }
-.summary-item .material-icons { font-size: 48px; color: var(--text-dark); margin-bottom: 15px; display: block; }
-.summary-item .value { font-size: 2em; font-weight: 900; margin-bottom: 10px; color: var(--text-dark); }
-.summary-item .label { font-size: 0.75em; color: var(--text-light); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
-.day-card { background: var(--bg-color); border-radius: 25px; margin-bottom: 25px; overflow: hidden; transition: all 0.3s ease; box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light); }
-.day-card:hover { box-shadow: 14px 14px 28px var(--shadow-dark), -14px -14px 28px var(--shadow-light); }
-.day-header { padding: 35px 40px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease; }
-.day-info .day-number { display: inline-block; background: var(--bg-color); padding: 8px 18px; border-radius: 12px; font-size: 0.7em; font-weight: 900; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light); }
-.day-header h2 { font-size: 1.6em; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; letter-spacing: -0.5px; }
-.day-header .date { font-size: 0.9em; color: var(--text-light); font-weight: 500; }
-.toggle-icon { font-size: 24px; color: var(--text-dark); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--bg-color); transition: all 0.3s ease; box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light); }
-.toggle-icon:hover { box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light); }
-.day-card.open .toggle-icon { transform: rotate(180deg); box-shadow: inset -4px -4px 8px var(--shadow-dark), inset 4px 4px 8px var(--shadow-light); color: var(--accent); }
-.day-card.open .toggle-icon:hover { box-shadow: inset -5px -5px 10px var(--shadow-dark), inset 5px 5px 10px var(--shadow-light); }
-.day-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-.day-card.open .day-content { max-height: 3000px; }
-.day-content-inner { padding: 0 40px 40px 40px; }
-.badges { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 25px; margin-top: 10px; }
-.badge { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 15px; font-size: 0.75em; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; background: var(--bg-color); color: var(--text-dark); box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light); transition: all 0.2s ease; }
-.badge .material-icons { font-size: 16px; color: var(--text-dark); line-height: 1; }
-.badge:hover { box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light); }
-.location { background: var(--bg-color); padding: 20px 25px; border-radius: 15px; margin-bottom: 30px; font-weight: 600; color: var(--text-dark); box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
-.location .material-icons { font-size: 24px; color: var(--text-dark); }
-.location-link { color: var(--accent); text-decoration: none; margin-left: 10px; font-size: 0.9em; display: inline-flex; align-items: center; gap: 5px; transition: all 0.2s ease; }
-.location-link:hover { text-decoration: underline; }
-.location-link .material-icons { font-size: 18px; }
-.activity-section { margin-bottom: 30px; }
-.activity-section h4 { font-size: 1em; margin-bottom: 20px; padding: 18px 25px; background: var(--bg-color); color: var(--text-dark); font-weight: 800; border-radius: 15px; box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light); }
-.checkbox-item { display: flex; align-items: flex-start; gap: 15px; padding: 18px 20px; margin-bottom: 12px; transition: all 0.2s ease; background: var(--bg-color); border-radius: 15px; box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light); }
-.checkbox-item:hover { box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light); transform: translateX(3px); }
-.checkbox-item.checked { box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light); opacity: 0.6; }
-.checkbox-item.checked label { text-decoration: line-through; color: var(--text-light); }
-input[type="checkbox"] { width: 24px; height: 24px; cursor: pointer; flex-shrink: 0; margin-top: 2px; appearance: none; background: var(--bg-color); border-radius: 8px; position: relative; transition: all 0.2s ease; box-shadow: inset 2px 2px 4px var(--shadow-dark), inset -2px -2px 4px var(--shadow-light); }
-input[type="checkbox"]:hover { box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light); }
-input[type="checkbox"]:checked { background: linear-gradient(135deg, var(--success), #38a169); box-shadow: 2px 2px 4px var(--shadow-dark), -2px -2px 4px var(--shadow-light); }
-input[type="checkbox"]:checked::after { content: "✓"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 14px; font-weight: 900; }
-.checkbox-item label { cursor: pointer; flex: 1; line-height: 1.6; color: var(--text-dark); font-weight: 500; }
-.accommodation { background: var(--bg-color); padding: 25px; margin-top: 30px; border-radius: 15px; font-size: 0.9em; color: var(--text-dark); box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); }
-.accommodation strong { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; color: var(--accent); font-weight: 900; font-size: 1.05em; text-transform: uppercase; letter-spacing: 1px; }
-.accommodation .material-icons { font-size: 24px; }
-.info-box { background: var(--bg-color); border-radius: 30px; padding: 40px; margin-bottom: 40px; box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); }
-.info-box h3 { margin-bottom: 30px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--text-light); }
-.info-item { padding: 20px 25px; margin-bottom: 15px; font-size: 0.95em; color: var(--text-dark); background: var(--bg-color); border-radius: 15px; box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.info-item .material-icons { color: var(--accent); font-size: 24px; }
-.info-item strong { color: var(--accent); font-weight: 900; margin-right: 10px; }
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-color); display: flex; justify-content: center; gap: 20px; padding: 25px; z-index: 1000; box-shadow: 0 -8px 16px var(--shadow-dark), 0 8px 16px var(--shadow-light); }
-.nav-btn { background: var(--bg-color); color: var(--text-dark); border: none; font-size: 1em; cursor: pointer; padding: 15px 30px; transition: all 0.2s ease; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; min-width: 120px; justify-content: center; border-radius: 15px; box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light); }
-.nav-btn:hover { box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light); }
-.nav-btn:active { box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); }
-.nav-btn.primary { color: var(--accent); font-weight: 900; }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-.header, .countdown, .summary, .progress-section, .day-card, .info-box { animation: fadeInUp 0.6s ease-out backwards; }
-.header { animation-delay: 0.1s; }
-.countdown { animation-delay: 0.15s; }
-.progress-section { animation-delay: 0.2s; }
-.summary { animation-delay: 0.25s; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journée Piste — Nogaro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#101116;
+    --surface:#1a1c23;
+    --surface-2:#20232c;
+    --line:#2c2f3a;
+    --orange:#ff6a1a;
+    --yellow:#ffcc00;
+    --text:#ece9e1;
+    --muted:#8a8d99;
+    --ok:#3ee08a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 15% 0%, rgba(255,106,26,0.08), transparent 40%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    padding-bottom:80px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .hazard{
+    height:10px;
+    background:repeating-linear-gradient(135deg, var(--yellow) 0 14px, #171717 14px 28px);
+  }
+  header.hero{
+    position:relative;
+    padding:44px 24px 30px;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  header.hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 40px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.28em;
+    color:var(--orange);
+    text-transform:uppercase;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:"●"; font-size:9px; color:var(--yellow);}
+  h1{
+    font-family:'Teko', sans-serif;
+    font-weight:700;
+    font-size:clamp(48px, 11vw, 92px);
+    line-height:0.92;
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    margin-top:6px;
+  }
+  h1 span{color:var(--orange);}
+  .date-badge{
+    margin-top:14px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    color:var(--text);
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    padding:8px 14px;
+    border-radius:2px;
+  }
+  .date-badge b{color:var(--yellow); font-weight:700;}
 
-@media (max-width: 768px) {
-body { padding: 15px 10px; padding-bottom: 100px; font-size: 14px; }
-.header { padding: 30px 20px; border-radius: 20px; margin-bottom: 25px; }
-.header h1 { font-size: 2em; letter-spacing: -1px; }
-.header .dates { font-size: 0.9em; }
-.countdown { padding: 30px 20px; margin-bottom: 25px; border-radius: 20px; }
-.countdown h3 { font-size: 0.7em; margin-bottom: 15px; }
-.countdown .days-wrapper { padding: 20px 40px; }
-.countdown .days { font-size: 3.5em; }
-.progress-section, .summary, .info-box { padding: 25px 20px; margin-bottom: 25px; border-radius: 20px; }
-.progress-header h3, .summary h3, .info-box h3 { font-size: 0.75em; margin-bottom: 20px; }
-.progress-percentage { font-size: 1.5em; }
-.summary-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.summary-item { padding: 25px 15px; border-radius: 15px; }
-.summary-item .material-icons { font-size: 36px; margin-bottom: 10px; }
-.summary-item .value { font-size: 1.5em; margin-bottom: 8px; }
-.summary-item .label { font-size: 0.7em; }
-.day-card { margin-bottom: 20px; border-radius: 20px; }
-.day-header { padding: 20px 15px; }
-.day-info .day-number { font-size: 0.65em; padding: 6px 14px; margin-bottom: 10px; }
-.day-header h2 { font-size: 1.2em; margin-bottom: 6px; }
-.day-header .date { font-size: 0.85em; }
-.toggle-icon { width: 40px; height: 40px; font-size: 20px; }
-.day-content-inner { padding: 0 15px 20px 15px; }
-.badges { gap: 8px; margin-bottom: 20px; }
-.badge { padding: 8px 14px; font-size: 0.65em; border-radius: 12px; }
-.badge .material-icons { font-size: 14px; }
-.location { padding: 15px 18px; font-size: 0.9em; margin-bottom: 20px; border-radius: 12px; }
-.location .material-icons { font-size: 20px; }
-.location-link { font-size: 0.85em; margin-left: 8px; }
-.location-link .material-icons { font-size: 16px; }
-.activity-section { margin-bottom: 25px; }
-.activity-section h4 { font-size: 0.9em; padding: 14px 18px; margin-bottom: 15px; border-radius: 12px; }
-.checkbox-item { padding: 14px 15px; margin-bottom: 10px; border-radius: 12px; gap: 12px; }
-.checkbox-item label { font-size: 0.95em; line-height: 1.5; }
-input[type="checkbox"] { width: 20px; height: 20px; }
-input[type="checkbox"]:checked::after { font-size: 12px; }
-.accommodation { padding: 18px; margin-top: 20px; font-size: 0.85em; border-radius: 12px; }
-.accommodation strong { font-size: 0.95em; margin-bottom: 8px; }
-.accommodation .material-icons { font-size: 20px; }
-.info-item { padding: 15px 18px; margin-bottom: 12px; font-size: 0.85em; border-radius: 12px; }
-.info-item .material-icons { font-size: 20px; }
-.nav-btn { padding: 12px 16px; font-size: 0.75em; min-width: 70px; border-radius: 12px; }
-.bottom-nav { padding: 12px 10px; gap: 8px; }
-}
+  .gauge-wrap{
+    margin-top:26px;
+    max-width:520px;
+  }
+  .gauge-label{
+    display:flex; justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:0.12em;
+    color:var(--muted); text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .gauge-label b{color:var(--text); font-weight:700;}
+  .gauge{
+    height:8px;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .gauge-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg, var(--orange), var(--yellow));
+    transition:width .35s ease;
+  }
 
-@media (max-width: 480px) {
-body { font-size: 13px; }
-.header h1 { font-size: 1.8em; }
-.header .dates { font-size: 0.85em; }
-.countdown .days { font-size: 3em; }
-.summary-grid { grid-template-columns: repeat(2, 1fr); }
-.summary-item .value { font-size: 1.3em; }
-.day-header h2 { font-size: 1.1em; }
-.nav-btn { padding: 10px 12px; min-width: 60px; font-size: 0.7em; }
-}
-    </style>
+  main{max-width:1080px; margin:0 auto; padding:0 24px;}
+
+  section{margin-top:52px;}
+  .section-head{
+    display:flex; align-items:baseline; gap:14px;
+    margin-bottom:20px;
+  }
+  .section-num{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--orange); font-size:14px; font-weight:700;
+  }
+  h2{
+    font-family:'Teko', sans-serif;
+    font-weight:600;
+    font-size:34px;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    color:var(--text);
+  }
+  .section-line{flex:1; height:1px; background:var(--line);}
+
+  /* Planning */
+  .planning-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  @media(max-width:720px){ .planning-grid{grid-template-columns:1fr;} }
+  .day-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:3px;
+    overflow:hidden;
+  }
+  .day-card .day-title{
+    font-family:'Teko', sans-serif;
+    font-size:24px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    padding:14px 18px;
+    background:var(--surface-2);
+    border-bottom:1px solid var(--line);
+    color:var(--yellow);
+  }
+  .timeline{padding:18px 18px 20px;}
+  .tl-item{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:14px;
+    padding:10px 0;
+    border-left:2px solid var(--line);
+    padding-left:16px;
+    margin-left:6px;
+    position:relative;
+  }
+  .tl-item::before{
+    content:"";
+    position:absolute; left:-6px; top:16px;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--orange);
+    box-shadow:0 0 0 3px var(--surface);
+  }
+  .tl-time{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; font-weight:700;
+    color:var(--orange);
+  }
+  .tl-body p{font-size:14.5px; line-height:1.4;}
+  .tl-body ul{margin-top:6px; padding-left:16px;}
+  .tl-body li{font-size:13px; color:var(--muted); line-height:1.6;}
+
+  /* Checklists */
+  .lists-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:20px;
+  }
+  @media(max-width:780px){ .lists-grid{grid-template-columns:1fr;} }
+  .list-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:3px;
+    display:flex;
+    flex-direction:column;
+  }
+  .list-card .hazard{height:6px;}
+  .list-head{
+    padding:16px 18px 10px;
+    display:flex; justify-content:space-between; align-items:flex-end;
+  }
+  .list-title{
+    font-family:'Teko', sans-serif;
+    font-size:26px;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+  }
+  .list-score{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--muted);
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    padding:3px 8px;
+    border-radius:2px;
+  }
+  .list-score.done{color:var(--ok); border-color:var(--ok);}
+  .list-body{padding:6px 10px 14px;}
+
+  label.item{
+    display:flex; align-items:flex-start; gap:11px;
+    padding:8px 8px;
+    border-radius:2px;
+    cursor:pointer;
+    user-select:none;
+    transition:background .15s ease;
+  }
+  label.item:hover{background:var(--surface-2);}
+  label.item input{
+    appearance:none; -webkit-appearance:none;
+    width:19px; height:19px; min-width:19px;
+    margin-top:1px;
+    border:2px solid var(--line);
+    background:var(--surface-2);
+    border-radius:2px;
+    position:relative;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  label.item input:hover{border-color:var(--orange);}
+  label.item input:checked{
+    background:var(--orange);
+    border-color:var(--orange);
+  }
+  label.item input:checked::after{
+    content:"✓";
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; font-weight:700; color:#101116;
+  }
+  label.item span{
+    font-size:14.5px;
+    line-height:1.4;
+    padding-top:1px;
+    transition:color .15s ease;
+  }
+  label.item input:checked ~ span{
+    color:var(--muted);
+    text-decoration:line-through;
+    text-decoration-color:var(--orange);
+  }
+
+  footer{
+    max-width:1080px; margin:60px auto 0; padding:20px 24px 10px;
+    display:flex; justify-content:space-between; align-items:center;
+    border-top:1px solid var(--line);
+  }
+  footer p{font-size:12px; color:var(--muted); font-family:'JetBrains Mono',monospace;}
+  .reset-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.05em;
+    color:var(--muted);
+    background:transparent;
+    border:1px solid var(--line);
+    padding:8px 14px;
+    border-radius:2px;
+    cursor:pointer;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .reset-btn:hover{border-color:var(--orange); color:var(--orange);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-      <div class="header">
-        <h1>USA TRIP 2026</h1>
-        <div class="dates">17 — 31 Janvier • 15 Jours</div>
-      </div>
 
-      <div class="countdown">
-        <h3>Départ dans</h3>
-        <div class="days-wrapper">
-          <div class="days" id="countdown">--</div>
-        </div>
-      </div>
+<header class="hero">
+  <div class="eyebrow">Trackday · Circuit de Nogaro</div>
+  <h1>Journée <span>Piste</span><br>Nogaro</h1>
+  <div class="date-badge">📅 Date&nbsp;: <b>Samedi 4 juillet</b></div>
 
-      <div class="progress-section">
-        <div class="progress-header">
-          <h3>Progression</h3>
-          <span class="progress-percentage" id="progressPercent">0%</span>
-        </div>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-        </div>
-      </div>
+  <div class="gauge-wrap">
+    <div class="gauge-label"><span>Préparation générale</span><b id="global-pct">0%</b></div>
+    <div class="gauge"><div class="gauge-fill" id="global-fill"></div></div>
+  </div>
+</header>
 
-      <div class="summary">
-        <h3>Résumé du voyage</h3>
-        <div class="summary-grid">
-          <div class="summary-item">
-            <span class="material-icons">event</span>
-            <div class="value">15</div>
-            <div class="label">Jours</div>
-          </div>
-          <div class="summary-item">
-            <span class="material-icons">location_city</span>
-            <div class="value">4</div>
-            <div class="label">Villes</div>
-          </div>
-          <div class="summary-item">
-            <span class="material-icons">directions_car</span>
-            <div class="value">RAM</div>
-            <div class="label">Véhicule</div>
-          </div>
-          <div class="summary-item">
-            <span class="material-icons">home</span>
-            <div class="value">3</div>
-            <div class="label">Airbnb</div>
-          </div>
-        </div>
-      </div>
+<div class="hazard"></div>
 
-      <!-- Jour 1 -->
+<main>
+
+  <section>
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>Planning</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="planning-grid">
       <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 1</span>
-            <h2>Départ & Arrivée</h2>
-            <div class="date">Samedi 17 Janvier</div>
+        <div class="day-title">Vendredi</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-time">13:00</div>
+            <div class="tl-body">
+              <p>Récupération du camion (Turo)</p>
+              <ul><li>3 lotissement l'enclos, Lapeyrouse-Fossat, FR 31180</li></ul>
+            </div>
           </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">flight</span> Transit</span>
+          <div class="tl-item">
+            <div class="tl-time">14:00</div>
+            <div class="tl-body">
+              <p>Passage chez Alex (coiffeur) pour récupérer la tonnelle</p>
+              <ul><li>Vernet</li></ul>
             </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Paris CDG → Los Angeles LAX
-            </div>
-            <div class="activity-section">
-              <h4>Arrivée à Los Angeles</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d1-1" onchange="saveProgress()" />
-                <label for="d1-1">Vol départ 10h20 Paris CDG</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d1-2" onchange="saveProgress()" />
-                <label for="d1-2">Récupération du RAM 2500 (Dollar Car Rental LAX Airport)
-                  <a href="https://www.google.com/maps/search/?api=1&query=Dollar+Car+Rental+Los+Angeles+Airport" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d1-3" onchange="saveProgress()" />
-                <label for="d1-3">Check-in Airbnb El Monte
-                  <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d1-4" onchange="saveProgress()" />
-                <label for="d1-4">Repos et adaptation au décalage horaire</label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">home</span> Hébergement</strong>
-              11726 Roseglen Street, El Monte, CA 91732
-              <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
+          </div>
+          <div class="tl-item">
+            <div class="tl-time">14:30</div>
+            <div class="tl-body"><p>Chargement du camion à Labarthe-sur-Lèze</p></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-time">16:00</div>
+            <div class="tl-body"><p>Départ de Labarthe-sur-Lèze direction Nogaro</p></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-time">18:00</div>
+            <div class="tl-body">
+              <p>Arrivée à Nogaro</p>
+              <ul>
+                <li>Installation du campement</li>
+                <li>Préparation du matériel pour la journée piste du lendemain</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Jour 2 -->
       <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 2</span>
-            <h2>LA Beaches & Lakers Game</h2>
-            <div class="date">Dimanche 18 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">beach_access</span> Plage</span>
-              <span class="badge"><span class="material-icons">sports_basketball</span> NBA</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Los Angeles
-            </div>
-            <div class="activity-section">
-              <h4>Santa Monica & Venice Beach</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d2-1" onchange="saveProgress()" />
-                <label for="d2-1">Santa Monica Pier & Beach
-                  <a href="https://www.google.com/maps/search/?api=1&query=Santa+Monica+Pier" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d2-2" onchange="saveProgress()" />
-                <label for="d2-2">Venice Beach & Boardwalk
-                  <a href="https://www.google.com/maps/search/?api=1&query=Venice+Beach+Boardwalk" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-            </div>
-            <div class="activity-section">
-              <h4>Hollywood</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d2-3" onchange="saveProgress()" />
-                <label for="d2-3">Hollywood Boulevard & Walk of Fame
-                  <a href="https://www.google.com/maps/search/?api=1&query=Hollywood+Walk+of+Fame" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d2-4" onchange="saveProgress()" />
-                <label for="d2-4">Downtown LA exploration</label>
-              </div>
-            </div>
-            <div class="activity-section">
-              <h4>Match NBA - Lakers</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d2-5" onchange="saveProgress()" />
-                <label for="d2-5">Match NBA Crypto.com Arena, Los Angeles, 18h30
-                  <a href="https://www.google.com/maps/search/?api=1&query=Crypto.com+Arena+Los+Angeles" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">home</span> Hébergement</strong>
-              11726 Roseglen Street, El Monte, CA 91732
-              <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
+        <div class="day-title">Dimanche</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-time">12:30</div>
+            <div class="tl-body">
+              <p>Retour du camion (Turo)</p>
+              <ul><li>3 lotissement l'enclos, Lapeyrouse-Fossat, FR 31180</li></ul>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- Jour 3 -->
-      <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 3</span>
-            <h2>Moto & San Bernardino</h2>
-            <div class="date">Lundi 19 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">two_wheeler</span> Moto</span>
-              <span class="badge"><span class="material-icons">directions_car</span> Road Trip</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              San Bernardino
-            </div>
-            <div class="activity-section">
-              <h4>Journée Moto</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d3-1" onchange="saveProgress()" />
-                <label for="d3-1">Pro Circuit (CA 92882)
-                  <a href="https://www.google.com/maps/search/?api=1&query=Pro+Circuit+Corona+CA+92882" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d3-2" onchange="saveProgress()" />
-                <label for="d3-2">Chaparral (boutique moto)
-                  <a href="https://www.google.com/maps/search/?api=1&query=Chaparral+Motorsports+San+Bernardino" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d3-3" onchange="saveProgress()" />
-                <label for="d3-3">Glen Helen Raceway
-                  <a href="https://www.google.com/maps/search/?api=1&query=Glen+Helen+Raceway" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d3-4" onchange="saveProgress()" />
-                <label for="d3-4">San Bernardino Mountains</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d3-5" onchange="saveProgress()" />
-                <label for="d3-5">Retour Los Angeles soirée</label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">home</span> Hébergement</strong>
-              11726 Roseglen Street, El Monte, CA 91732
-              <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jour 4 -->
-      <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 4</span>
-            <h2>Sequoia National Park</h2>
-            <div class="date">Mardi 20 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">park</span> Nature</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Sequoia National Park
-              <a href="https://www.google.com/maps/search/?api=1&query=Sequoia+National+Park" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-            <div class="activity-section">
-              <h4>Giant Forest</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d4-1" onchange="saveProgress()" />
-                <label for="d4-1">General Sherman Tree (plus grand arbre du monde)
-                  <a href="https://www.google.com/maps/search/?api=1&query=General+Sherman+Tree+Sequoia" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d4-2" onchange="saveProgress()" />
-                <label for="d4-2">Tunnel Log
-                  <a href="https://www.google.com/maps/search/?api=1&query=Tunnel+Log+Sequoia" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d4-3" onchange="saveProgress()" />
-                <label for="d4-3">Crescent Meadow
-                  <a href="https://www.google.com/maps/search/?api=1&query=Crescent+Meadow+Sequoia" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d4-4" onchange="saveProgress()" />
-                <label for="d4-4">Moro Rock (vue panoramique)
-                  <a href="https://www.google.com/maps/search/?api=1&query=Moro+Rock+Sequoia" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">home</span> Hébergement</strong>
-              11726 Roseglen Street, El Monte, CA 91732
-              <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jour 5 -->
-      <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 5</span>
-            <h2>Runyon & Beverly Hills</h2>
-            <div class="date">Mercredi 21 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">hiking</span> Randonnée</span>
-              <span class="badge"><span class="material-icons">star</span> Beverly Hills</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Los Angeles
-            </div>
-            <div class="activity-section">
-              <h4>Runyon Canyon</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d5-1" onchange="saveProgress()" />
-                <label for="d5-1">Randonnée avec vue sur Hollywood Sign
-                  <a href="https://www.google.com/maps/search/?api=1&query=Runyon+Canyon+Park" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-            </div>
-            <div class="activity-section">
-              <h4>Beverly Hills & Culture</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d5-2" onchange="saveProgress()" />
-                <label for="d5-2">Déjeuner à Beverly Hills</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d5-3" onchange="saveProgress()" />
-                <label for="d5-3">Visite de LACMA ou balade à Rodeo Drive
-                  <a href="https://www.google.com/maps/search/?api=1&query=Rodeo+Drive+Beverly+Hills" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d5-4" onchange="saveProgress()" />
-                <label for="d5-4">Griffith Observatory pour le coucher du soleil
-                  <a href="https://www.google.com/maps/search/?api=1&query=Griffith+Observatory" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">home</span> Hébergement</strong>
-              11726 Roseglen Street, El Monte, CA 91732
-              <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jour 6 -->
-      <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 6</span>
-            <h2>Musées & Culture</h2>
-            <div class="date">Jeudi 22 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">museum</span> Musées</span>
-              <span class="badge"><span class="material-icons">apartment</span> Culture</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Los Angeles
-            </div>
-            <div class="activity-section">
-              <h4>Petersen Automotive Museum</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d6-1" onchange="saveProgress()" />
-                <label for="d6-1">Visite du musée automobile
-                  <a href="https://www.google.com/maps/search/?api=1&query=Petersen+Automotive+Museum" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-            </div>
-            <div class="activity-section">
-              <h4>Rosenheim Mansion & Koreatown</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d6-2" onchange="saveProgress()" />
-                <label for="d6-2">Rosenheim Mansion (American Horror Story)
-                  <a href="https://www.google.com/maps/search/?api=1&query=Rosenheim+Mansion+Los+Angeles" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d6-3" onchange="saveProgress()" />
-                <label for="d6-3">Exploration de Koreatown</label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">home</span> Hébergement</strong>
-              11726 Roseglen Street, El Monte, CA 91732
-              <a href="https://www.google.com/maps/search/?api=1&query=11726+Roseglen+Street+El+Monte+CA+91732" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jour 7 -->
-      <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 7</span>
-            <h2>Direction Anaheim</h2>
-            <div class="date">Vendredi 23 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">directions_car</span> Trajet</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Anaheim / Orange
-            </div>
-            <div class="activity-section">
-              <h4>Installation Anaheim</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d7-1" onchange="saveProgress()" />
-                <label for="d7-1">Départ vers Anaheim</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d7-2" onchange="saveProgress()" />
-                <label for="d7-2">Repérage Angel Stadium
-                  <a href="https://www.google.com/maps/search/?api=1&query=Angel+Stadium+Anaheim" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d7-3" onchange="saveProgress()" />
-                <label for="d7-3">Check-in nouvel Airbnb Orange
-                  <a href="https://www.google.com/maps/search/?api=1&query=250+N+Batavia+St+Orange+CA+92868" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d7-4" onchange="saveProgress()" />
-                <label for="d7-4">Préparation pour le Supercross</label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">home</span> Hébergement</strong>
-              250 N Batavia St, Orange, CA 92868
-              <a href="https://www.google.com/maps/search/?api=1&query=250+N+Batavia+St+Orange+CA+92868" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jour 8 -->
-      <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 8</span>
-            <h2>SUPERCROSS ANAHEIM 2</h2>
-            <div class="date">Samedi 24 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">emoji_events</span> Événement Majeur</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Angel Stadium, Anaheim
-              <a href="https://www.google.com/maps/search/?api=1&query=Angel+Stadium+Anaheim" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-            <div class="activity-section">
-              <h4>SUPERCROSS AMA ANAHEIM 2</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d8-1" onchange="saveProgress()" />
-                <label for="d8-1">Journée complète à l'événement</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d8-2" onchange="saveProgress()" />
-                <label for="d8-2">Qualifications</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d8-3" onchange="saveProgress()" />
-                <label for="d8-3">Courses principales</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d8-4" onchange="saveProgress()" />
-                <label for="d8-4">Soirée post-course</label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">home</span> Hébergement</strong>
-              250 N Batavia St, Orange, CA 92868
-              <a href="https://www.google.com/maps/search/?api=1&query=250+N+Batavia+St+Orange+CA+92868" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jour 9 -->
-      <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 9</span>
-            <h2>Glamis Dunes</h2>
-            <div class="date">Dimanche 25 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">landscape</span> Désert</span>
-              <span class="badge"><span class="material-icons">directions_car</span> Road Trip</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Perris & Glamis Dunes
-            </div>
-            <div class="activity-section">
-              <h4>Désert et Dunes</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d9-1" onchange="saveProgress()" />
-                <label for="d9-1">Perris Raceway
-                  <a href="https://www.google.com/maps/search/?api=1&query=Perris+Raceway" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d9-2" onchange="saveProgress()" />
-                <label for="d9-2">Glamis Dunes (dunes de sable)
-                  <a href="https://www.google.com/maps/search/?api=1&query=Glamis+Dunes+California" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d9-3" onchange="saveProgress()" />
-                <label for="d9-3">Exploration du désert</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d9-4" onchange="saveProgress()" />
-                <label for="d9-4">Check-in motel dans le désert</label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">hotel</span> Hébergement</strong>
-              Motel 6-Blythe, CA - South
-              <a href="https://www.google.com/maps/search/?api=1&query=Motel+6+Blythe+CA+South" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jour 10 -->
-      <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 10</span>
-            <h2>Route vers Vegas</h2>
-            <div class="date">Lundi 26 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">directions_car</span> Trajet</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Las Vegas
-            </div>
-            <div class="activity-section">
-              <h4>Arrivée à Las Vegas</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d10-1" onchange="saveProgress()" />
-                <label for="d10-1">Route du désert vers Las Vegas</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d10-2" onchange="saveProgress()" />
-                <label for="d10-2">Check-in Airbnb Las Vegas
-                  <a href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d10-3" onchange="saveProgress()" />
-                <label for="d10-3">Première soirée sur le Strip
-                  <a href="https://www.google.com/maps/search/?api=1&query=Las+Vegas+Strip" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">home</span> Hébergement</strong>
-              2559 Rafferty Creek Ln, Las Vegas, NV 89156
-              <a href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jour 11 -->
-      <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 11</span>
-            <h2>Vegas Strip & Sphere</h2>
-            <div class="date">Mardi 27 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">casino</span> Vegas</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Las Vegas Strip
-              <a href="https://www.google.com/maps/search/?api=1&query=Las+Vegas+Strip" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-            <div class="activity-section">
-              <h4>Pawn Shop & Attractions</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d11-1" onchange="saveProgress()" />
-                <label for="d11-1">Gold & Silver Pawn Shop (Pawn Stars)
-                  <a href="https://www.google.com/maps/search/?api=1&query=Gold+Silver+Pawn+Shop+Las+Vegas" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d11-2" onchange="saveProgress()" />
-                <label for="d11-2">Exploration du Strip</label>
-              </div>
-            </div>
-            <div class="activity-section">
-              <h4>Sphere Experience</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d11-3" onchange="saveProgress()" />
-                <label for="d11-3">Expérience immersive au Sphere
-                  <a href="https://www.google.com/maps/search/?api=1&query=Sphere+Las+Vegas" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d11-4" onchange="saveProgress()" />
-                <label for="d11-4">Neon Museum (cimetière de néons)
-                  <a href="https://www.google.com/maps/search/?api=1&query=Neon+Museum+Las+Vegas" target="_blank" class="location-link">
-                    <span class="material-icons">map</span> GPS
-                  </a>
-                </label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">home</span> Hébergement</strong>
-              2559 Rafferty Creek Ln, Las Vegas, NV 89156
-              <a href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jour 12 -->
-      <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 12</span>
-            <h2>Grand Canyon</h2>
-            <div class="date">Mercredi 28 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">terrain</span> Nature</span>
-              <span class="badge"><span class="material-icons">directions_car</span> Road Trip</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Grand Canyon
-              <a href="https://www.google.com/maps/search/?api=1&query=Grand+Canyon+South+Rim" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-            <div class="activity-section">
-              <h4>Excursion Grand Canyon</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d12-1" onchange="saveProgress()" />
-                <label for="d12-1">Départ tôt le matin</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d12-2" onchange="saveProgress()" />
-                <label for="d12-2">South Rim ou West Rim</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d12-3" onchange="saveProgress()" />
-                <label for="d12-3">Points de vue panoramiques</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d12-4" onchange="saveProgress()" />
-                <label for="d12-4">Photos et randonnée</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d12-5" onchange="saveProgress()" />
-                <label for="d12-5">Retour Las Vegas en soirée</label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">home</span> Hébergement</strong>
-              2559 Rafferty Creek Ln, Las Vegas, NV 89156
-              <a href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jour 13 -->
-      <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 13</span>
-            <h2>Détente Vegas</h2>
-            <div class="date">Jeudi 29 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">casino</span> Vegas</span>
-              <span class="badge"><span class="material-icons">shopping_bag</span> Shopping</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Las Vegas
-            </div>
-            <div class="activity-section">
-              <h4>Journée Libre</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d13-2" onchange="saveProgress()" />
-                <label for="d13-2">Shopping</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d13-3" onchange="saveProgress()" />
-                <label for="d13-3">Casinos et restaurants</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d13-4" onchange="saveProgress()" />
-                <label for="d13-4">Dernière soirée à Las Vegas</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d13-5" onchange="saveProgress()" />
-                <label for="d13-5">Préparation des bagages</label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">home</span> Hébergement</strong>
-              2559 Rafferty Creek Ln, Las Vegas, NV 89156
-              <a href="https://www.google.com/maps/search/?api=1&query=2559+Rafferty+Creek+Ln+Las+Vegas+NV+89156" target="_blank" class="location-link">
-                <span class="material-icons">map</span> GPS
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jour 14 -->
-      <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 14</span>
-            <h2>Retour France</h2>
-            <div class="date">Vendredi 30 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">flight</span> Transit</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Las Vegas → Salt Lake City → Paris
-            </div>
-            <div class="activity-section">
-              <h4>Départ USA</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d14-1" onchange="saveProgress()" />
-                <label for="d14-1">Restitution du RAM 2500</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d14-2" onchange="saveProgress()" />
-                <label for="d14-2">Vol LAS → Salt Lake City (10h21)</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d14-3" onchange="saveProgress()" />
-                <label for="d14-3">Vol Salt Lake City → Paris CDG (14h05)</label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">flight</span> En transit</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jour 15 -->
-      <div class="day-card">
-        <div class="day-header" onclick="toggleDay(this)">
-          <div class="day-info">
-            <span class="day-number">Jour 15</span>
-            <h2>Arrivée Paris</h2>
-            <div class="date">Samedi 31 Janvier</div>
-          </div>
-          <span class="material-icons toggle-icon">expand_more</span>
-        </div>
-        <div class="day-content">
-          <div class="day-content-inner">
-            <div class="badges">
-              <span class="badge"><span class="material-icons">home</span> Retour</span>
-            </div>
-            <div class="location">
-              <span class="material-icons">place</span>
-              Paris, France
-            </div>
-            <div class="activity-section">
-              <h4>Retour à la Maison</h4>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d15-1" onchange="saveProgress()" />
-                <label for="d15-1">Arrivée Paris CDG matin</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d15-2" onchange="saveProgress()" />
-                <label for="d15-2">Récupération du décalage horaire</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="d15-3" onchange="saveProgress()" />
-                <label for="d15-3">Retour à la maison</label>
-              </div>
-            </div>
-            <div class="accommodation">
-              <strong><span class="material-icons">home</span> Domicile</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="info-box">
-        <h3>Infos importantes</h3>
-        <div class="info-item">
-          <span class="material-icons">directions_car</span>
-          <strong>Véhicule:</strong> RAM 2500 (Dollar Car Rental LAX)
-        </div>
-        <div class="info-item">
-          <span class="material-icons">flight</span>
-          <strong>Vols:</strong> Paris ↔ Los Angeles/Las Vegas
-        </div>
-        <div class="info-item">
-          <span class="material-icons">home</span>
-          <strong>Hébergements:</strong> 3 Airbnb + 1 Motel
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="bottom-nav">
-      <button class="nav-btn primary" onclick="scrollToTop()">↑ Haut</button>
-      <button class="nav-btn" onclick="expandAll()">+ Ouvrir</button>
-      <button class="nav-btn" onclick="collapseAll()">− Fermer</button>
-      <button class="nav-btn primary" onclick="scrollToBottom()">↓ Bas</button>
+  <section>
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>Listes de matériel</h2>
+      <div class="section-line"></div>
     </div>
 
-    <script>
-      function updateCountdown() {
-        const tripDate = new Date("2026-01-17T10:20:00");
-        const now = new Date();
-        const diff = tripDate - now;
-        const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    <div class="lists-grid" id="lists-grid">
 
-        const countdownEl = document.getElementById("countdown");
-        if (days > 0) {
-          countdownEl.innerHTML =
-            days +
-            '<span style="font-size: 0.4em; display: block; margin-top: 10px; font-weight: 600;">JOURS</span>';
-        } else if (days === 0) {
-          countdownEl.innerHTML =
-            "AUJOURD'HUI<span style=\"font-size: 0.4em; display: block; margin-top: 10px; font-weight: 600;\">C'EST PARTI !</span>";
-        } else {
-          countdownEl.innerHTML =
-            '0<span style="font-size: 0.4em; display: block; margin-top: 10px; font-weight: 600;">TERMINÉ</span>';
-        }
-      }
-      updateCountdown();
-      setInterval(updateCountdown, 3600000);
+      <div class="list-card" data-group="fred">
+        <div class="hazard"></div>
+        <div class="list-head">
+          <span class="list-title">Fred</span>
+          <span class="list-score" data-score>0/0</span>
+        </div>
+        <div class="list-body" data-items>
+          <!-- items injected -->
+        </div>
+      </div>
 
-      function toggleDay(header) {
-        const card = header.parentElement;
-        card.classList.toggle("open");
-      }
+      <div class="list-card" data-group="tp">
+        <div class="hazard"></div>
+        <div class="list-head">
+          <span class="list-title">Timothée &amp; Pierre</span>
+          <span class="list-score" data-score>0/0</span>
+        </div>
+        <div class="list-body" data-items></div>
+      </div>
 
-      function expandAll() {
-        document
-          .querySelectorAll(".day-card")
-          .forEach((card) => card.classList.add("open"));
-      }
+      <div class="list-card" data-group="achat">
+        <div class="hazard"></div>
+        <div class="list-head">
+          <span class="list-title">À récupérer / acheter</span>
+          <span class="list-score" data-score>0/0</span>
+        </div>
+        <div class="list-body" data-items></div>
+      </div>
 
-      function collapseAll() {
-        document
-          .querySelectorAll(".day-card")
-          .forEach((card) => card.classList.remove("open"));
-      }
+      <div class="list-card" data-group="commun">
+        <div class="hazard"></div>
+        <div class="list-head">
+          <span class="list-title">Matériel commun</span>
+          <span class="list-score" data-score>0/0</span>
+        </div>
+        <div class="list-body" data-items></div>
+      </div>
 
-      function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+      <div class="list-card" data-group="courses">
+        <div class="hazard"></div>
+        <div class="list-head">
+          <span class="list-title">Courses à acheter</span>
+          <span class="list-score" data-score>0/0</span>
+        </div>
+        <div class="list-body" data-items></div>
+      </div>
 
-      function scrollToBottom() {
-        window.scrollTo({
-          top: document.body.scrollHeight,
-          behavior: "smooth",
-        });
-      }
+      <div class="list-card" data-group="moto" style="grid-column: 1 / -1;">
+        <div class="hazard"></div>
+        <div class="list-head">
+          <span class="list-title">Préparation des motos</span>
+          <span class="list-score" data-score>0/0</span>
+        </div>
+        <div class="list-body" data-items style="columns:2 220px; column-gap:8px;"></div>
+      </div>
 
-      function updateProgress() {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const total = checkboxes.length;
-        const checked = document.querySelectorAll(
-          'input[type="checkbox"]:checked'
-        ).length;
-        const percentage = Math.round((checked / total) * 100);
+    </div>
+  </section>
 
-        document.getElementById("progressFill").style.width = percentage + "%";
-        document.getElementById("progressPercent").textContent =
-          percentage + "%";
-      }
+</main>
 
-      function saveProgress() {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const progress = {};
-        checkboxes.forEach((cb) => {
-          progress[cb.id] = cb.checked;
-          const item = cb.closest(".checkbox-item");
-          if (cb.checked) {
-            item.classList.add("checked");
-          } else {
-            item.classList.remove("checked");
-          }
-        });
-        localStorage.setItem("tripProgress", JSON.stringify(progress));
-        updateProgress();
-      }
+<footer>
+  <p>Tes coches sont enregistrées automatiquement dans ce navigateur (cookie).</p>
+  <button class="reset-btn" id="reset-btn">Réinitialiser toutes les cases</button>
+</footer>
 
-      function loadProgress() {
-        const saved = localStorage.getItem("tripProgress");
-        if (saved) {
-          const progress = JSON.parse(saved);
-          Object.keys(progress).forEach((id) => {
-            const checkbox = document.getElementById(id);
-            if (checkbox) {
-              checkbox.checked = progress[id];
-              const item = checkbox.closest(".checkbox-item");
-              if (progress[id]) {
-                item.classList.add("checked");
-              }
-            }
-          });
-        }
-        updateProgress();
-      }
+<script>
+const DATA = {
+  fred: [
+    "Glacière","Rallonge électrique","Outils tension de chaîne + gros embout roue arrière",
+    "Sangle moto","Colsons","Chaise pliante","Matelas"
+  ],
+  tp: [
+    "Glacière","Produits moto","Boîte à outils","3 packs d'eau","Poudre d'hydratation",
+    "Barres céréales / protéinées","Lève-béquille","Produit visière","Repas vendredi soir",
+    "Multiprise","Toile","Cagoule","Ventilateur","Batterie implant","Chargeur batterie moto",
+    "Combinaisons","Sous-combinaisons","2 casques chacun","Levier de frein de secours",
+    "Chiffons nettoyage moto"
+  ],
+  achat: [
+    "Matelas camping (Action)","Bidons essence 20 L + 10 L (Carter-Cash/Action)",
+    "Camion (Turo)","Tonnelle (Alex)"
+  ],
+  commun: [
+    "Chargeurs téléphone","Casquettes","Lunettes de soleil","Lingettes","Serviettes"
+  ],
+  courses: [
+    "Bières 6 (pêcheresse)","Gâteau apéro","3 packs d'eau","Pâtes colorées","Mini mozzarella",
+    "Jambon cru","Vinaigrette","Gâteau","Jus d'orange","Pain de mie","Pâté"
+  ],
+  moto: [
+    "Retirer les rétroviseurs","Retirer les embouts de guidon","Retirer les clignotants",
+    "Retirer la plaque d'immatriculation","Retirer le Quad Lock","Contrôler la tension de chaîne (Fred)",
+    "Nettoyer et graisser la chaîne","Faire le niveau de liquide de refroidissement (Motul Rouge – 2 L)",
+    "Nettoyer le filtre à air (XJ6)","Scotcher tous les phares","Retirer les ampoules des phares",
+    "Retirer cale-pied arrière","Hornet 2,10 AV / 1,85 AR à froid","XJ6 2,15 AV / 1,90 AR à froid"
+  ]
+};
 
-      loadProgress();
-      document.querySelector(".day-card").classList.add("open");
-    </script>
-  </body>
+const COOKIE_NAME = "nogaro_checklist_2026";
+
+function setCookie(name, value, days){
+  const d = new Date();
+  d.setTime(d.getTime() + days*24*60*60*1000);
+  document.cookie = `${name}=${encodeURIComponent(value)};expires=${d.toUTCString()};path=/;SameSite=Lax`;
+}
+function getCookie(name){
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? decodeURIComponent(match[2]) : null;
+}
+function loadChecked(){
+  try{
+    const raw = getCookie(COOKIE_NAME);
+    return raw ? new Set(JSON.parse(raw)) : new Set();
+  }catch(e){ return new Set(); }
+}
+function saveChecked(set){
+  setCookie(COOKIE_NAME, JSON.stringify([...set]), 180);
+}
+
+let checked = loadChecked();
+
+function buildLists(){
+  Object.entries(DATA).forEach(([group, items]) => {
+    const card = document.querySelector(`.list-card[data-group="${group}"] [data-items]`);
+    items.forEach((label, i) => {
+      const id = `${group}-${i}`;
+      const wrap = document.createElement('label');
+      wrap.className = 'item';
+      wrap.innerHTML = `<input type="checkbox" data-id="${id}"><span>${label}</span>`;
+      card.appendChild(wrap);
+    });
+  });
+}
+
+function applyState(){
+  document.querySelectorAll('input[type="checkbox"][data-id]').forEach(cb => {
+    cb.checked = checked.has(cb.dataset.id);
+  });
+  updateScores();
+}
+
+function updateScores(){
+  let totalAll = 0, checkedAll = 0;
+  document.querySelectorAll('.list-card').forEach(card => {
+    const boxes = card.querySelectorAll('input[type="checkbox"]');
+    const total = boxes.length;
+    const done = [...boxes].filter(b => b.checked).length;
+    totalAll += total; checkedAll += done;
+    const scoreEl = card.querySelector('[data-score]');
+    scoreEl.textContent = `${done}/${total}`;
+    scoreEl.classList.toggle('done', total > 0 && done === total);
+  });
+  const pct = totalAll ? Math.round((checkedAll/totalAll)*100) : 0;
+  document.getElementById('global-fill').style.width = pct + '%';
+  document.getElementById('global-pct').textContent = pct + '%';
+}
+
+document.addEventListener('change', e => {
+  if(e.target.matches('input[type="checkbox"][data-id]')){
+    const id = e.target.dataset.id;
+    if(e.target.checked) checked.add(id); else checked.delete(id);
+    saveChecked(checked);
+    updateScores();
+  }
+});
+
+document.getElementById('reset-btn').addEventListener('click', () => {
+  if(!confirm('Décocher toutes les cases ?')) return;
+  checked = new Set();
+  saveChecked(checked);
+  applyState();
+});
+
+buildLists();
+applyState();
+</script>
+
+</body>
 </html>
