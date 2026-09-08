@@ -15,7 +15,6 @@ concurrency:
 
 jobs:
   deploy:
-    # ➔ CORRECTION DE L'ERREUR STATUS 400 : Définir l'environnement GitHub Pages
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -28,16 +27,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build Next.js app
-        run: |
-          cd apps/web
-          npm run build
-
+        run: npm run build --workspace=apps/web
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
