@@ -1,0 +1,181 @@
+{
+  "version": "2026-09-07-draft1",
+  "lastReviewedAt": "2026-09-07",
+  "generalNote": "Configuration construite à partir de recherches web sur des sources secondaires (2026). Les décrets de référence identifiés sont le décret n° 2024-304 du 2 avril 2024 (plafonds) et le décret n° 2025-299 du 29 mars 2025 (quotités/tranches), ainsi qu'un arrêté du 23 juin 2026 pour le zonage. AVANT toute mise en production réelle, chaque valeur marquée verified:false doit être confirmée sur service-public.fr, Légifrance ou aupès de l'ANIL.",
+  "sources": [
+    {
+      "label": "Service-Public.fr — PTZ",
+      "url": "https://www.service-public.fr/particuliers/vosdroits/F10871",
+      "note": "Référence officielle généraliste sur le PTZ, à consulter pour confirmer chaque paramètre."
+    },
+    {
+      "label": "Légifrance — Code de la construction et de l'habitation, art. D31-10-1 et suivants",
+      "url": "https://www.legifrance.gouv.fr/codes/id/LEGISCTA000031087398/",
+      "note": "Base légale des plafonds, quotités et conditions du PTZ."
+    },
+    {
+      "label": "ANIL",
+      "url": "https://www.anil.org/",
+      "note": "Association Nationale pour l'Information sur le Logement — utile pour vérifier zone et conditions locales."
+    }
+  ],
+  "primoAccedant": {
+    "requisPourEligibilite": true,
+    "dureeSansEtrePropietaireMois": 24,
+    "verified": false
+  },
+  "logementNeuf": {
+    "definition": "Logement en VEFA ou achevé depuis moins de 5 ans et jamais habité.",
+    "zonesEligibles": ["A_BIS", "A", "B1", "B2", "C"],
+    "verified": false
+  },
+  "logementAncienAvecTravaux": {
+    "zonesEligibles": ["B2", "C"],
+    "zoneCVerified": false,
+    "zoneCNote": "Sources contradictoires : certaines indiquent la zone C exclue depuis 2020, d'autres l'incluent toujours en 2026 pour l'ancien avec travaux. À vérifier avant tout calcul engageant.",
+    "ratioTravauxMinimumPercent": 25,
+    "ratioTravauxNote": "Une source isolée mentionne une restriction aux seules zones ANRU plutôt qu'à B2/C en général. Traité comme non confirmé.",
+    "dpeMinimumApresTravaux": "D",
+    "delaiResidencePrincipaleMois": 12,
+    "verified": false
+  },
+  "revenusPrisEnCompte": {
+    "type": "RFR",
+    "anneeReference": "N-2",
+    "note": "Pour un achat en 2026, on utilise le RFR de l'année 2024 (avis d'imposition 2025). Ne jamais utiliser uniquement le salaire net mensuel pour ce calcul.",
+    "verified": true
+  },
+  "zones": {
+    "A_BIS": {
+      "label": "Zone A bis",
+      "plafondsRessourcesParPersonnes": {
+        "1": 49000,
+        "2": 73500,
+        "3": 88200,
+        "4": 102900,
+        "5": 117600,
+        "6": 132300,
+        "7": 147000,
+        "8_et_plus": 161700
+      },
+      "plafondsOperationParPersonnes": {
+        "1": 150000,
+        "2": 225000,
+        "3": 270000,
+        "4": 315000,
+        "5_et_plus": 360000
+      },
+      "verified": false
+    },
+    "A": {
+      "label": "Zone A",
+      "plafondsRessourcesParPersonnes": {
+        "1": 49000,
+        "2": 73500,
+        "3": 88200,
+        "4": 102900,
+        "5": 117600,
+        "6": 132300,
+        "7": 147000,
+        "8_et_plus": 161700
+      },
+      "plafondsOperationParPersonnes": {
+        "1": 150000,
+        "2": 225000,
+        "3": 270000,
+        "4": 315000,
+        "5_et_plus": 360000
+      },
+      "verified": false
+    },
+    "B1": {
+      "label": "Zone B1",
+      "plafondsRessourcesParPersonnes": {
+        "1": 34500,
+        "2": 51750,
+        "3": 59800,
+        "4": 62150,
+        "5": 71400,
+        "6": 80650,
+        "7": 89900,
+        "8_et_plus": 99150
+      },
+      "plafondsOperationParPersonnes": {
+        "1": 135000,
+        "2": 202500,
+        "3": 243000,
+        "4": 283500,
+        "5_et_plus": 324000
+      },
+      "verified": false
+    },
+    "B2": {
+      "label": "Zone B2",
+      "plafondsRessourcesParPersonnes": {
+        "1": 31500,
+        "2": 47250,
+        "3": 54600,
+        "4": 56800,
+        "5": 65200,
+        "6": 73600,
+        "7": 82100,
+        "8_et_plus": 90500
+      },
+      "plafondsOperationParPersonnes": {
+        "1": 110000,
+        "2": 165000,
+        "3": 198000,
+        "4": 231000,
+        "5_et_plus": 264000
+      },
+      "verified": false
+    },
+    "C": {
+      "label": "Zone C",
+      "plafondsRessourcesParPersonnes": {
+        "1": 28500,
+        "2": 42700,
+        "3": 49000,
+        "4": 51400,
+        "5": 59000,
+        "6": 66600,
+        "7": 74300,
+        "8_et_plus": 81900
+      },
+      "plafondsOperationParPersonnes": {
+        "1": 100000,
+        "2": 150000,
+        "3": 180000,
+        "4": 210000,
+        "5_et_plus": 240000
+      },
+      "verified": false
+    }
+  },
+  "tranchesQuotite": {
+    "note": "La tranche est déterminée par le rapport RFR / (plafond de ressources de la zone x coefficient familial). Quotités données pour maison individuelle ancienne avec travaux — à ajuster si vous distinguez appartement/maison neuve.",
+    "coefficientFamilial": {
+      "1": 1.0,
+      "2": 1.4,
+      "3": 1.7,
+      "4": 2.0,
+      "5": 2.3,
+      "6": 2.6,
+      "7": 2.9,
+      "8_et_plus": 3.3
+    },
+    "tranches": [
+      { "id": "T1", "ratioMax": 0.9, "quotitePercent": 40, "differeMaxAnnees": 15 },
+      { "id": "T2", "ratioMax": 1.0, "quotitePercent": 40, "differeMaxAnnees": 10 },
+      { "id": "T3", "ratioMax": 1.1, "quotitePercent": 20, "differeMaxAnnees": 5 },
+      { "id": "T4", "ratioMax": 1.0e9, "quotitePercent": 20, "differeMaxAnnees": 0 }
+    ],
+    "verified": false
+  },
+  "dureeRemboursementParTrancheAnnees": {
+    "T1": 25,
+    "T2": 25,
+    "T3": 20,
+    "T4": 10
+  }
+}
