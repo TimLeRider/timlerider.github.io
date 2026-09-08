@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Déco d'intérieur — Assassin's Creed IV: Black Flag Resynced</title>
+<style>
+  :root{
+    --bg:#0e1a1f;
+    --bg2:#132531;
+    --card:#16303b;
+    --card2:#1c3a47;
+    --accent:#d4af37;
+    --accent2:#7fc8a9;
+    --text:#e8e6d9;
+    --muted:#9db3ab;
+    --danger:#c0554a;
+    --border:#274752;
+    --done:#2e6b4f;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Georgia','Segoe UI',serif;
+    background:
+      radial-gradient(circle at 20% 10%, #1a3540 0%, transparent 40%),
+      radial-gradient(circle at 80% 90%, #1a3540 0%, transparent 40%),
+      var(--bg);
+    color:var(--text);
+    padding-bottom:60px;
+  }
+  header{
+    background:linear-gradient(180deg, #0a161b, #132531);
+    padding:22px 16px 18px;
+    border-bottom:3px solid var(--accent);
+    position:sticky;
+    top:0;
+    z-index:50;
+    box-shadow:0 4px 14px rgba(0,0,0,.4);
+  }
+  h1{
+    margin:0 0 4px;
+    font-size:1.5rem;
+    color:var(--accent);
+    text-align:center;
+    letter-spacing:.5px;
+    text-shadow:0 2px 4px rgba(0,0,0,.5);
+  }
+  .subtitle{
+    text-align:center;
+    color:var(--muted);
+    font-size:.85rem;
+    margin-bottom:14px;
+    font-style:italic;
+  }
+  .global-stats{
+    max-width:900px;
+    margin:0 auto;
+  }
+  .progress-bar-outer{
+    background:#0a161b;
+    border:1px solid var(--border);
+    border-radius:10px;
+    height:22px;
+    overflow:hidden;
+    margin-bottom:8px;
+  }
+  .progress-bar-inner{
+    height:100%;
+    background:linear-gradient(90deg, #b8860b, var(--accent), #f0d878);
+    transition:width .3s ease;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    padding-right:6px;
+    font-size:.7rem;
+    color:#0a161b;
+    font-weight:bold;
+  }
+  .stats-row{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:6px;
+    font-size:.8rem;
+    color:var(--muted);
+  }
+  .stats-row b{color:var(--accent2);}
+
+  .controls{
+    max-width:900px;
+    margin:16px auto 0;
+    padding:0 16px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    align-items:center;
+  }
+  input[type="text"]{
+    flex:1 1 220px;
+    padding:9px 12px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    font-size:.9rem;
+  }
+  select{
+    padding:9px 10px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    font-size:.85rem;
+  }
+  button{
+    cursor:pointer;
+    border:1px solid var(--border);
+    background:var(--card2);
+    color:var(--text);
+    padding:9px 14px;
+    border-radius:8px;
+    font-size:.82rem;
+    transition:.15s;
+  }
+  button:hover{background:#22475a;border-color:var(--accent);}
+  #resetBtn{border-color:var(--danger);color:#f2b3ab;}
+  #resetBtn:hover{background:var(--danger);color:#fff;}
+  .toolbar2{
+    max-width:900px;
+    margin:8px auto 0;
+    padding:0 16px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+
+  main{max-width:900px;margin:20px auto;padding:0 16px;}
+
+  .category{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    margin-bottom:16px;
+    overflow:hidden;
+    box-shadow:0 3px 10px rgba(0,0,0,.25);
+  }
+  .category-header{
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+    background:linear-gradient(90deg, var(--card2), var(--card));
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .category-header:hover{background:#1f4351;}
+  .category-title{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:1.05rem;
+    font-weight:bold;
+    color:var(--accent2);
+  }
+  .category-count{
+    font-size:.85rem;
+    color:var(--muted);
+    font-weight:normal;
+    margin-left:6px;
+  }
+  .category-note{
+    font-size:.72rem;
+    color:var(--muted);
+    padding:0 16px 10px;
+    font-style:italic;
+  }
+  .mini-progress{
+    background:#0a161b;
+    border-radius:6px;
+    height:8px;
+    width:120px;
+    overflow:hidden;
+    border:1px solid var(--border);
+  }
+  .mini-progress-inner{
+    height:100%;
+    background:var(--accent2);
+  }
+  .chevron{transition:transform .2s;color:var(--muted);}
+  .category.collapsed .chevron{transform:rotate(-90deg);}
+  .category.collapsed .items{display:none;}
+  .category.collapsed .category-note{display:none;}
+
+  .items{padding:6px 10px 12px;}
+  .item{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:10px 8px;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    transition:.15s;
+  }
+  .item:last-child{border-bottom:none;}
+  .item.done{opacity:.55;}
+  .item:hover{background:rgba(255,255,255,.03);border-radius:8px;}
+  .item input[type="checkbox"]{
+    width:20px;height:20px;
+    margin-top:2px;
+    flex-shrink:0;
+    accent-color:var(--accent2);
+    cursor:pointer;
+  }
+  .item-name{
+    font-weight:bold;
+    color:var(--text);
+    font-size:.95rem;
+  }
+  .item.done .item-name{text-decoration:line-through;color:var(--muted);}
+  .item-meta{
+    font-size:.78rem;
+    color:var(--muted);
+    margin-top:2px;
+    line-height:1.4;
+  }
+  .item-meta .tag{
+    display:inline-block;
+    background:rgba(212,175,55,.12);
+    border:1px solid rgba(212,175,55,.35);
+    color:var(--accent);
+    padding:1px 6px;
+    border-radius:5px;
+    font-size:.68rem;
+    margin-right:5px;
+    margin-top:3px;
+  }
+  .item.hidden-item{display:none;}
+  .empty-msg{
+    text-align:center;
+    color:var(--muted);
+    font-style:italic;
+    padding:16px;
+    font-size:.85rem;
+  }
+
+  .warning-box{
+    max-width:900px;
+    margin:14px auto 0;
+    padding:12px 16px;
+    background:rgba(192,85,74,.12);
+    border:1px solid var(--danger);
+    border-radius:10px;
+    font-size:.8rem;
+    color:#f2c9c3;
+    line-height:1.5;
+  }
+  .warning-box b{color:#f2b3ab;}
+
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:.72rem;
+    margin-top:30px;
+    padding:0 16px;
+    line-height:1.6;
+  }
+
+  @media (max-width:600px){
+    h1{font-size:1.2rem;}
+    .stats-row{font-size:.72rem;}
+    .category-title{font-size:.95rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏴‍☠️ Déco d'intérieur — Assassin's Creed IV: Black Flag Resynced</h1>
+  <div class="subtitle">Checklist locale — manoir de Great Inagua — trophée « Dilettante »</div>
+  <div class="global-stats">
+    <div class="progress-bar-outer">
+      <div class="progress-bar-inner" id="globalBar" style="width:0%">0%</div>
+    </div>
+    <div class="stats-row">
+      <span>Objets récupérés : <b id="globalCount">0 / 0</b></span>
+      <span>Restants : <b id="globalRemaining">0</b></span>
+      <span>Progression : <b id="globalPercent">0%</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <input type="text" id="searchInput" placeholder="🔍 Rechercher un objet par nom...">
+  <select id="categoryFilter">
+    <option value="all">Toutes les catégories</option>
+    <option value="portraits">🖼️ Portraits</option>
+    <option value="peintures">🎨 Peintures</option>
+    <option value="art">🏺 Œuvres d'art</option>
+    <option value="epees">⚔️ Épées</option>
+    <option value="pistolets">🔫 Pistolets</option>
+    <option value="maquettes">🚢 Maquettes</option>
+  </select>
+  <select id="statusFilter">
+    <option value="all">Tous</option>
+    <option value="obtained">Obtenus</option>
+    <option value="missing">Manquants</option>
+  </select>
+</div>
+<div class="toolbar2">
+  <button id="hideDoneBtn">👁️ Masquer les objets obtenus</button>
+  <button id="expandAllBtn">⬇️ Tout développer</button>
+  <button id="collapseAllBtn">⬆️ Tout réduire</button>
+  <button id="resetBtn">🗑️ Réinitialiser la checklist</button>
+</div>
+
+<div class="warning-box">
+  <b>ℹ️ Note importante :</b> Cette checklist contient les 111 objets réels du défi (11 portraits, 9 peintures, 41 œuvres d'art, 12 pistolets, 20 maquettes = 93 objets à emplacement fixe, connu et vérifié). Pour les <b>épées</b>, le jeu propose 20 épées obtenables sans contenu payant (12 en boutique, 6 dans le monde, 2 via l'histoire) alors que seulement 18 sont nécessaires pour remplir le manoir — cochez librement celles que vous obtenez, peu importe lesquelles. Certaines œuvres d'art (19 sur 41) proviennent de récompenses <b>aléatoires</b> de la Flotte de Kenway (missions de piraterie en Brick) : leur ordre d'obtention n'est pas garanti, seule la mission source est indiquée à titre indicatif. Aucune donnée n'a été inventée : tout ce qui est incertain ou aléatoire est signalé comme tel.
+</div>
+
+<main id="mainContainer"></main>
+
+<footer>
+  Checklist générée pour usage local hors-ligne — sauvegarde automatique via localStorage de votre navigateur.<br>
+  Sources : guides de complétion officiels du jeu (Codex en jeu, Portraits / Peintures / Œuvres d'art / Épées / Pistolets / Maquettes).
+</footer>
+
+<script>
+// ============================================================
+// DONNÉES — 111 objets du défi "Déco d'intérieur"
+// ============================================================
+const CATEGORIES = {
+  portraits: {label:"🖼️ Portraits", icon:"🖼️", note:"Les 11 portraits nécessitent une progression de l'histoire. 3 proviennent de quêtes secondaires spécifiques (Le Trésor de Barbe Noire, Capitaine Stede Bonnet, Un Monde Sans Or)."},
+  peintures: {label:"🎨 Peintures", icon:"🎨", note:"9 peintures proviennent du pillage des 9 entrepôts (une par entrepôt). Il existe 3 peintures supplémentaires achetables (non nécessaires au trophée), non listées ici."},
+  art: {label:"🏺 Œuvres d'art", icon:"🏺", note:"41 objets au total : 16 trouvés dans le monde (coffres, cartes au trésor, événements locaux), 6 achetés en magasin général, 19 obtenus aléatoirement via les missions de piraterie en Brick de la Flotte de Kenway (mission source indiquée à titre indicatif, l'ordre réel d'obtention est aléatoire)."},
+  epees: {label:"⚔️ Épées", icon:"⚔️", note:"20 épées non-DLC listées (12 achetables, 6 trouvées dans le monde, 2 récompenses d'histoire). Seules 18 sont nécessaires pour remplir le manoir : choisissez librement lesquelles obtenir. Des épées DLC/payantes existent en plus mais ne sont pas nécessaires et ne sont pas listées."},
+  pistolets: {label:"🔫 Pistolets", icon:"🔫", note:"12 pistolets non-DLC nécessaires et suffisants (6 achetables, 4 trouvés dans le monde, 2 récompenses d'histoire/quête). Des pistolets DLC existent en plus mais ne sont pas nécessaires."},
+  maquettes: {label:"🚢 Maquettes", icon:"🚢", note:"20 maquettes : 5 automatiques (histoire), 10 en battant chaque type de navire (espagnol/anglais x5 classes), 4 en battant les navires légendaires, 1 via la trame de quêtes « Un Monde Sans Or »."}
+};
+
+const ITEMS = [
+// ---------------- PORTRAITS (11) ----------------
+{id:"p1", cat:"portraits", name:"Julien Du Casse", loc:"Gibara > Great Inagua — à l'intérieur du manoir, dans la salle des vitrines d'armes", coords:"827, 443", method:"Trouvé dans le monde (nécessite progression de l'histoire)", init:true},
+{id:"p2", cat:"portraits", name:"Laureano de Torres", loc:"Dry Tortuga > Havane — dans le château au nord-est de Havane, tour nord-ouest (grimper par la fenêtre)", coords:"224, 595", method:"Trouvé dans le monde", init:true},
+{id:"p3", cat:"portraits", name:"El Tiburón", loc:"Dry Tortuga > Havane — château au nord de Havane, grimper par l'échafaudage extérieur puis la fenêtre", coords:"204, 608", method:"Trouvé dans le monde", init:true},
+{id:"p4", cat:"portraits", name:"Commodore Chamberlaine", loc:"Eleuthera > Nassau — manoir à l'ouest de Nassau, étage supérieur (fenêtre)", coords:"589, 757", method:"Trouvé dans le monde", init:true},
+{id:"p5", cat:"portraits", name:"Woodes Rogers", loc:"Navassa > Kingston — manoir au centre de Kingston", coords:"618, 171", method:"Trouvé dans le monde (n'apparaît qu'après Séquence 12 – Mission 01)", init:true},
+{id:"p6", cat:"portraits", name:"Laurens Prins", loc:"Navassa > Kingston — manoir de plantation à l'ouest de Kingston", coords:"594, 174", method:"Trouvé dans le monde (accessible après Séquence 05 – Mission 03)", init:true},
+{id:"p7", cat:"portraits", name:"Ben Hornigold", loc:"Chinchorro > Santanillas — sur une épave au nord-est de l'île", coords:"191, 223", method:"Trouvé dans le monde", init:true},
+{id:"p8", cat:"portraits", name:"Bartholomew Roberts", loc:"Princípe — sous une tente au nord-est (région séparée, accessible via l'icône « P » sur la carte)", coords:"113, 20", method:"Trouvé dans le monde (accessible après Séquence 09, n'apparaît vraiment qu'en Séquence 12)", init:true},
+{id:"p9", cat:"portraits", name:"Barbe Noire (Blackbeard)", loc:"Anotto Bay — quête secondaire, entrée de grotte sous-marine près d'une cloche de plongée endommagée", coords:"590, 245", method:"Récompense de la quête secondaire « Le Trésor de Barbe Noire » (disponible après Séquence 08 – Mission 01)", init:true},
+{id:"p10", cat:"portraits", name:"Stede Bonnet", loc:"Great Inagua (départ de quête) puis Mystery Island (goélette échouée sur la plage)", coords:"827, 442 / 906, 123", method:"Récompense de la quête secondaire « Capitaine Stede Bonnet » (disponible après Séquence 08 – Mission 03)", init:true},
+{id:"p11", cat:"portraits", name:"Robert Maynard", loc:"Port Royal — sous le point de vue central, pendant la quête « Un Monde Sans Or »", coords:"602, 134", method:"Récompense de la trame de quêtes « Un Monde Sans Or » (8 quêtes, disponible après Séquence 11 – Mission 03)", init:true},
+
+// ---------------- PEINTURES (9) ----------------
+{id:"pe1", cat:"peintures", name:"Carte du Monde (Map of the World)", loc:"Entrepôt de Tortuga", coords:"—", method:"Récompense de pillage d'entrepôt (clé sur une caisse de bananes à l'ouest du centre de la plantation)", init:true},
+{id:"pe2", cat:"peintures", name:"Nature morte Vanité (Vanitas Still-life)", loc:"Entrepôt de Kingston Nord", coords:"—", method:"Récompense de pillage d'entrepôt (clé sur un ennemi qui patrouille au nord-est du manoir)", init:true},
+{id:"pe3", cat:"peintures", name:"Un navire anglais en action avec des vaisseaux barbaresques", loc:"Entrepôt de New Bone", coords:"—", method:"Récompense de pillage d'entrepôt (clé sur un ennemi près des stèles mayas, nord-ouest de l'île)", init:true},
+{id:"pe4", cat:"peintures", name:"Scène de port au coucher du soleil (Harbor Scene at Sunset)", loc:"Entrepôt de Nassau", coords:"—", method:"Récompense de pillage d'entrepôt (clé sur un ennemi au sud-ouest de la zone, près de la plage)", init:true},
+{id:"pe5", cat:"peintures", name:"Joyeuse Compagnie (Merry Company)", loc:"Entrepôt de Matanzas", coords:"—", method:"Récompense de pillage d'entrepôt (clé sur un corps près du bassin à crocodiles, sud-ouest de la plantation)", init:true},
+{id:"pe6", cat:"peintures", name:"Nymphes près d'une fontaine", loc:"Entrepôt de Kingston Sud", coords:"—", method:"Récompense de pillage d'entrepôt (clé sur un ennemi au nord de la grande grange)", init:true},
+{id:"pe7", cat:"peintures", name:"Saint Jérôme en cardinal", loc:"Entrepôt de Havane", coords:"—", method:"Récompense de pillage d'entrepôt (clé sur un ennemi au nord-ouest de la plantation)", init:true},
+{id:"pe8", cat:"peintures", name:"L'Incendie du Royal James", loc:"Entrepôt de Cat Island", coords:"—", method:"Obtenue automatiquement pendant la mission d'histoire Séquence 03 – Mission 05 « Sugarcane and Its Yields »", init:true},
+{id:"pe9", cat:"peintures", name:"La Fuite en Égypte", loc:"Entrepôt de Black Island", coords:"—", method:"Récompense de pillage d'entrepôt (clé sur un soldat près d'un feu de camp, chemin vers la plage sud-ouest — objet connu pour bugger occasionnellement)", init:true},
+
+// ---------------- ŒUVRES D'ART (41) ----------------
+{id:"a1", cat:"art", name:"Figurine à nez de chauve-souris", loc:"Magasin général (n'importe lequel)", coords:"—", method:"Achat — 500 Reales", init:false},
+{id:"a2", cat:"art", name:"Figurine de divinité", loc:"Nassau — événement local « Séance de marché noir »", coords:"599, 758", method:"Événement local", init:false},
+{id:"a3", cat:"art", name:"Figurine d'aigle", loc:"Magasin général (n'importe lequel)", coords:"—", method:"Achat — 1000 Reales", init:false},
+{id:"a4", cat:"art", name:"Bas-relief du Monstre de la Terre", loc:"Solution à Abaco Island, entre les palmiers près de la grande épave", coords:"586, 811", method:"Récompense de carte au trésor (carte trouvée à Andreas Island, 543, 693)", init:false},
+{id:"a5", cat:"art", name:"Buste Taïno", loc:"Magasin général (n'importe lequel)", coords:"—", method:"Achat — 1300 Reales", init:false},
+{id:"a6", cat:"art", name:"Buste d'une divinité aquatique", loc:"Corozal — coffre sous-marin", coords:"2, 241", method:"Coffre sous-marin", init:false},
+{id:"a7", cat:"art", name:"Jarre à scène rituelle", loc:"Magasin général (n'importe lequel)", coords:"—", method:"Achat — 1750 Reales", init:false},
+{id:"a8", cat:"art", name:"Divinité du Maïs", loc:"Solution à New Bone, petite île au nord", coords:"407, 94", method:"Récompense de carte au trésor (carte trouvée à Salt Lagoon, 723, 608)", init:false},
+{id:"a9", cat:"art", name:"Disque pectoral", loc:"Magasin général (n'importe lequel)", coords:"—", method:"Achat — 2100 Reales", init:false},
+{id:"a10", cat:"art", name:"Coupe piédestal", loc:"Cumberland Bay — coffre dans une tente, au centre de la baie", coords:"644, 352", method:"Coffre", init:false},
+{id:"a11", cat:"art", name:"Figure Zemi assise", loc:"Magasin général (n'importe lequel)", coords:"—", method:"Achat — 2400 Reales", init:false},
+{id:"a12", cat:"art", name:"Porte-étendard", loc:"Solution à Princípe, sous un palmier penché au-dessus de l'eau", coords:"113, 11", method:"Récompense de carte au trésor (carte trouvée à Port Royal, 605, 132)", init:false},
+{id:"a13", cat:"art", name:"Vase tripode à glyphe de date", loc:"Cayman Sound — coffre sous-marin à l'ouest", coords:"295, 308", method:"Coffre sous-marin", init:false},
+{id:"a14", cat:"art", name:"Triptyque", loc:"Kingston — coffre dans un gazebo, au centre de la ville", coords:"618, 173", method:"Coffre", init:false},
+{id:"a15", cat:"art", name:"Vase Vautour", loc:"New Bone — coffre à l'ouest de l'île, en haut d'un pilier au bout du chemin dans la jungle", coords:"399, 89", method:"Coffre", init:false},
+{id:"a16", cat:"art", name:"Guitare baroque", loc:"Solution à Jiguey, dans la grotte de pirates à droite de la plage sous les palmiers", coords:"534, 510", method:"Récompense de carte au trésor (carte trouvée à Île à Vache, 812, 114)", init:false},
+{id:"a17", cat:"art", name:"Peau de castor", loc:"Santanillas — événement local « Secret divin gardé »", coords:"182, 217", method:"Événement local (accessible en nageant ou en sautant depuis le temple maya)", init:false},
+{id:"a18", cat:"art", name:"Bracelet", loc:"Long Bay — coffre au sud-est, dans la partie haute d'une grotte avec ennemis mayas", coords:"507, 223", method:"Coffre (accessible après Séquence 10 – Mission 03)", init:false},
+{id:"a19", cat:"art", name:"Cabinet", loc:"Tulum — coffre au nord", coords:"37, 392", method:"Coffre (accessible après Séquence 04 – Mission 04)", init:false},
+{id:"a20", cat:"art", name:"Calice", loc:"Great Inagua — coffre au sud-est du manoir (le codex indique Havane par erreur)", coords:"830, 444", method:"Coffre", init:false},
+{id:"a21", cat:"art", name:"Horloge", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Ouest « Profitable War »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a22", cat:"art", name:"Commode", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Sud-Ouest « Treacherous Isles »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a23", cat:"art", name:"Flasque de campagne en cuivre turque", loc:"Nassau — événement local « Un moment de liberté »", coords:"593, 767", method:"Événement local", init:false},
+{id:"a24", cat:"art", name:"Tambour", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Ouest « Sneaky Traders »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a25", cat:"art", name:"Contenant en pierre de Goa", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Nord-Est « Big Mistake »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a26", cat:"art", name:"Tête d'un Oba", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Nord-Est « Trespassers »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a27", cat:"art", name:"Jarre à quatre visages", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Sud-Est « Welcome Chaos »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a28", cat:"art", name:"Fauteuil à coussin", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Nord-Ouest « Sail North »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a29", cat:"art", name:"Armoire Kast", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Sud-Est « Helping Hand »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a30", cat:"art", name:"Dos de miroir", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Sud-Est « Easy Profit »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a31", cat:"art", name:"Hautbois", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Ouest « Sneaky Traders »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a32", cat:"art", name:"Casque de parade à l'antique", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Sud-Ouest « Good Deeds »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a33", cat:"art", name:"Globe de Scherer 1700", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Nord-Ouest « Lively Havana »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a34", cat:"art", name:"Théière en argent britannique", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Sud-Ouest « Easy Prey »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a35", cat:"art", name:"Bol en argent à deux mains", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Ouest « Fair Share »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a36", cat:"art", name:"Trompette", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Nord-Est « A Pound of Gold »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a37", cat:"art", name:"Violoncelle", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Ouest « Fair Share »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a38", cat:"art", name:"Cloche de style Whydah Galley", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Sud-Est « Right in the Middle »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a39", cat:"art", name:"Statue en bois de Saint Adrien", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Ouest « Heavy Burden »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig", init:false},
+{id:"a40", cat:"art", name:"Statue en bois de Saint Livertin", loc:"Flotte de Kenway — mission indicative : Brig Piraterie, région Nord-Est « Easy Prey »", coords:"—", method:"Récompense aléatoire de mission de piraterie en Brig (peut nécessiter de nombreux essais)", init:false},
+{id:"a41", cat:"art", name:"Vase en forme de joug", loc:"Grand Cayman — coffre sur la colline à l'ouest (nécessite d'acheter 5 verres à la taverne pour s'évanouir près du coffre)", coords:"357, 298", method:"Coffre", init:false},
+
+// ---------------- ÉPÉES (20 non-DLC, 18 requises) ----------------
+{id:"e1", cat:"epees", name:"Épées de tenue françaises", loc:"N'importe quel magasin général", coords:"—", method:"Achat — 1200 Reales", init:false},
+{id:"e2", cat:"epees", name:"Cimeterres pirates", loc:"Magasin général de Great Inagua (niveau 2)", coords:"—", method:"Achat — 11000 Reales", init:false},
+{id:"e3", cat:"epees", name:"Rapières d'officier", loc:"Magasin général de Great Inagua (niveau 2)", coords:"—", method:"Achat — 8500 Reales", init:false},
+{id:"e4", cat:"epees", name:"Épées-pistolets standards", loc:"Magasin général de Great Inagua (niveau 2)", coords:"—", method:"Achat — 6500 Reales", init:false},
+{id:"e5", cat:"epees", name:"Coutelas coloniaux britanniques", loc:"Magasin général de Great Inagua (niveau 2)", coords:"—", method:"Achat — 6500 Reales", init:false},
+{id:"e6", cat:"epees", name:"Épées de cour françaises", loc:"Magasin général de Great Inagua (niveau 2)", coords:"—", method:"Achat — 6500 Reales", init:false},
+{id:"e7", cat:"epees", name:"Ordre d'Or", loc:"Magasin général de Great Inagua (niveau 3)", coords:"—", method:"Achat — 29000 Reales", init:false},
+{id:"e8", cat:"epees", name:"Lames de Tolède", loc:"Magasin général de Great Inagua (niveau 3)", coords:"—", method:"Achat — 24000 Reales", init:false},
+{id:"e9", cat:"epees", name:"Doubles Coutelas", loc:"Magasin général de Great Inagua (niveau 3)", coords:"—", method:"Achat — 19000 Reales", init:false},
+{id:"e10", cat:"epees", name:"Épées Dorées Jumelles", loc:"Marchand de trésors, quai de Great Inagua (après construction de la boutique)", coords:"—", method:"Achat/artisanat — 5000 Reales + 8 peau de cerf, 12 cuir de crocodile, 20 sucre", init:false},
+{id:"e11", cat:"epees", name:"Lames de Maître", loc:"Marchand de trésors, quai de Great Inagua (après construction de la boutique)", coords:"—", method:"Achat/artisanat — 5000 Reales + 6 peau de sanglier, 4 peau de lapin, 30 aloès", init:false},
+{id:"e12", cat:"epees", name:"Rapières de Ferraro", loc:"Magasin secret sur une île non marquée, nord-ouest de la région de Gibara", coords:"550, 638", method:"Achat — 16000 Reales", init:false},
+{id:"e13", cat:"epees", name:"Rapières à coquille espagnoles", loc:"Havane — coffre", coords:"205, 607", method:"Coffre", init:false},
+{id:"e14", cat:"epees", name:"Épées du capitaine Drake", loc:"Sacrifice Island — coffre", coords:"15, 550", method:"Coffre", init:false},
+{id:"e15", cat:"epees", name:"Espada Ancha", loc:"Épave sous-marine « The Black Trench »", coords:"—", method:"Coffre sous-marin dans une épave", init:false},
+{id:"e16", cat:"epees", name:"Épées écossaises à large lame", loc:"Récompense de carte au trésor (carte trouvée à Isla Providencia)", coords:"—", method:"Carte au trésor", init:false},
+{id:"e17", cat:"epees", name:"La Fortune", loc:"Récompense de la carte au trésor de Great Inagua, débloquée après avoir accroché les 11 portraits", coords:"—", method:"Carte au trésor / récompense de quête", init:false},
+{id:"e18", cat:"epees", name:"Cimeterres persans", loc:"Récompense du trésor « Restored Weathered Map »", coords:"—", method:"Carte au trésor restaurée", init:false},
+{id:"e19", cat:"epees", name:"Coutelas britanniques", loc:"—", coords:"—", method:"Récompense automatique de l'histoire (Séquence 02 – Mission 01)", init:false},
+{id:"e20", cat:"epees", name:"Épées courtes d'officier", loc:"Arme de départ", coords:"—", method:"Récompense automatique de l'histoire (Séquence 01)", init:false},
+
+// ---------------- PISTOLETS (12) ----------------
+{id:"pi1", cat:"pistolets", name:"Pistolets à silex courants", loc:"Arme de départ", coords:"—", method:"Récompense automatique de l'histoire", init:false},
+{id:"pi2", cat:"pistolets", name:"Pistolets à rouet standards", loc:"N'importe quel magasin général", coords:"—", method:"Achat — 800 Reales", init:false},
+{id:"pi3", cat:"pistolets", name:"Mousquetons pirates", loc:"Magasin général de Great Inagua (niveau 2)", coords:"—", method:"Achat — 6000 Reales", init:false},
+{id:"pi4", cat:"pistolets", name:"Pistolets d'officier espagnols", loc:"Magasin général de Great Inagua (niveau 2)", coords:"—", method:"Achat — 5500 Reales", init:false},
+{id:"pi5", cat:"pistolets", name:"Pistolets d'or de Baldwin", loc:"—", coords:"—", method:"Récompense de la 3ᵉ quête d'officier de Lucy Baldwin « Plantain! » (trame disponible après Séquence 04 – Mission 01)", init:false},
+{id:"pi6", cat:"pistolets", name:"Pistolets à rouet du capitaine", loc:"Great Inagua — coffre", coords:"823, 448", method:"Coffre", init:false},
+{id:"pi7", cat:"pistolets", name:"Pistolets à canon-fût", loc:"Jiguey — coffre sous-marin verrouillé (clé sur le chef pirate de la plage, dans la même grotte)", coords:"535, 511", method:"Coffre verrouillé", init:false},
+{id:"pi8", cat:"pistolets", name:"Pistolets du capitaine Morgan", loc:"Black Island — coffre sous-marin", coords:"917, 616", method:"Coffre sous-marin", init:false},
+{id:"pi9", cat:"pistolets", name:"Pistolets à silex dorés", loc:"Magasin général de Great Inagua (niveau 3)", coords:"—", method:"Achat — 18000 Reales", init:false},
+{id:"pi10", cat:"pistolets", name:"Pistolets à silex du capitaine Drake", loc:"Magasin secret sur une île non marquée, nord-ouest de la région de Gibara", coords:"550, 638", method:"Achat — 22000 Reales", init:false},
+{id:"pi11", cat:"pistolets", name:"Moyens Pacifiques", loc:"Marchand de trésors, quai de Great Inagua (après construction de la boutique)", coords:"—", method:"Achat/artisanat — 5000 Reales + 3 peau de singe capucin, 4 cuir d'iguane, 20 barils de rhum", init:false},
+{id:"pi12", cat:"pistolets", name:"Le Souffle de la Gargouille", loc:"Récompense du trésor « Restored Weathered Map »", coords:"—", method:"Carte au trésor restaurée", init:false},
+
+// ---------------- MAQUETTES (20) ----------------
+{id:"m1", cat:"maquettes", name:"Jackdaw", loc:"Votre propre navire", coords:"—", method:"Récompense automatique de l'histoire", init:true},
+{id:"m2", cat:"maquettes", name:"Nosso Senhor da Compreensão", loc:"—", coords:"—", method:"Récompense automatique de l'histoire", init:true},
+{id:"m3", cat:"maquettes", name:"The Revenge", loc:"—", coords:"—", method:"Récompense automatique de l'histoire", init:true},
+{id:"m4", cat:"maquettes", name:"El Dorado", loc:"—", coords:"—", method:"Récompense automatique de l'histoire", init:true},
+{id:"m5", cat:"maquettes", name:"Queen Anne's Revenge", loc:"—", coords:"—", method:"Récompense automatique de l'histoire", init:true},
+{id:"m6", cat:"maquettes", name:"Cotre espagnol (Spanish Cutter)", loc:"Régions faciles au nord (ex : Dry Tortuga)", coords:"—", method:"Vaincre ce type de navire en combat naval", init:true},
+{id:"m7", cat:"maquettes", name:"Goélette espagnole (Spanish Schooner)", loc:"Régions faciles au nord (ex : Dry Tortuga, Gibara)", coords:"—", method:"Vaincre ce type de navire en combat naval", init:true},
+{id:"m8", cat:"maquettes", name:"Brick espagnol (Spanish Brig)", loc:"Régions faciles/moyennes (ex : Gibara, Cruz)", coords:"—", method:"Vaincre ce type de navire en combat naval", init:true},
+{id:"m9", cat:"maquettes", name:"Frégate espagnole (Spanish Frigate)", loc:"Régions difficiles au sud (ex : Chinchorro, Serannilla)", coords:"—", method:"Vaincre ce type de navire en combat naval", init:true},
+{id:"m10", cat:"maquettes", name:"Vaisseau de ligne espagnol (Spanish Man o' War)", loc:"Régions difficiles au sud (ex : Chinchorro, Serannilla)", coords:"—", method:"Vaincre ce type de navire en combat naval", init:true},
+{id:"m11", cat:"maquettes", name:"Cotre anglais (English Cutter)", loc:"Régions faciles au nord (ex : Dry Tortuga)", coords:"—", method:"Vaincre ce type de navire en combat naval", init:true},
+{id:"m12", cat:"maquettes", name:"Goélette anglaise (English Schooner)", loc:"Régions faciles au nord (ex : Dry Tortuga, Gibara)", coords:"—", method:"Vaincre ce type de navire en combat naval", init:true},
+{id:"m13", cat:"maquettes", name:"Brick anglais (English Brig)", loc:"Régions faciles/moyennes (ex : Gibara, Cruz)", coords:"—", method:"Vaincre ce type de navire en combat naval", init:true},
+{id:"m14", cat:"maquettes", name:"Frégate anglaise (English Frigate)", loc:"Régions difficiles au sud (ex : Chinchorro, Serannilla)", coords:"—", method:"Vaincre ce type de navire en combat naval", init:true},
+{id:"m15", cat:"maquettes", name:"Vaisseau de ligne anglais (English Man o' War)", loc:"Régions difficiles au sud (ex : Chinchorro, Serannilla)", coords:"—", method:"Vaincre ce type de navire en combat naval", init:true},
+{id:"m16", cat:"maquettes", name:"El Impoluto", loc:"Navire légendaire", coords:"—", method:"Vaincre le navire légendaire correspondant", init:true},
+{id:"m17", cat:"maquettes", name:"HMS Prince", loc:"Navire légendaire", coords:"—", method:"Vaincre le navire légendaire correspondant", init:true},
+{id:"m18", cat:"maquettes", name:"La Dama Negra", loc:"Navire légendaire", coords:"—", method:"Vaincre le navire légendaire correspondant", init:true},
+{id:"m19", cat:"maquettes", name:"Brothers in Arms", loc:"Navire légendaire", coords:"—", method:"Vaincre le navire légendaire correspondant", init:true},
+{id:"m20", cat:"maquettes", name:"HMS Ipswich", loc:"Great Inagua — trame de quêtes « Un Monde Sans Or » (8 quêtes)", coords:"—", method:"Récompense de quête (disponible après Séquence 11 – Mission 03)", init:true},
+];
+
+// ============================================================
+// LOGIQUE DE L'APPLICATION
+// ============================================================
+const STORAGE_KEY = "ac4_deco_interieur_checklist_v1";
+const COLLAPSE_KEY = "ac4_deco_interieur_collapse_v1";
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  // état initial basé sur "init" de chaque objet
+  const state = {};
+  ITEMS.forEach(it => state[it.id] = it.init);
+  saveState(state);
+  return state;
+}
+function saveState(state){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+function loadCollapse(){
+  try{
+    const raw = localStorage.getItem(COLLAPSE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return {};
+}
+function saveCollapse(c){
+  localStorage.setItem(COLLAPSE_KEY, JSON.stringify(c));
+}
+
+let state = loadState();
+let collapseState = loadCollapse();
+let hideDone = false;
+
+function setChecked(id, val){
+  state[id] = val;
+  saveState(state);
+  render();
+}
+
+function resetChecklist(){
+  if(confirm("Es-tu sûr de vouloir réinitialiser toute la progression de la checklist ? Cette action est irréversible.")){
+    const fresh = {};
+    ITEMS.forEach(it => fresh[it.id] = it.init);
+    state = fresh;
+    saveState(state);
+    render();
+  }
+}
+
+function toggleCategoryCollapse(catKey){
+  collapseState[catKey] = !collapseState[catKey];
+  saveCollapse(collapseState);
+  render();
+}
+
+function getFilters(){
+  return {
+    search: document.getElementById('searchInput').value.trim().toLowerCase(),
+    category: document.getElementById('categoryFilter').value,
+    status: document.getElementById('statusFilter').value
+  };
+}
+
+function render(){
+  const filters = getFilters();
+  const container = document.getElementById('mainContainer');
+  container.innerHTML = "";
+
+  let totalCount = ITEMS.length;
+  let totalDone = ITEMS.filter(it => state[it.id]).length;
+
+  document.getElementById('globalCount').textContent = totalDone + " / " + totalCount;
+  document.getElementById('globalRemaining').textContent = (totalCount - totalDone);
+  const pct = totalCount ? Math.round((totalDone/totalCount)*100) : 0;
+  document.getElementById('globalPercent').textContent = pct + "%";
+  const bar = document.getElementById('globalBar');
+  bar.style.width = pct + "%";
+  bar.textContent = pct + "%";
+
+  Object.keys(CATEGORIES).forEach(catKey => {
+    if(filters.category !== "all" && filters.category !== catKey) return;
+
+    const catInfo = CATEGORIES[catKey];
+    const catItems = ITEMS.filter(it => it.cat === catKey);
+    const catDone = catItems.filter(it => state[it.id]).length;
+    const catTotal = catItems.length;
+    const catPct = catTotal ? Math.round((catDone/catTotal)*100) : 0;
+
+    // appliquer filtres de recherche/statut pour savoir combien d'items visibles
+    const visibleItems = catItems.filter(it => {
+      if(filters.search && !it.name.toLowerCase().includes(filters.search)) return false;
+      if(filters.status === "obtained" && !state[it.id]) return false;
+      if(filters.status === "missing" && state[it.id]) return false;
+      if(hideDone && state[it.id]) return false;
+      return true;
+    });
+
+    // si recherche/statut actifs et catégorie vide de résultats, on la saute quand même l'affiche mais avec message
+    const catDiv = document.createElement('div');
+    catDiv.className = "category" + (collapseState[catKey] ? " collapsed" : "");
+
+    const header = document.createElement('div');
+    header.className = "category-header";
+    header.onclick = () => toggleCategoryCollapse(catKey);
+    header.innerHTML = `
+      <div class="category-title">
+        <span class="chevron">▾</span>
+        ${catInfo.label}
+        <span class="category-count">${catDone}/${catTotal} — ${catPct}%</span>
+      </div>
+      <div class="mini-progress"><div class="mini-progress-inner" style="width:${catPct}%"></div></div>
+    `;
+    catDiv.appendChild(header);
+
+    const noteDiv = document.createElement('div');
+    noteDiv.className = "category-note";
+    noteDiv.textContent = catInfo.note;
+    catDiv.appendChild(noteDiv);
+
+    const itemsDiv = document.createElement('div');
+    itemsDiv.className = "items";
+
+    if(visibleItems.length === 0){
+      const empty = document.createElement('div');
+      empty.className = "empty-msg";
+      empty.textContent = "Aucun objet ne correspond aux filtres actuels dans cette catégorie.";
+      itemsDiv.appendChild(empty);
+    } else {
+      visibleItems.forEach(it => {
+        const done = !!state[it.id];
+        const row = document.createElement('div');
+        row.className = "item" + (done ? " done" : "");
+        row.innerHTML = `
+          <input type="checkbox" ${done ? "checked" : ""} data-id="${it.id}">
+          <div>
+            <div class="item-name">${it.name}</div>
+            <div class="item-meta">
+              📍 ${it.loc}${it.coords && it.coords !== "—" ? ` — 🗺️ (${it.coords})` : ""}<br>
+              <span class="tag">ℹ️ ${it.method}</span>
+            </div>
+          </div>
+        `;
+        row.querySelector('input').addEventListener('change', (e) => {
+          setChecked(it.id, e.target.checked);
+        });
+        itemsDiv.appendChild(row);
+      });
+    }
+
+    catDiv.appendChild(itemsDiv);
+    container.appendChild(catDiv);
+  });
+}
+
+// ============================================================
+// EVENEMENTS
+// ============================================================
+document.getElementById('searchInput').addEventListener('input', render);
+document.getElementById('categoryFilter').addEventListener('change', render);
+document.getElementById('statusFilter').addEventListener('change', render);
+document.getElementById('resetBtn').addEventListener('click', resetChecklist);
+
+document.getElementById('hideDoneBtn').addEventListener('click', function(){
+  hideDone = !hideDone;
+  this.textContent = hideDone ? "👁️ Afficher tous les objets" : "👁️ Masquer les objets obtenus";
+  render();
+});
+
+document.getElementById('expandAllBtn').addEventListener('click', function(){
+  Object.keys(CATEGORIES).forEach(k => collapseState[k] = false);
+  saveCollapse(collapseState);
+  render();
+});
+
+document.getElementById('collapseAllBtn').addEventListener('click', function(){
+  Object.keys(CATEGORIES).forEach(k => collapseState[k] = true);
+  saveCollapse(collapseState);
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
