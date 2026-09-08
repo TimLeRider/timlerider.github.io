@@ -57,14 +57,14 @@ export const DEFAULT_SIMULATION: SimulationData = {
   primoAccedant: true,
   proprietaireResidencePrincipale: false,
 
-  salaireNetMensuel: 1800,
+  salaireNetMensuel: 0,
   autresRevenusMensuels: 0,
-  revenuFiscalReference: 15000,
+  revenuFiscalReference: 0,
   anneeRfr: new Date().getFullYear() - 2,
   evolutionSalairePrevu: false,
   salaireFuturEstime: 0,
 
-  apportPersonnel: 25000,
+  apportPersonnel: 0,
   epargneRestante: 0,
   creditsEnCoursMensualites: 0,
   pensionAlimentaire: 0,
@@ -76,18 +76,18 @@ export const DEFAULT_SIMULATION: SimulationData = {
   departement: "",
   zone: null,
   typeLogement: "ANCIEN_AVEC_TRAVAUX",
-  prixMaison: 120000,
-  montantTravaux: 40000,
+  prixMaison: 0,
+  montantTravaux: 0,
   fraisNotaire: null,
-  autresFrais: 2000,
+  autresFrais: 0,
   dureePretAnnees: 20,
   dpeApresTravaux: "",
 
   tauxInteretAnnuel: 3.5,
   tauxAssuranceAnnuel: 0.34,
   tauxEndettementMax: 35,
-  fraisDossier: 800,
-  fraisGarantie: 1500,
+  fraisDossier: 0,
+  fraisGarantie: 0,
 };
 
 const STORAGE_KEY = "ptz-simulateur:simulation-v1";
