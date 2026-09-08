@@ -4,6 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useSimulation } from "@/lib/simulationContext";
 import type { CommuneInfo, CommuneWithZone } from "@/lib/communes/types";
+import { GeoApiGouvCommuneProvider } from "@/lib/communes/geoApiGouvProvider";
+
+const provider = new GeoApiGouvCommuneProvider();
 
 const ZONE_LABELS: Record<string, string> = {
   A_BIS: "Zone A bis",
@@ -31,10 +34,9 @@ export default function EligibiliteCommunePage() {
     setError(null);
     setSelected(null);
     try {
-      const res = await fetch(`/api/communes/search?q=${encodeURIComponent(query)}`);
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Erreur inconnue");
-      setResults(json.communes);
+      // Direct call to provider (no /api route)
+      const communes = await provider.searchCommunes(query);
+      setResults(communes);
     } catch (err: any) {
       setError(
         err.message ??
@@ -50,16 +52,17 @@ export default function EligibiliteCommunePage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/communes/zone?codeInsee=${commune.codeInsee}`);
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Erreur inconnue");
-      setSelected(json.commune);
+      // Direct call to provider (no /api route)
+      const communeWithZone = await provider.getZone(commune.codeInsee);
+      if (!communeWithZone) throw new Error("Impossible de récupérer la commune");
+
+      setSelected(communeWithZone);
       update({
         communeNom: commune.nom,
         codePostal: commune.codePostal,
         codeInsee: commune.codeInsee,
         departement: commune.departement,
-        zone: json.commune.zone,
+        zone: communeWithZone.zone,
       });
     } catch (err: any) {
       setError(err.message ?? "Impossible de récupérer le zonage de cette commune.");
@@ -72,11 +75,11 @@ export default function EligibiliteCommunePage() {
     if (!data.codeInsee) return;
     setNearbyLoading(true);
     try {
-      const res = await fetch(
-        `/api/communes/nearby?codeInsee=${data.codeInsee}&radiusKm=${radiusKm}`
-      );
-      const json = await res.json();
-      if (res.ok) setNearby(json.communes);
+      // Direct call to provider (no /api route)
+      const communes = await provider.findNearbyCommunes(data.codeInsee, radiusKm);
+      setNearby(communes);
+    } catch {
+      setNearby([]);
     } finally {
       setNearbyLoading(false);
     }
@@ -87,13 +90,8 @@ export default function EligibiliteCommunePage() {
       <div className="card">
         <h2>2. Éligibilité de la commune</h2>
         <p style={{ color: "var(--color-text-muted)" }}>
-          Recherche via l&apos;API officielle{" "}
-          <a href="https://geo.api.gouv.fr" target="_blank" rel="noreferrer">
-            geo.api.gouv.fr
-          </a>{" "}
-          (nom ou code postal). Le zonage PTZ est ensuite recherché dans une base séparée — voir
-          l&apos;avertissement ci-dessous si la donnée n&apos;est pas encore disponible pour votre
-          commune.
+          Recherche instantanée dans la base locale des communes françaises (nom ou code postal). 
+          Inclut le zonage PTZ officiel et la Carte des Loyers du Ministère.
         </p>
         <form onSubmit={handleSearch} style={{ display: "flex", gap: 10, marginTop: 12 }}>
           <input
@@ -178,14 +176,10 @@ export default function EligibiliteCommunePage() {
 
           {selected.zone && (
             <p className="help-text">
-              Zonage fourni par{" "}
-              <a href="https://parcelle-info.fr" target="_blank" rel="noreferrer">
-                parcelle-info.fr
-              </a>{" "}
-              — source déclarée : Zonage A/B/C du logement, Ministère de la Transition
-              écologique, licence Licence Ouverte 2.0.
+              Zonage PTZ et loyer au m² issus des bases officielles du Ministère de la Transition Écologique 
+              et du Ministère de l'Économie (mis à jour localement).
               {typeof (selected as any).priceM2Median === "number" &&
-                ` Prix médian indicatif : ${(selected as any).priceM2Median.toLocaleString("fr-FR")} €/m² (DVF, DGFiP/Etalab).`}
+                ` Loyer moyen estimé : ${(selected as any).priceM2Median.toFixed(2)} €/m².`}
             </p>
           )}
 
@@ -257,9 +251,9 @@ export default function EligibiliteCommunePage() {
               parcelle-info.fr
             </a>{" "}
             (source déclarée : Zonage A/B/C du logement — Ministère de la Transition
-            écologique ; DVF — DGFiP/Etalab), licence Licence Ouverte 2.0. Au-delà des{" "}
-            {15} communes les plus proches, le zonage n&apos;est pas interrogé (quota par
-            adresse IP de l&apos;API, sans clé) et reste marqué « Inconnue ».
+            écologique ; DVF — DGFiP/Etalab), licence Licence Ouverte 2.0. Au-delà des 15
+            communes les plus proches, le zonage n&apos;est pas interrogé (quota par adresse IP de
+            l&apos;API, sans clé) et reste marqué « Inconnue ».
           </p>
         </div>
       )}
