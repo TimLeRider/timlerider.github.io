@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Monkeys Poker Club</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Écran de connexion -->
+  <div id="view-login" class="view">
+    <div class="login-card">
+      <h1>🐒 Monkeys Poker Club</h1>
+      <form id="login-form">
+        <label>
+          Adresse e-mail
+          <input type="email" id="login-email" required autocomplete="username" />
+        </label>
+        <label>
+          Mot de passe
+          <input type="password" id="login-password" required autocomplete="current-password" />
+        </label>
+        <button type="submit">Se connecter</button>
+        <p id="login-error" class="error-msg" hidden></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Application (après connexion) -->
+  <div id="view-app" class="view" hidden>
+    <header class="topbar">
+      <div class="brand">🐒 Monkeys Poker Club</div>
+      <nav class="tabs">
+        <button data-tab="dashboard" class="tab-btn active">🏠 Tableau de bord</button>
+        <button data-tab="players" class="tab-btn">👤 Joueurs</button>
+        <button data-tab="tournaments" class="tab-btn">🏆 Tournois</button>
+        <button data-tab="standings" class="tab-btn">📊 Classement</button>
+        <button data-tab="backup" class="tab-btn admin-only" hidden>💾 Sauvegarde</button>
+      </nav>
+      <div class="user-box">
+        <span id="user-label"></span>
+        <button id="logout-btn">🚪 Déconnexion</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="tab-dashboard" class="tab-panel">
+        <h2>Bienvenue</h2>
+        <p>Utilise le menu ci-dessus pour gérer les joueurs, les tournois et consulter le classement général.</p>
+      </section>
+
+      <section id="tab-players" class="tab-panel" hidden>
+        <div class="panel-header">
+          <h2>Joueurs</h2>
+          <form id="add-player-form" class="admin-only inline-form" hidden>
+            <input type="text" id="new-player-nickname" placeholder="Nouveau pseudo" maxlength="40" required />
+            <button type="submit">Ajouter</button>
+          </form>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Pseudo</th><th>Statut</th><th class="admin-only" hidden></th></tr></thead>
+          <tbody id="players-tbody"></tbody>
+        </table>
+      </section>
+
+      <section id="tab-tournaments" class="tab-panel" hidden>
+        <div class="panel-header">
+          <h2>Tournois</h2>
+          <button id="new-tournament-btn" class="admin-only" hidden>+ Nouveau tournoi</button>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Nom</th><th>Date</th><th>Participants</th><th></th></tr></thead>
+          <tbody id="tournaments-tbody"></tbody>
+        </table>
+      </section>
+
+      <section id="tab-standings" class="tab-panel" hidden>
+        <h2>Classement général — 2026/2027</h2>
+        <table class="data-table">
+          <thead><tr><th>Rang</th><th>Pseudo</th><th>Tournois</th><th>Points</th></tr></thead>
+          <tbody id="standings-tbody"></tbody>
+        </table>
+      </section>
+
+      <section id="tab-backup" class="tab-panel admin-only" hidden>
+        <h2>Sauvegarde</h2>
+        <p>Télécharge une copie complète des données de l'association (hors mots de passe).</p>
+        <button id="download-backup-btn">⬇️ Télécharger une sauvegarde</button>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modale : détail joueur -->
+  <div id="modal-player-detail" class="modal" hidden>
+    <div class="modal-content">
+      <button class="modal-close" data-close>&times;</button>
+      <div id="player-detail-body"></div>
+    </div>
+  </div>
+
+  <!-- Modale : créer/éditer un tournoi -->
+  <div id="modal-tournament" class="modal" hidden>
+    <div class="modal-content">
+      <button class="modal-close" data-close>&times;</button>
+      <h3>Nouveau tournoi</h3>
+      <form id="tournament-form">
+        <label>Nom / numéro <input type="text" id="t-name" maxlength="80" required /></label>
+        <label>Date <input type="date" id="t-date" required /></label>
+        <button type="submit">Créer</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modale : saisir le classement d'un tournoi -->
+  <div id="modal-results" class="modal" hidden>
+    <div class="modal-content modal-wide">
+      <button class="modal-close" data-close>&times;</button>
+      <h3 id="results-modal-title">Classement du tournoi</h3>
+      <p class="hint">Coche les joueurs présents, puis ordonne leur classement (1 = vainqueur).</p>
+      <div id="results-builder"></div>
+      <button id="save-results-btn">Enregistrer le classement</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

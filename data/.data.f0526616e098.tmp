@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": "user_266494b731f7",
+      "email": "admin@monassociation.fr",
+      "passwordHash": "$2a$12$L21IJmBz3er8X0kK0ZwXP.FEVPvMNdawg1PP0HApIDFUITk3ayD6q",
+      "role": "admin",
+      "nickname": "Pseudo admin"
+    }
+  ],
+  "players": [],
+  "seasons": [
+    {
+      "id": "2026-2027",
+      "name": "2026/2027"
+    }
+  ],
+  "tournaments": [],
+  "results": []
+}

@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "id": "user_example",
+      "email": "admin@example.com",
+      "passwordHash": "(généré par create-user.js — ne jamais écrire un mot de passe en clair ici)",
+      "role": "admin",
+      "nickname": "Admin"
+    }
+  ],
+  "players": [
+    { "id": "player_example", "nickname": "Player01", "active": true }
+  ],
+  "seasons": [
+    { "id": "2026-2027", "name": "2026/2027" }
+  ],
+  "tournaments": [],
+  "results": []
+}
