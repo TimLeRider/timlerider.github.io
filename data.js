@@ -58,7 +58,7 @@ export const EDUCATION = [
 
 export const SKILLS = {
   Front: ["React.js", "TypeScript", "JavaScript", "HTML/CSS"],
-  Back: ["PHP", "Python", "Django", "C# / ASP.NET Core", "Firebase"],
+  Back: ["PHP", "Python", "Django", "C#", "Firebase"],
   Desktop: ["Electron", "Editor.js", "Git"],
   "DevOps et cloud": ["Jenkins", "AWS", "API"],
   Industriel: ["LabWindows/CVI", "EcoStruxure"],
@@ -99,7 +99,7 @@ export const PROJECTS = [
     name: "Module de portail interne",
     meta: "ARCESI-EA, stage 2023",
     text: "Module intégré au portail de l’entreprise, de la conception à l’implémentation.",
-    tech: ["C# / ASP.NET Core"],
+    tech: ["C#"],
   },
 ];
 
@@ -114,9 +114,15 @@ export const ICONS = {
   "Python": `${DEV}/python/python-original.svg`,
   "Django": `${DEV}/django/django-plain.svg`,
   "Firebase": `${DEV}/firebase/firebase-original.svg`,
-  "C# / ASP.NET Core": `${DEV}/csharp/csharp-original.svg`,
+  "C#": `${DEV}/csharp/csharp-original.svg`,
   "Electron": `${DEV}/electron/electron-original.svg`,
   "Git": `${DEV}/git/git-original.svg`,
   "Jenkins": `${DEV}/jenkins/jenkins-original.svg`,
-  "AWS": `${DEV}/amazonwebservices/amazonwebservices-plain.svg`,
+  "AWS": `${DEV}/amazonwebservices/amazonwebservices-original-wordmark.svg`,
+
+  // Externe / Local assets
+  "Editor.js": "https://editorjs.io/_nuxt/logo.d2a59c1c.svg",
+  "API": "./assets/api.svg",
+  "LabWindows/CVI": "./assets/labwindows.svg",
+  "EcoStruxure": "./assets/ecostruxure.svg",
 };
