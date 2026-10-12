@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Informations légales, Timothée Josso</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem("theme"); } catch (e) {}
+    var dark = s ? s === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+  })();
+</script>
+<script type="module">
+  import { initTheme, initCursor } from "./fx.js";
+  initTheme(); initCursor();
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="index.html">Timothée Josso</a>
+  <nav aria-label="Navigation principale">
+    <a href="index.html">Retour au portfolio</a>
+    <button id="theme" type="button" aria-label="Changer de thème"></button>
+  </nav>
+</header>
+<main class="legal">
+  <h1>Informations légales</h1>
+
+  <h2>Éditeur du site</h2>
+  <p>Timothée Josso, particulier, développeur logiciel à Toulouse.<br>
+  Responsable de la publication : Timothée Josso.<br>
+  Contact : <a href="https://www.linkedin.com/in/timoth%C3%A9e-josso-developpeur/" rel="noopener">LinkedIn</a>.</p>
+
+  <h2>Hébergeur</h2>
+  <p>GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis (service GitHub Pages).</p>
+
+  <h2>Propriété intellectuelle</h2>
+  <p>Les textes, le code et la mise en page de ce site sont la propriété de Timothée Josso, sauf mention contraire. Les logos et icônes de technologies appartiennent à leurs propriétaires respectifs. Toute reproduction totale ou partielle sans autorisation préalable est interdite.</p>
+
+  <h2>Données personnelles</h2>
+  <p>Ce site ne comporte aucun formulaire, aucun compte et aucun cookie de suivi. Je ne collecte aucune donnée personnelle.</p>
+  <ul>
+    <li>Votre navigateur enregistre localement le thème choisi (clair ou sombre) et le fait que l’écran d’accueil a déjà été vu. Ces informations restent sur votre appareil.</li>
+    <li>Pour s’afficher, la page charge des polices depuis Google Fonts, des icônes depuis jsDelivr et la liste de mes dépôts depuis l’API de GitHub. Ces services reçoivent votre adresse IP selon leurs propres politiques de confidentialité.</li>
+  </ul>
+  <p>Pour toute question, ou pour exercer vos droits d’accès, de rectification et de suppression prévus par le RGPD, contactez-moi via LinkedIn.</p>
+
+  <h2>Liens externes</h2>
+  <p>Ce site renvoie vers des services tiers (GitHub, LinkedIn). Je ne suis pas responsable de leur contenu.</p>
+</main>
+<footer class="foot">© <span id="year"></span> Timothée Josso. <a href="index.html">Retour au portfolio</a></footer>
+</body>
+</html>

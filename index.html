@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timothée Josso, développeur full-stack à Toulouse</title>
+<meta name="description" content="Portfolio de Timothée Josso, développeur full-stack (React, TypeScript, Electron, PHP, Python) à Toulouse.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem("theme"); } catch (e) {}
+    var dark = s ? s === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+  })();
+</script>
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<div id="loader" class="loader" aria-hidden="true">
+  <div class="loader-box">
+    <p class="loader-cmd"><span id="loader-text"></span></p>
+    <div class="loader-bar"><i id="loader-fill"></i></div>
+    <p class="loader-pct"><span id="loader-pct">0</span> %</p>
+  </div>
+</div>
+<header class="bar">
+  <a class="brand" href="#top">Timothée Josso</a>
+  <nav aria-label="Navigation principale">
+    <a href="#parcours">Parcours</a>
+    <a href="#competences">Compétences</a>
+    <a href="#projets">Projets</a>
+    <a href="#contact">Contact</a>
+    <button id="theme" type="button" aria-label="Changer de thème"></button>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Développeur full-stack,<br>de l’automatisme au logiciel.</h1>
+      <p class="lead">Je conçois des applications web et desktop chez Skyincap, à Toulouse. En ce moment, je travaille sur un éditeur de documents desktop en Electron, développé avec Airbus.</p>
+      <p class="links">
+        <a class="btn" href="https://github.com/TimLeRider/" rel="noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/timoth%C3%A9e-josso-developpeur/" rel="noopener">LinkedIn</a>
+      </p>
+    </div>
+    <figure class="diff-wrap">
+      <div class="diff-head"><span>profil.md</span><button id="replay" type="button">Rejouer</button></div>
+      <pre id="diff" class="diff" aria-label="Évolution de mon profil, présentée comme un diff Git"></pre>
+    </figure>
+  </section>
+
+  <section id="parcours">
+    <h2>Parcours</h2>
+    <ol id="timeline" class="timeline"></ol>
+    <h3>Formation</h3>
+    <ul id="education" class="edu"></ul>
+  </section>
+
+  <section id="competences">
+    <h2>Compétences</h2>
+    <p class="hint">Sélectionne une technologie pour voir les projets qui l’utilisent.</p>
+    <div id="skills" class="skills"></div>
+  </section>
+
+  <section id="projets">
+    <h2>Projets</h2>
+    <p id="filter-status" class="hint" aria-live="polite"></p>
+    <div id="projects" class="projects"></div>
+    <h3>Sur GitHub</h3>
+    <div id="repos" class="repos" aria-live="polite">Chargement des dépôts…</div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Le plus simple pour me joindre : <a href="https://www.linkedin.com/in/timoth%C3%A9e-josso-developpeur/" rel="noopener">LinkedIn</a>. Mon code est sur <a href="https://github.com/TimLeRider/" rel="noopener">GitHub</a>.</p>
+  </section>
+</main>
+
+<footer class="foot">© <span id="year"></span> Timothée Josso. Site statique en JavaScript, déployé avec GitHub Actions. <a href="legal.html">Informations légales</a></footer>
+</body>
+</html>
